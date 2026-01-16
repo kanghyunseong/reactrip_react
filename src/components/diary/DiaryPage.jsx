@@ -8,6 +8,8 @@ import {
   Description
 } from "./DiaryPage.styles";
 
+
+
 export default function DiaryPage() {
   return (
     <PageContainer>
