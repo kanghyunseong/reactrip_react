@@ -2,40 +2,43 @@ import styled from "styled-components";
 
 export const NavContainer = styled.div`
   position: fixed;
-  left: 76px;
-  top: 18px;
+  left: 4.75rem;
+  top: 1.125rem;
   z-index: 100;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2px;
+  gap: 0.125rem;
+  max-width: calc(100vw - 9.5rem);
 
   @media (max-width: 1024px) {
-    left: 40px;
-    top: 15px;
+    left: 2.5rem;
+    top: 0.9375rem;
+    max-width: calc(100vw - 5rem);
   }
 
   @media (max-width: 768px) {
-    left: 20px;
-    top: 10px;
+    left: 1.25rem;
+    top: 0.625rem;
+    max-width: calc(100vw - 2.5rem);
   }
 `;
 
 export const LogoContainer = styled.div`
-  height: 65px;
-  width: 166px;
+  height: 4.0625rem;
+  width: 10.375rem;
   position: relative;
   cursor: pointer;
   flex-shrink: 0;
 
   @media (max-width: 1024px) {
-    height: 55px;
-    width: 140px;
+    height: 3.4375rem;
+    width: 8.75rem;
   }
 
   @media (max-width: 768px) {
-    height: 45px;
-    width: 120px;
+    height: 2.8125rem;
+    width: 7.5rem;
   }
 `;
 
@@ -66,11 +69,11 @@ export const GroupImg = styled.img`
 export const NavText = styled.p`
   font-family: 'PT Sans Caption', sans-serif;
   font-weight: 700;
-  height: 34px;
+  height: 2.125rem;
   line-height: normal;
   font-style: normal;
   color: #faf5f5;
-  font-size: 24px;
+  font-size: 1.5rem;
   margin: 0;
   z-index: 2;
   display: flex;
@@ -78,13 +81,13 @@ export const NavText = styled.p`
   margin-left: 0;
 
   @media (max-width: 1024px) {
-    font-size: 20px;
-    height: 28px;
+    font-size: 1.25rem;
+    height: 1.75rem;
   }
 
   @media (max-width: 768px) {
-    font-size: 18px;
-    height: 24px;
+    font-size: 1.125rem;
+    height: 1.5rem;
   }
 `;
 
@@ -94,9 +97,9 @@ export const NavLink = styled.p`
   font-weight: 800;
   line-height: normal;
   font-style: normal;
-  font-size: 24px;
+  font-size: 1.5rem;
   color: white;
-  top: 59px;
+  top: 3.6875rem;
   margin: 0;
   padding-bottom: 0;
   cursor: pointer;
@@ -110,13 +113,13 @@ export const NavLink = styled.p`
   white-space: nowrap;
 
   @media (max-width: 1024px) {
-    font-size: 20px;
-    top: 55px;
+    font-size: 1.25rem;
+    top: 3.4375rem;
   }
 
   @media (max-width: 768px) {
-    font-size: 16px;
-    top: 50px;
+    font-size: 1rem;
+    top: 3.125rem;
   }
 
   &:hover {
@@ -143,14 +146,14 @@ export const RouletteText = styled.div`
   position: fixed;
   font-family: 'Lato', sans-serif;
   font-weight: 800;
-  height: 17px;
+  height: 1.0625rem;
   line-height: normal;
-  left: calc(50% - 68.5px);
+  left: calc(50% - 4.28125rem);
   font-style: normal;
-  font-size: 24px;
+  font-size: 1.5rem;
   color: white;
-  top: 59px;
-  width: 137px;
+  top: 3.6875rem;
+  width: 8.5625rem;
   padding-bottom: 0;
   cursor: pointer;
   transition: all 0.3s;
@@ -163,17 +166,17 @@ export const RouletteText = styled.div`
   white-space: nowrap;
 
   @media (max-width: 1024px) {
-    font-size: 20px;
-    top: 55px;
-    left: calc(50% - 57px);
-    width: 114px;
+    font-size: 1.25rem;
+    top: 3.4375rem;
+    left: calc(50% - 3.5625rem);
+    width: 7.125rem;
   }
 
   @media (max-width: 768px) {
-    font-size: 16px;
-    top: 50px;
-    left: calc(50% - 46px);
-    width: 92px;
+    font-size: 1rem;
+    top: 3.125rem;
+    left: calc(50% - 2.875rem);
+    width: 5.75rem;
   }
 
   &:hover {

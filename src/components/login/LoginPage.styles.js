@@ -71,6 +71,7 @@ export const RightContainer = styled.div`
   right: 90px;
   top: 0;
   width: 620px;
+  max-width: calc(100vw - 200px);
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -78,15 +79,22 @@ export const RightContainer = styled.div`
   padding-top: 168px;
   z-index: 2;
 
+  @media (max-width: 1400px) {
+    right: 50px;
+    max-width: calc(100vw - 150px);
+  }
+
   @media (max-width: 1024px) {
     right: 50px;
     width: 500px;
+    max-width: calc(100vw - 150px);
     padding-top: 120px;
   }
 
   @media (max-width: 768px) {
     right: 0;
     width: 100%;
+    max-width: 100vw;
     padding-top: 100px;
   }
 `;
@@ -125,6 +133,18 @@ export const LogoText = styled.p`
 export const FormContainer = styled.div`
   margin-top: 50px;
   width: 579px;
+  max-width: 100%;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+    max-width: 500px;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    max-width: calc(100vw - 40px);
+    padding: 0 20px;
+  }
 `;
 
 export const FormBox = styled.form`

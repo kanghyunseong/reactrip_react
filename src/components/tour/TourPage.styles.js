@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const PageContainer = styled.div`
   width: 100%;
+  max-width: 100vw;
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;

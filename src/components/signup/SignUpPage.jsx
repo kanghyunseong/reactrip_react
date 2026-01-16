@@ -54,7 +54,7 @@ export default function SignUpPage() {
   };
 
   const handleBack = () => {
-    navigate(-"/");
+    navigate("/");
   };
 
   return (

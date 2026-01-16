@@ -3,25 +3,34 @@ import { Swiper } from "swiper/react";
 
 export const SwiperContainer = styled.div`
   position: absolute;
-  height: 712px;
-  left: calc(58.33% - 2px);
-  top: 196px;
-  width: 594px;
+  height: 44.5rem;
+  left: calc(58.33% - 0.125rem);
+  top: 12.25rem;
+  width: 37.125rem;
+  max-width: calc(100vw - 2.5rem);
   z-index: 5;
   overflow: visible;
 
+  @media (max-width: 1400px) {
+    left: calc(55% - 0.125rem);
+    width: 31.25rem;
+    height: 40.625rem;
+  }
+
   @media (max-width: 1024px) {
-    width: 450px;
-    height: 600px;
-    left: calc(55% - 2px);
-    top: 180px;
+    width: 28.125rem;
+    max-width: calc(100vw - 2.5rem);
+    height: 37.5rem;
+    left: calc(55% - 0.125rem);
+    top: 11.25rem;
   }
 
   @media (max-width: 768px) {
-    width: calc(100% - 40px);
-    height: 400px;
-    left: 20px;
-    top: 150px;
+    width: calc(100% - 2.5rem);
+    max-width: calc(100vw - 2.5rem);
+    height: 25rem;
+    left: 1.25rem;
+    top: 9.375rem;
   }
 `;
 
