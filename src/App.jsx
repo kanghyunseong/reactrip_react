@@ -7,6 +7,7 @@ import DiaryPage from "./components/diary/DiaryPage";
 import ContactPage from "./components/contact/ContactPage";
 import LoginPage from "./components/login/LoginPage";
 import SignUpPage from "./components/signup/SignUpPage";
+import DiaryList from "./components/diary/Diarys/DiaryList";
 import "./App.css";
 
 function App() {
@@ -20,6 +21,8 @@ function App() {
       <Route path="/contact" element={<ContactPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignUpPage />} />
+      <Route path="/diarys" element={<DiaryList />} />
+
     </Routes>
   );
 }

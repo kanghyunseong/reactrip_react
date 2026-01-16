@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const DiaryList = () => {
+  const navigate = useNavigate();
   const [diaries, setDiaries] = useState([]);
   const [pageInfo, setPageInfo] = useState({});
   const [loading, setLoading] = useState(true);
