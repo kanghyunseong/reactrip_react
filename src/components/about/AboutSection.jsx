@@ -38,7 +38,7 @@ export default function AboutSection() {
             <DescriptionParagraph>지도는 당신의 놀이터, 기록은 당신의 무기.</DescriptionParagraph>
             <DescriptionParagraph>Play your Trip, Record your Map.</DescriptionParagraph>
           </DescriptionText>
-          <DescriptionText style={{ marginTop: "30px" }}>
+          <DescriptionText style={{ marginTop: "1.875rem" }}>
             <DescriptionParagraph>{"\"기억은 흐릿해지지만, 당신의 발자취는 선명하게 남아야 하기에\""}</DescriptionParagraph>
             <DescriptionParagraph>우리는 여행의 설렘을 기록하지만, 가끔은 그날의 공기와 우리가 걸었던 길의 구체적인 모양을 잊곤 합니다.</DescriptionParagraph>
             <DescriptionParagraph>ReacTrip은 당신의 소중한 기록을 텍스트에만 가두지 않습니다.</DescriptionParagraph>
@@ -66,7 +66,7 @@ export default function AboutSection() {
             <DescriptionParagraph>리액트립은 당신의 파편화된 기억들을 하나의 선으로 연결합니다.</DescriptionParagraph>
             <DescriptionParagraph>당신이 기록한 일기는 지도 위의 생생한 경로가 되고, 그 경로는 세상에 하나뿐인 당신만의 여행 서사가 됩니다.</DescriptionParagraph>
           </DescriptionText>
-          <DescriptionText style={{ marginTop: "30px" }}>
+          <DescriptionText style={{ marginTop: "1.875rem" }}>
             <DescriptionParagraph>{"가장 가치 있는 여행은 직접 발로 뛰며 체득한 '나만의 루트'를 가졌을 때 완성됩니다."}</DescriptionParagraph>
             <DescriptionParagraph>리액트립은 당신이 현장에서 겪은 생생한 경험들을 지도 기반의 인터랙티브 데이터로 변환하여, 당신의 여정을 더욱 가치 있게 만듭니다.</DescriptionParagraph>
             <DescriptionParagraph>어제의 발자취는 오늘의 기록이 되고, 내일의 랭킹이 됩니다.</DescriptionParagraph>
