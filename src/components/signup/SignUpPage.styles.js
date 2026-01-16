@@ -31,37 +31,37 @@ export const BackgroundImg = styled.img`
 
 export const LeftTextContainer = styled.div`
   position: absolute;
-  left: 210px;
-  top: 250px;
+  left: 13.125rem;
+  top: 15.625rem;
   z-index: 2;
 
   @media (max-width: 1024px) {
-    left: 150px;
-    top: 200px;
+    left: 9.375rem;
+    top: 12.5rem;
   }
 
   @media (max-width: 768px) {
-    left: 20px;
-    top: 150px;
+    left: 1.25rem;
+    top: 9.375rem;
   }
 `;
 
 export const TitleText = styled.p`
   font-family: 'Poppins', sans-serif;
   font-weight: 800;
-  line-height: 25px;
+  line-height: 1.5625rem;
   font-style: normal;
-  font-size: 23px;
+  font-size: 1.4375rem;
   color: black;
   text-transform: capitalize;
-  margin: 0 0 5px 0;
+  margin: 0 0 0.3125rem 0;
 `;
 
 export const SubtitleText = styled.p`
   font-family: 'Poppins', 'Noto Sans KR', sans-serif;
   font-weight: 900;
-  line-height: 25px;
-  font-size: 23px;
+  line-height: 1.5625rem;
+  font-size: 1.4375rem;
   color: black;
   text-transform: capitalize;
   margin: 0;
@@ -69,34 +69,42 @@ export const SubtitleText = styled.p`
 
 export const RightContainer = styled.div`
   position: absolute;
-  right: 90px;
+  right: 5.625rem;
   top: 0;
-  width: 620px;
+  width: 38.75rem;
+  max-width: calc(100vw - 12.5rem);
   height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 125px;
+  padding-top: 7.8125rem;
   z-index: 2;
 
+  @media (max-width: 1400px) {
+    right: 3.125rem;
+    max-width: calc(100vw - 9.375rem);
+  }
+
   @media (max-width: 1024px) {
-    right: 50px;
-    width: 500px;
-    padding-top: 100px;
+    right: 3.125rem;
+    width: 31.25rem;
+    max-width: calc(100vw - 9.375rem);
+    padding-top: 6.25rem;
   }
 
   @media (max-width: 768px) {
     right: 0;
     width: 100%;
-    padding-top: 80px;
+    max-width: 100vw;
+    padding-top: 5rem;
   }
 `;
 
 export const LogoContainer = styled.div`
   position: relative;
-  height: 82px;
-  width: 208px;
-  margin-bottom: 15px;
+  height: 5.125rem;
+  width: 13rem;
+  margin-bottom: 0.9375rem;
 `;
 
 export const LogoImg = styled.img`
@@ -113,38 +121,50 @@ export const LogoImg = styled.img`
 export const LogoText = styled.p`
   font-family: 'PT Sans Caption', sans-serif;
   font-weight: 700;
-  height: 63px;
+  height: 3.9375rem;
   line-height: normal;
   font-style: normal;
-  font-size: 40px;
+  font-size: 2.5rem;
   color: black;
   text-align: center;
   margin: 0;
-  width: 195px;
+  width: 12.1875rem;
 `;
 
 export const FormContainer = styled.div`
-  margin-top: 30px;
-  width: 531px;
+  margin-top: 1.875rem;
+  width: 33.1875rem;
+  max-width: 100%;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+    max-width: 31.25rem;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    max-width: calc(100vw - 2.5rem);
+    padding: 0 1.25rem;
+  }
 `;
 
 export const FormBox = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 0.9375rem;
 `;
 
 export const InputField = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0.5rem;
   position: relative;
 `;
 
 export const InputLabel = styled.label`
   font-family: 'Lato', sans-serif;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 1rem;
   color: #1e1e1e;
   line-height: 1.4;
   display: flex;
