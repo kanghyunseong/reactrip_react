@@ -4,28 +4,31 @@ export const AboutPage1 = styled.section`
   width: 100%;
   max-width: 100vw;
   height: 100vh;
+  height: 100dvh;
   position: relative;
   scroll-snap-align: start;
   scroll-snap-stop: always;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: hidden;
 `;
 
 export const AboutPage2 = styled.section`
   width: 100%;
   max-width: 100vw;
   height: 100vh;
+  height: 100dvh;
   position: relative;
   scroll-snap-align: start;
   scroll-snap-stop: always;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: hidden;
 `;
 
 export const AboutBackground = styled.div`
   position: absolute;
-  height: 100vh;
-  left: 0;
-  top: 0;
+  inset: 0;
   width: 100%;
+  height: 100%;
   z-index: 0;
 `;
 
@@ -43,10 +46,9 @@ export const AboutBackgroundImg = styled.img`
 export const AboutOverlay = styled.div`
   position: absolute;
   background-color: rgba(0, 0, 0, 0.4);
-  height: 100vh;
-  left: 0;
-  top: 0;
+  inset: 0;
   width: 100%;
+  height: 100%;
   z-index: 1;
 `;
 
@@ -93,7 +95,7 @@ export const ImageWrapper = styled.div`
   width: 100%;
   height: 100%;
   position: relative;
-  border-radius: 20px;
+  border-radius: 1.25rem;
   overflow: hidden;
 `;
 
@@ -103,35 +105,45 @@ export const BackgroundImage = styled.img`
   object-fit: cover;
   opacity: 0.8;
   pointer-events: none;
-  border-radius: 20px;
+  border-radius: 1.25rem;
   display: block;
 `;
 
 export const ImageContainer2 = styled.div`
   position: absolute;
-  height: 600px;
-  right: 100px;
+  height: 37.5rem;
+  right: 6.25rem;
   top: 50%;
   transform: translateY(-50%);
-  width: 500px;
-  border-radius: 20px;
+  width: 31.25rem;
+  max-width: calc(100vw - 15.625rem);
+  border-radius: 1.25rem;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 2;
 
+  @media (max-width: 1400px) {
+    right: 3.125rem;
+    width: 28.125rem;
+    height: 34.375rem;
+    max-width: calc(100vw - 12.5rem);
+  }
+
   @media (max-width: 1024px) {
-    width: 400px;
-    height: 500px;
-    right: 50px;
+    width: 25rem;
+    max-width: calc(100vw - 12.5rem);
+    height: 31.25rem;
+    right: 3.125rem;
   }
 
   @media (max-width: 768px) {
-    width: calc(100% - 40px);
-    height: 300px;
-    right: 20px;
-    top: 200px;
+    width: calc(100% - 2.5rem);
+    max-width: calc(100vw - 2.5rem);
+    height: 18.75rem;
+    right: 1.25rem;
+    top: 12.5rem;
     transform: none;
   }
 `;
@@ -142,7 +154,7 @@ export const BackgroundImage2 = styled.img`
   object-fit: cover;
   opacity: 0.8;
   pointer-events: none;
-  border-radius: 20px;
+  border-radius: 1.25rem;
   display: block;
 `;
 
@@ -159,7 +171,7 @@ export const Title = styled.h1`
   color: white;
   top: 12.5rem;
   margin: 0;
-  z-index: 5;
+  z-index: 6;
 
   @media (max-width: 1400px) {
     left: 9.375rem;
@@ -195,7 +207,7 @@ export const Title2 = styled.h1`
   color: #af4f4f;
   top: 12.5rem;
   margin: 0;
-  z-index: 5;
+  z-index: 6;
 
   @media (max-width: 1400px) {
     left: 9.375rem;
@@ -221,10 +233,34 @@ export const Title2 = styled.h1`
 export const LeftContent = styled.div`
   position: absolute;
   left: 12.9375rem;
-  top: 28.125rem;
+  top: 36rem;
+  bottom: 10rem;
   width: 37.5rem;
   max-width: calc(100vw - 15.625rem);
   z-index: 5;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 0.75rem;
+
+  /* 내부 스크롤바 표시(얇게) */
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: rgba(255, 255, 255, 0.45) rgba(255, 255, 255, 0.12); /* Firefox */
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.45);
+    border-radius: 999px;
+    border: 2px solid rgba(255, 255, 255, 0.12);
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.6);
+  }
 
   @media (max-width: 1400px) {
     left: 9.375rem;
@@ -236,14 +272,16 @@ export const LeftContent = styled.div`
     left: 9.375rem;
     width: 31.25rem;
     max-width: calc(100vw - 12.5rem);
-    top: 26.25rem;
+    top: 32rem;
+    bottom: 8.5rem;
   }
 
   @media (max-width: 768px) {
     left: 1.25rem;
     width: calc(100% - 2.5rem);
     max-width: calc(100vw - 2.5rem);
-    top: 21.875rem;
+    top: 33.5rem;
+    bottom: 7.5rem;
   }
 `;
 
@@ -252,12 +290,12 @@ export const DescriptionText = styled.div`
   font-weight: 500;
   line-height: 1.8;
   color: white;
-  font-size: 18px;
-  margin-bottom: 20px;
+  font-size: 1.125rem;
+  margin-bottom: 1.25rem;
 `;
 
 export const DescriptionParagraph = styled.p`
-  margin: 0 0 15px 0;
+  margin: 0 0 0.9375rem 0;
   
   &:last-child {
     margin-bottom: 0;
@@ -269,7 +307,7 @@ export const LoginButton = styled.div`
   border: 0.125rem solid white;
   height: 4.5625rem;
   right: 6.25rem;
-  top: 57.5rem;
+  bottom: 3.75rem;
   width: 16.4375rem;
   max-width: calc(100vw - 12.5rem);
   cursor: pointer;
@@ -289,7 +327,7 @@ export const LoginButton = styled.div`
     width: 13.75rem;
     max-width: calc(100vw - 9.375rem);
     height: 3.75rem;
-    top: 53.125rem;
+    bottom: 3.25rem;
   }
 
   @media (max-width: 768px) {
@@ -297,7 +335,7 @@ export const LoginButton = styled.div`
     width: calc(100% - 2.5rem);
     max-width: calc(100vw - 2.5rem);
     height: 3.125rem;
-    top: 46.875rem;
+    bottom: 2.5rem;
   }
 
   &:hover {
@@ -309,7 +347,7 @@ export const LoginText = styled.span`
   text-transform: capitalize;
   font-family: 'Lato', sans-serif;
   font-weight: 600;
-  font-size: 24px;
+  font-size: 1.5rem;
   color: white;
   cursor: pointer;
 `;
