@@ -161,31 +161,31 @@ export const GradientOverlay = styled.div`
     rgba(0, 0, 0, 0.1) 70%,
     rgba(0, 0, 0, 0.15) 100%
   );
-  height: 712px;
-  left: calc(58.33% - 2px);
-  box-shadow: 20px 20px 70px 0px rgba(0, 0, 0, 0.6),
-              inset 0 0 100px rgba(0, 0, 0, 0.2);
-  top: 196px;
-  width: 594px;
+  height: 44.5rem;
+  left: calc(58.33% - 0.125rem);
+  box-shadow: 1.25rem 1.25rem 4.375rem 0px rgba(0, 0, 0, 0.6),
+              inset 0 0 6.25rem rgba(0, 0, 0, 0.2);
+  top: 12.25rem;
+  width: 37.125rem;
   z-index: 6;
   pointer-events: none;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 0.0625rem solid rgba(255, 255, 255, 0.05);
 `;
 
 export const CustomPagination = styled.div`
   position: absolute;
-  bottom: 30px;
+  bottom: 1.875rem;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 15px;
+  gap: 0.9375rem;
   z-index: 7;
   pointer-events: none;
 `;
 
 export const PaginationDot = styled.div`
-  width: ${props => props.$active ? '12px' : '10px'};
-  height: ${props => props.$active ? '12px' : '10px'};
+  width: ${props => props.$active ? '0.75rem' : '0.625rem'};
+  height: ${props => props.$active ? '0.75rem' : '0.625rem'};
   border-radius: 50%;
   background-color: ${props => props.$active ? 'white' : 'rgba(255, 255, 255, 0.4)'};
   cursor: pointer;

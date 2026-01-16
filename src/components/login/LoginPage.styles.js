@@ -30,37 +30,37 @@ export const BackgroundImg = styled.img`
 
 export const LeftTextContainer = styled.div`
   position: absolute;
-  left: 210px;
-  top: 250px;
+  left: 13.125rem;
+  top: 15.625rem;
   z-index: 2;
 
   @media (max-width: 1024px) {
-    left: 150px;
-    top: 200px;
+    left: 9.375rem;
+    top: 12.5rem;
   }
 
   @media (max-width: 768px) {
-    left: 20px;
-    top: 150px;
+    left: 1.25rem;
+    top: 9.375rem;
   }
 `;
 
 export const TitleText = styled.p`
   font-family: 'Poppins', sans-serif;
   font-weight: 800;
-  line-height: 25px;
+  line-height: 1.5625rem;
   font-style: normal;
-  font-size: 23px;
+  font-size: 1.4375rem;
   color: white;
   text-transform: capitalize;
-  margin: 0 0 5px 0;
+  margin: 0 0 0.3125rem 0;
 `;
 
 export const SubtitleText = styled.p`
   font-family: 'Poppins', 'Noto Sans KR', sans-serif;
   font-weight: 900;
-  line-height: 25px;
-  font-size: 23px;
+  line-height: 1.5625rem;
+  font-size: 1.4375rem;
   color: white;
   text-transform: capitalize;
   margin: 0;
@@ -68,42 +68,42 @@ export const SubtitleText = styled.p`
 
 export const RightContainer = styled.div`
   position: absolute;
-  right: 90px;
+  right: 5.625rem;
   top: 0;
-  width: 620px;
-  max-width: calc(100vw - 200px);
+  width: 38.75rem;
+  max-width: calc(100vw - 12.5rem);
   height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 168px;
+  padding-top: 10.5rem;
   z-index: 2;
 
   @media (max-width: 1400px) {
-    right: 50px;
-    max-width: calc(100vw - 150px);
+    right: 3.125rem;
+    max-width: calc(100vw - 9.375rem);
   }
 
   @media (max-width: 1024px) {
-    right: 50px;
-    width: 500px;
-    max-width: calc(100vw - 150px);
-    padding-top: 120px;
+    right: 3.125rem;
+    width: 31.25rem;
+    max-width: calc(100vw - 9.375rem);
+    padding-top: 7.5rem;
   }
 
   @media (max-width: 768px) {
     right: 0;
     width: 100%;
     max-width: 100vw;
-    padding-top: 100px;
+    padding-top: 6.25rem;
   }
 `;
 
 export const LogoContainer = styled.div`
   position: relative;
-  height: 82px;
-  width: 208px;
-  margin-bottom: 14px;
+  height: 5.125rem;
+  width: 13rem;
+  margin-bottom: 0.875rem;
 `;
 
 export const LogoImg = styled.img`
@@ -120,59 +120,59 @@ export const LogoImg = styled.img`
 export const LogoText = styled.p`
   font-family: 'PT Sans Caption', sans-serif;
   font-weight: 700;
-  height: 63px;
+  height: 3.9375rem;
   line-height: normal;
   font-style: normal;
-  font-size: 40px;
+  font-size: 2.5rem;
   color: black;
   text-align: center;
   margin: 0;
-  width: 195px;
+  width: 12.1875rem;
 `;
 
 export const FormContainer = styled.div`
-  margin-top: 50px;
-  width: 579px;
+  margin-top: 3.125rem;
+  width: 36.1875rem;
   max-width: 100%;
 
   @media (max-width: 1024px) {
     width: 100%;
-    max-width: 500px;
+    max-width: 31.25rem;
   }
 
   @media (max-width: 768px) {
     width: 100%;
-    max-width: calc(100vw - 40px);
-    padding: 0 20px;
+    max-width: calc(100vw - 2.5rem);
+    padding: 0 1.25rem;
   }
 `;
 
 export const FormBox = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 1.25rem;
 `;
 
 export const InputField = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0.5rem;
 `;
 
 export const InputLabel = styled.label`
   font-family: 'Lato', sans-serif;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: #333;
 `;
 
 export const Input = styled.input`
   width: 100%;
-  padding: 12px 16px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  border: 0.0625rem solid #ddd;
+  border-radius: 0.25rem;
   font-family: 'Lato', sans-serif;
-  font-size: 16px;
+  font-size: 1rem;
   outline: none;
   transition: border-color 0.3s;
 
@@ -187,17 +187,17 @@ export const Input = styled.input`
 
 export const LoginButton = styled.button`
   width: 100%;
-  padding: 14px;
+  padding: 0.875rem;
   background-color: #4a90e2;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 0.25rem;
   font-family: 'Lato', sans-serif;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s;
-  margin-top: 10px;
+  margin-top: 0.625rem;
 
   &:hover {
     background-color: #357abd;
@@ -211,19 +211,19 @@ export const LoginButton = styled.button`
 export const CheckboxContainer = styled.div`
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-top: 10px;
+  gap: 0.5rem;
+  margin-top: 0.625rem;
 `;
 
 export const Checkbox = styled.input`
-  width: 18px;
-  height: 18px;
+  width: 1.125rem;
+  height: 1.125rem;
   cursor: pointer;
 `;
 
 export const CheckboxLabel = styled.label`
   font-family: 'Lato', sans-serif;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: #333;
   cursor: pointer;
 `;

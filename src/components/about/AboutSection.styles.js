@@ -52,39 +52,39 @@ export const AboutOverlay = styled.div`
 
 export const ImageContainer = styled.div`
   position: absolute;
-  height: 600px;
-  right: 100px;
+  height: 37.5rem;
+  right: 6.25rem;
   top: 50%;
   transform: translateY(-50%);
-  width: 500px;
-  max-width: calc(100vw - 250px);
+  width: 31.25rem;
+  max-width: calc(100vw - 15.625rem);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  border-radius: 20px;
+  border-radius: 1.25rem;
   z-index: 2;
 
   @media (max-width: 1400px) {
-    right: 50px;
-    width: 450px;
-    height: 550px;
-    max-width: calc(100vw - 200px);
+    right: 3.125rem;
+    width: 28.125rem;
+    height: 34.375rem;
+    max-width: calc(100vw - 12.5rem);
   }
 
   @media (max-width: 1024px) {
-    width: 400px;
-    max-width: calc(100vw - 200px);
-    height: 500px;
-    right: 50px;
+    width: 25rem;
+    max-width: calc(100vw - 12.5rem);
+    height: 31.25rem;
+    right: 3.125rem;
   }
 
   @media (max-width: 768px) {
-    width: calc(100% - 40px);
-    max-width: calc(100vw - 40px);
-    height: 300px;
-    right: 20px;
-    top: 200px;
+    width: calc(100% - 2.5rem);
+    max-width: calc(100vw - 2.5rem);
+    height: 18.75rem;
+    right: 1.25rem;
+    top: 12.5rem;
     transform: none;
   }
 `;
