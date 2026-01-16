@@ -112,6 +112,62 @@ export const StyledSwiper = styled(Swiper)`
       box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
     }
   }
+
+  /* 좌/우 네비게이션 화살표(바깥쪽) */
+  .swiper-button-prev,
+  .swiper-button-next {
+    color: rgba(255, 255, 255, 0.9);
+    width: 3.25rem;
+    height: 3.25rem;
+    z-index: 20;
+    filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.45));
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  .swiper-button-prev::after,
+  .swiper-button-next::after {
+    font-size: 2.25rem;
+    font-weight: 800;
+  }
+
+  /* 화살표를 좌/우로 캐러셀 '밖'에 배치 */
+  .swiper-button-prev,
+  .swiper-button-next {
+    top: 50%;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    margin: 0;
+    transform: translateY(-50%) scale(1);
+  }
+
+  .swiper-button-prev {
+    left: -3.75rem;
+  }
+
+  .swiper-button-next {
+    right: -3.75rem;
+  }
+
+  .swiper-button-prev:hover,
+  .swiper-button-next:hover {
+    opacity: 0.85;
+    transform: translateY(-50%) scale(1.08);
+  }
+
+  .swiper-button-prev:active,
+  .swiper-button-next:active {
+    transform: translateY(-50%) scale(0.95);
+  }
+
+  @media (max-width: 768px) {
+    .swiper-button-prev {
+      left: 0.5rem;
+    }
+    .swiper-button-next {
+      right: 0.5rem;
+    }
+  }
 `;
 
 export const SlideImage = styled.img`
@@ -129,27 +185,6 @@ export const VectorImg = styled.img`
   max-width: none;
   width: 100%;
   height: 100%;
-`;
-
-export const ArrowButton = styled.div`
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  z-index: 7;
-  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
-
-  &:hover {
-    opacity: 0.8;
-    transform: scale(1.1);
-    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.6));
-  }
-
-  &:active {
-    transform: scale(0.95);
-  }
 `;
 
 export const GradientOverlay = styled.div`
