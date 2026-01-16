@@ -14,6 +14,27 @@ export default function MainPage() {
   useEffect(() => {
     let ticking = false;
 
+    const updateScrollEffects = (currentScroll, windowHeight) => {
+      const container = containerRef.current;
+      if (!container) return;
+
+      const snapSections = container.querySelectorAll("[data-snap-section]");
+      snapSections.forEach((el) => {
+        const sectionTop = el.offsetTop;
+        const sectionCenter = sectionTop + el.offsetHeight / 2;
+        const viewportCenter = currentScroll + windowHeight / 2;
+        const delta = Math.abs(sectionCenter - viewportCenter);
+
+        // 0~1 정규화 (가까울수록 1)
+        const t = Math.min(1, delta / (windowHeight * 0.9));
+        const raw = 1 - t;
+
+        // easeOutCubic (부드럽지만 티 나게)
+        const active = 1 - Math.pow(1 - raw, 3);
+        el.style.setProperty("--snap-active", active.toFixed(4));
+      });
+    };
+
     const handleScroll = () => {
       if (!containerRef.current || ticking) return;
       
@@ -41,6 +62,8 @@ export default function MainPage() {
             }
           }
         }
+
+        updateScrollEffects(currentScroll, windowHeight);
         
         ticking = false;
       });
@@ -60,7 +83,7 @@ export default function MainPage() {
   return (
     <MainPageContainer ref={containerRef} data-name="MainPage" data-node-id="2:136">
       <Header activeSection={activeSection} setActiveSection={setActiveSection} />
-      <HeroSectionContainer id="home">
+      <HeroSectionContainer id="home" data-snap-section>
         <Background />
         <HeroSection onMoreClick={() => {
           const aboutSection = document.getElementById("about");

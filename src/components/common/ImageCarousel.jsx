@@ -1,17 +1,13 @@
 import React, { useRef } from "react";
 import { SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
-import { imgRectangle4, imgRectangle6, imgVector, imgVector1 } from "../../constants/constants";
+import { Autoplay, Navigation } from "swiper/modules";
+import { imgRectangle4, imgRectangle6 } from "../../constants/constants";
 import "swiper/css";
 import "swiper/css/navigation";
-import "swiper/css/pagination";
 import {
   SwiperContainer,
   StyledSwiper,
   SlideImage,
-  VectorContainer,
-  VectorImg,
-  ArrowButton,
   GradientOverlay,
   CustomPagination,
   PaginationDot
@@ -52,7 +48,7 @@ export default function ImageCarousel() {
     <>
       <SwiperContainer data-node-id="2:209">
         <StyledSwiper
-          modules={[Navigation, Pagination]}
+          modules={[Autoplay, Navigation]}
           direction="vertical"
           grabCursor={true}
           centeredSlides={true}
@@ -61,15 +57,17 @@ export default function ImageCarousel() {
           loop={true}
           speed={800}
           pagination={false}
+          navigation={true}
+          autoplay={{
+            delay: 3200,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+          }}
           onSwiper={(swiper) => {
             swiperRef.current = swiper;
           }}
           onSlideChange={(swiper) => {
             setActiveIndex(swiper.realIndex);
-          }}
-          navigation={{
-            prevEl: ".swiper-button-prev-custom",
-            nextEl: ".swiper-button-next-custom",
           }}
         >
           {images.map((image, index) => (
@@ -88,30 +86,7 @@ export default function ImageCarousel() {
           ))}
         </CustomPagination>
       </SwiperContainer>
-      <VectorContainer style={{ inset: "49.76% 42.57% 47.54% 56.67%" }} data-name="Vector" data-node-id="2:211">
-        <VectorImg alt="" src={imgVector} />
-      </VectorContainer>
-      <ArrowButton 
-        className="swiper-button-prev-custom"
-        style={{ left: "calc(83.33% + 58px)", width: "50px", height: "50px", top: "527px" }}
-        onClick={handlePrev}
-      >
-        <div style={{ flex: "none", transform: "rotate(180deg) scaleY(-1)" }}>
-          <div style={{ width: "50px", height: "50px" }} data-name="eva:arrow-ios-back-outline" data-node-id="2:212" />
-        </div>
-      </ArrowButton>
       <GradientOverlay data-node-id="2:213" />
-      <ArrowButton 
-        className="swiper-button-next-custom"
-        style={{ inset: "49.76% 9.29% 47.54% 89.95%" }}
-        onClick={handleNext}
-      >
-        <div style={{ flex: "none", height: "29.169px", transform: "rotate(180deg) scaleY(-1)", width: "14.581px" }}>
-          <div style={{ position: "relative", width: "100%", height: "100%" }} data-name="Vector" data-node-id="2:216">
-            <VectorImg alt="" src={imgVector1} />
-          </div>
-        </div>
-      </ArrowButton>
     </>
   );
 }
