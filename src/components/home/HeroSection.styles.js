@@ -17,14 +17,14 @@ export const MoreText = styled.p`
   text-transform: capitalize;
   font-family: 'Lato', sans-serif;
   font-weight: 600;
-  height: 28px;
+  height: 1.75rem;
   line-height: normal;
-  left: calc(8.33% + 149px);
+  left: calc(8.33% + 9.3125rem);
   font-style: normal;
-  font-size: 24px;
+  font-size: 1.5rem;
   color: white;
-  top: 760px;
-  width: 61px;
+  top: 47.5rem;
+  width: 3.8125rem;
   margin: 0;
   cursor: pointer;
   transition: opacity 0.3s;
@@ -39,27 +39,37 @@ export const MainTitle = styled.div`
   position: absolute;
   font-family: 'Montserrat', 'Poppins', sans-serif;
   font-weight: 900;
-  line-height: 160px;
-  left: 201px;
+  line-height: 10rem;
+  left: 12.5625rem;
+  max-width: calc(100vw - 15.625rem);
   text-transform: lowercase;
   font-style: normal;
-  font-size: 144px;
+  font-size: 9rem;
   color: white;
-  top: 269px;
+  top: 16.8125rem;
   z-index: 5;
 
+  @media (max-width: 1400px) {
+    left: 9.375rem;
+    font-size: 7.5rem;
+    line-height: 8.75rem;
+    max-width: calc(100vw - 12.5rem);
+  }
+
   @media (max-width: 1024px) {
-    font-size: 100px;
-    line-height: 120px;
-    left: 150px;
-    top: 250px;
+    font-size: 6.25rem;
+    line-height: 7.5rem;
+    left: 9.375rem;
+    top: 15.625rem;
+    max-width: calc(100vw - 12.5rem);
   }
 
   @media (max-width: 768px) {
-    font-size: 60px;
-    line-height: 80px;
-    left: 20px;
-    top: 200px;
+    font-size: 3.75rem;
+    line-height: 5rem;
+    left: 1.25rem;
+    top: 12.5rem;
+    max-width: calc(100vw - 2.5rem);
   }
 `;
 
@@ -69,27 +79,35 @@ export const TitleLine = styled.p`
 
 export const MoreButton = styled.div`
   position: absolute;
-  border: 2px solid white;
-  height: 73px;
-  left: calc(8.33% + 48px);
-  top: 737px;
-  width: 263px;
+  border: 0.125rem solid white;
+  height: 4.5625rem;
+  left: calc(8.33% + 3rem);
+  top: 46.0625rem;
+  width: 16.4375rem;
+  max-width: calc(100vw - 12.5rem);
   cursor: pointer;
   transition: all 0.3s;
   z-index: 5;
 
+  @media (max-width: 1400px) {
+    left: 9.375rem;
+    max-width: calc(100vw - 9.375rem);
+  }
+
   @media (max-width: 1024px) {
-    left: 150px;
-    width: 220px;
-    height: 60px;
-    top: 700px;
+    left: 9.375rem;
+    width: 13.75rem;
+    max-width: calc(100vw - 9.375rem);
+    height: 3.75rem;
+    top: 43.75rem;
   }
 
   @media (max-width: 768px) {
-    left: 20px;
-    width: calc(100% - 40px);
-    height: 50px;
-    top: 650px;
+    left: 1.25rem;
+    width: calc(100% - 2.5rem);
+    max-width: calc(100vw - 2.5rem);
+    height: 3.125rem;
+    top: 40.625rem;
   }
 
   &:hover {
@@ -102,26 +120,35 @@ export const DescriptionText = styled.div`
   text-transform: capitalize;
   font-family: 'Poppins', 'Noto Sans KR', sans-serif;
   font-weight: 500;
-  line-height: 25px;
-  left: 207px;
-  font-size: 18px;
+  line-height: 1.5625rem;
+  left: 12.9375rem;
+  font-size: 1.125rem;
   color: white;
-  top: 613px;
-  width: 619px;
+  top: 38.3125rem;
+  width: 38.6875rem;
+  max-width: calc(100vw - 15.625rem);
   z-index: 5;
 
+  @media (max-width: 1400px) {
+    left: 9.375rem;
+    width: 34.375rem;
+    max-width: calc(100vw - 12.5rem);
+  }
+
   @media (max-width: 1024px) {
-    left: 150px;
-    width: 500px;
-    font-size: 16px;
-    top: 580px;
+    left: 9.375rem;
+    width: 31.25rem;
+    max-width: calc(100vw - 12.5rem);
+    font-size: 1rem;
+    top: 36.25rem;
   }
 
   @media (max-width: 768px) {
-    left: 20px;
-    width: calc(100% - 40px);
-    font-size: 14px;
-    top: 500px;
+    left: 1.25rem;
+    width: calc(100% - 2.5rem);
+    max-width: calc(100vw - 2.5rem);
+    font-size: 0.875rem;
+    top: 31.25rem;
   }
 `;
 

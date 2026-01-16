@@ -4,22 +4,22 @@ import { Navigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 const ProtectedRoute = ({ requiredRole, children }) => {
-  const { auth, authLoading } = useContext(AuthContext);
-
-  if (authLoading) {
-    return (
-      <div style={{ padding: "50px", textAlign: "center", fontSize: "1.2em" }}>
-        인증 상태를 확인 중입니다...
-      </div>
-    );
-  }
+  const { auth } = useContext(AuthContext);
 
   const isAuthenticated = auth?.accessToken;
 
-  const hasRequiredRole = auth?.role?.includes(requiredRole);
+  // role이 문자열인 경우와 배열인 경우 모두 처리
+  const hasRequiredRole = requiredRole
+    ? auth?.role === requiredRole || auth?.role?.includes(requiredRole)
+    : true;
 
-  if (!isAuthenticated || !hasRequiredRole) {
-    return <Navigate to="/members/login" replace />;
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
+
+  if (requiredRole && !hasRequiredRole) {
+    alert("관리자 권한이 필요합니다.");
+    return <Navigate to="/" replace />;
   }
 
   return children;

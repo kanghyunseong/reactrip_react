@@ -54,7 +54,7 @@ export default function SignUpPage() {
   };
 
   const handleBack = () => {
-    navigate(-"/");
+    navigate("/");
   };
 
   return (
@@ -91,6 +91,8 @@ export default function SignUpPage() {
                 type="text"
                 name="name"
                 placeholder="영문, 한글 최소 3자 ~ 최대 20자"
+                autoComplete="name"
+                required
                 value={formData.name}
                 onChange={handleChange}
                 data-node-id="73:1046"
@@ -106,6 +108,9 @@ export default function SignUpPage() {
                 type="text"
                 name="age"
                 placeholder="숫자만 입력하세요"
+                inputMode="numeric"
+                pattern="[0-9]*"
+                required
                 value={formData.age}
                 onChange={handleChange}
                 data-node-id="145:2518"
@@ -121,6 +126,9 @@ export default function SignUpPage() {
                 type="tel"
                 name="phone"
                 placeholder="숫자만 입력하세요."
+                autoComplete="tel"
+                inputMode="tel"
+                required
                 value={formData.phone}
                 onChange={handleChange}
                 data-node-id="97:772"
@@ -136,6 +144,8 @@ export default function SignUpPage() {
                 type="email"
                 name="email"
                 placeholder="이메일 형식으로 입력해주세요."
+                autoComplete="email"
+                required
                 value={formData.email}
                 onChange={handleChange}
                 data-node-id="73:1091"
@@ -148,6 +158,8 @@ export default function SignUpPage() {
                 type="password"
                 name="password"
                 placeholder="영문, 숫자 최소 4자 ~ 최대 20자"
+                autoComplete="new-password"
+                required
                 value={formData.password}
                 onChange={handleChange}
                 data-node-id="73:1042"
@@ -160,6 +172,8 @@ export default function SignUpPage() {
                 type="password"
                 name="confirmPassword"
                 placeholder="영문, 숫자 최소 4자 ~ 최대 20자"
+                autoComplete="new-password"
+                required
                 value={formData.confirmPassword}
                 onChange={handleChange}
                 data-node-id="73:1073"

@@ -18,3 +18,24 @@ export const imgTimoSternIUBgeNeyVy8Unsplash1 = "/login.png";
 
 // SignUp 페이지 이미지
 export const imgImage13 = "/signup.png";
+
+// Admin 페이지 이미지 (피그마)
+export const imgLogoRemovebgPreview2 = "http://localhost:3845/assets/e95a30948203b58344513dbff27f54ce10488c78.png";
+export const imgTopBarBg = "http://localhost:3845/assets/51463ce3659baf52c523faadab3be62ac4ff45c6.svg";
+export const imgIconOtherSearch = "http://localhost:3845/assets/a40b06ba90c17c09ba71320edce81ce7a53f6815.svg";
+export const imgIconSocialNotifications = "http://localhost:3845/assets/a981ae50232b1bcaefea73ab71b731f479c42db7.svg";
+export const imgSheet = "http://localhost:3845/assets/323d8b92ee44b37f84ddb1c33ef81a9073d7a.svg";
+export const imgAvatarMan15 = "http://localhost:3845/assets/3880703b31c25f26b2b3c2c062f1826128102bc6.svg";
+export const imgIconNavigationArrowDropDown = "http://localhost:3845/assets/6bb37b19fa6ac4e56ecfdd5b4a3c2fe5fbd2cfc7.svg";
+export const imgIconActionDashboard = "http://localhost:3845/assets/acf4503208ced6acfb6dd1a8f8c4bb46e38ded10.svg";
+export const imgIconSocialPeople = "http://localhost:3845/assets/6532f665efe0839efb0f73b2db226878719f9e0b.svg";
+export const imgIconActionAssignment = "http://localhost:3845/assets/2191ad233c1b034f4e02c23de7336e3d59568fa2.svg";
+export const imgIoniconsSvgMdCalendar = "http://localhost:3845/assets/2a6821b9a3eea181a5dd5f31ae34fc730562a15.svg";
+export const imgIoniconsSvgMdEasel = "http://localhost:3845/assets/6c3a3e61610965cec667fd8654b4b295dc76885a.svg";
+export const imgIconSocialPeople1 = "http://localhost:3845/assets/e8b4f52983108026afede80b6f7c1c62f83b4029.svg";
+export const imgIconSocialPeople2 = "http://localhost:3845/assets/527ba340689684055ac7f3c1a75aa8c1bde6e698.svg";
+export const imgIconSocialPeople3 = "http://localhost:3845/assets/2e428b8c4b8cea414e8a20b4d4b54e0073f8d4da.svg";
+export const imgIconSocialPeople4 = "http://localhost:3845/assets/ce0eff101a5597748ba30c497664963d32d3e91c.svg";
+export const imgDots = "http://localhost:3845/assets/1926c9e1f97123734b8d7dca88f4219a706641fa.svg";
+export const imgChevronLeft = "http://localhost:3845/assets/e1c18c499a4ec644fb8f8a2a2a48aaf6a1c083cb.svg";
+export const imgChevronRight = "http://localhost:3845/assets/6fd008f620bedbaaf1404e02931b8276866ac9cb.svg";

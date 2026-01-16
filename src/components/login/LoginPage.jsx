@@ -28,14 +28,14 @@ import {
 
 export default function LoginPage() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
+  const [memberId, setMemberId] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // TODO: 로그인 로직 구현
-    console.log("Login:", { email, password, rememberMe });
+    console.log("Login:", { memberId, password, rememberMe });
   };
 
   const handleBack = () => {
@@ -69,20 +69,24 @@ export default function LoginPage() {
         <FormContainer data-node-id="33:517" data-name="Form Log In">
           <FormBox onSubmit={handleSubmit}>
             <InputField>
-              <InputLabel>Email</InputLabel>
+              <InputLabel>아이디</InputLabel>
               <Input
-                type="email"
-                placeholder="Value"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                type="text"
+                placeholder="아이디를 입력하세요"
+                autoComplete="username"
+                required
+                value={memberId}
+                onChange={(e) => setMemberId(e.target.value)}
               />
             </InputField>
             
             <InputField>
-              <InputLabel>Password</InputLabel>
+              <InputLabel>비밀번호</InputLabel>
               <Input
                 type="password"
-                placeholder="Value"
+                placeholder="비밀번호를 입력하세요"
+                autoComplete="current-password"
+                required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
