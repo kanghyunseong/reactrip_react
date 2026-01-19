@@ -1,3 +1,4 @@
+import React from 'react';
 import { PageButton, PaginationContainer } from './Pagination.styles';
 
 const Pagination = ({ 

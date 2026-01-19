@@ -76,7 +76,7 @@ const DiaryList = () => {
             <div style={listStyles.listMain}>
               <h3 style={listStyles.listTitle}>{item.diaryTitle}</h3>
               <p style={listStyles.listText}>{item.diaryContent}</p>
-              <span style={listStyles.listDate}>작성일자:{item.createdDate} / 조회수 : {item.count} / 작성자 :{item.writeName}</span>
+              <span style={listStyles.listDate}>작성일자:{item.createdDate} / 작성자 :{item.memberName} / 댓글 : / 조회수 : {item.count} / 좋아요 : </span>
             </div>
             
             <div style={listStyles.arrow}>&rarr;</div>

@@ -36,3 +36,5 @@ export const Description = styled.p`
   line-height: 1.8;
   font-family: 'Noto Sans KR', sans-serif;
 `;
+
+
