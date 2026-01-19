@@ -54,6 +54,16 @@ const DiaryList = () => {
     fetchDiaries();
   }, [currentPage]);
 
+  const handleClick = (val) => {
+    alert("상세조회 " + val);
+
+    const response = axios
+            .post("http://localhost:8081/api/diarys/detail", {
+              diaryNo:val 
+        });
+  };
+
+
   if (loading) return <p style={{ textAlign: "center", padding: "20px" }}>다이어리를 불러오는 중입니다...</p>;
 
   return (
@@ -64,7 +74,7 @@ const DiaryList = () => {
         diarys.map((item) => (
           <div key={item.diaryNo} style={listStyles.listItem}>
             {/* 썸네일 이미지 영역 */}
-            <div style={listStyles.thumbnailBox}>
+            <div style={listStyles.thumbnailBox} onClick={() => handleClick(item.diaryNo)}>
               <img 
                 src={item.thumbnailUrl || "https://us.123rf.com/450wm/oculo/oculo2004/oculo200400003/143645399-no-image-available-icon.jpg"} 
                 alt="썸네일" 
@@ -73,13 +83,13 @@ const DiaryList = () => {
             </div>
 
             {/* 본문 텍스트 영역 */}
-            <div style={listStyles.listMain}>
-              <h3 style={listStyles.listTitle}>{item.diaryTitle}</h3>
+            <div style={listStyles.listMain} onClick={() => handleClick(item.diaryNo)}>
+              <h3 style={listStyles.listTitle} >{item.diaryTitle}</h3>
               <p style={listStyles.listText}>{item.diaryContent}</p>
               <span style={listStyles.listDate}>작성일자:{item.createdDate} / 작성자 :{item.memberName} / 댓글 : / 조회수 : {item.count} / 좋아요 : </span>
             </div>
             
-            <div style={listStyles.arrow}>&rarr;</div>
+            <div style={listStyles.arrow} onClick={() => handleClick(item.diaryNo)}>&rarr;</div>
         
           </div>
         ))
