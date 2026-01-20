@@ -1,5 +1,7 @@
-import React from "react";
+import { Routes, Route } from "react-router-dom";
 import Header from "../layout/Header";
+import DiaryList from "./Diarys/DiaryList";
+import DiaryDetail from "./Diarys/DiaryDetail";
 import {
   PageContainer,
   Section,
@@ -7,12 +9,12 @@ import {
   Title,
   Description
 } from "./DiaryPage.styles";
-import DiaryList from "./Diarys/DiaryList";
 
 export default function DiaryPage() {
   return (
     <PageContainer>
       <Header />
+
       <Section>
         <Content>
           <Title>DIARY</Title>
@@ -21,8 +23,12 @@ export default function DiaryPage() {
             사진과 함께 소중한 순간들을 남겨보세요.
           </Description>
 
-          <DiaryList />
-          
+          {/* 🔥 여기 중요 */}
+          <Routes>
+            <Route index element={<DiaryList />} />
+            <Route path="detail/:diaryNo" element={<DiaryDetail />} />
+          </Routes>
+
         </Content>
       </Section>
     </PageContainer>

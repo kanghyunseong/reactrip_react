@@ -50,11 +50,11 @@ const Pagination = ({
     return (
         <PaginationContainer>
             <PageButton onClick={handleFirstPage} disabled={currentPage === 1}>
-                <i className="bi bi-chevron-double-left">&lt;</i>
+                <i className="bi bi-chevron-double-left">&lt;&lt;</i>
             </PageButton>
 
             <PageButton onClick={handlePrevPage} disabled={currentPage === 1}>
-                <i className="bi bi-chevron-left">&lt;&lt;</i>
+                <i className="bi bi-chevron-left">&lt;</i>
             </PageButton>
 
             {pageNumbers.map(page => (
