@@ -8,6 +8,7 @@ export default function DiaryDetail() {
   const navigate = useNavigate();
 
   const [diary, setDiary] = useState(null);
+  const [commentList, setCommentList] = useState([]);
 
   useEffect(() => {
     axios
@@ -16,12 +17,28 @@ export default function DiaryDetail() {
       })
       .then((res) => {
         setDiary(res.data);
+        getCommentList(res.data.diaryNo);
       })
       .catch((e) => {
         console.error(e);
         alert("일기 조회 실패");
       });
   }, [diaryNo]);
+
+  const getCommentList = (diaryNo) => {
+    axios
+      .post("http://localhost:8081/api/diarys/commentList", {
+        diaryNo: diaryNo,
+      })
+      .then((res) => {
+        console.log("댓글:" +res.data);
+        setCommentList(res.data.commentList);
+      })
+      .catch((e) => {
+        console.error(e);
+        alert("댓글 가져오는도중오류 " + e);
+      });
+  }
 
   if (!diary) return <div style={{ padding: "40px" }}>로딩중...</div>;
 
@@ -72,17 +89,26 @@ export default function DiaryDetail() {
             alt="diary"
             style={detailStyles.image}
           />
+          </div>
+          </div>
           <div style={detailStyles.imageCaption} />
           {/* 댓글 영역 (UI 미리보기용) */}
-          <div style={detailStyles.commentBox}>
-            <h4 style={detailStyles.commentTitle}>댓글</h4>
-
-            <div style={detailStyles.comment}>
-              작성자 : {diary.comment}
-            </div>
+          <div >
+         {commentList.length === 0 ? (
+            <div style={detailStyles.content}>작성된 댓글이 없습니다.</div>
+        ) : (
+          
+          commentList.map((item) => (
+          <div key={item.commentNo} style={detailStyles.content}>  
+            <span>내용 : {item.commentContent} ..{item.createdDate} / {item.commentWriteName} </span>
           </div>
-        </div>
-      </div>
+          ))
+        )
+
+        }
+          
+          </div>
+        
       </div>
     </div>
   );
