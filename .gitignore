@@ -23,7 +23,6 @@ dist-ssr
 
 config.js
 *.config.js
-<<<<<<< HEAD
 
 # Editor directories and files
 .vscode/*
