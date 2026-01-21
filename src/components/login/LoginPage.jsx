@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
 import { imgTimoSternIUBgeNeyVy8Unsplash1, imgLogoRemovebgPreview1 } from "../../constants/constants";
 import {
   LoginPageContainer,
@@ -30,12 +31,62 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const [memberId, setMemberId] = useState("");
   const [password, setPassword] = useState("");
+  const [msg, setMsg] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
+
+  // login 함수 추가
+  const login = (memberId, memberName, accessToken, refreshToken, role) => {
+      localStorage.setItem("memberId", memberId);
+      localStorage.setItem("memberName", memberName);
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("refreshToken", refreshToken);
+      localStorage.setItem("role", role);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const regexpId = /^[a-zA-Z0-9]{6,20}$/;
+    const regexpPwd = /^[a-zA-Z0-9]{5,20}$/;
     // TODO: 로그인 로직 구현
     console.log("Login:", { memberId, password, rememberMe });
+
+    if(!regexpId.test(memberId)) {
+            setMsg("아이디는 영어 숫자만 가능하고 6~20자 사이만 가능합니다");
+            return;
+        } else if(!regexpPwd.test(password)) {
+            setMsg("비밀번호는 영어 숫자만 가능하고 5~20자 사이만 가능합니다");
+            return;
+        } else {
+            setMsg("");
+        }
+
+        axios.post("http://localhost:8081/api/auth/login",{
+            memberId,
+            memberPwd: password,
+        }).then((result) => {
+            /*
+            console.log(result);
+            const accessToken = result.data.accessToken;
+            const refreshToken = result.data.refreshToken;
+            */
+           console.log('머임?');
+            const { memberId, memberName, accessToken, refreshToken, role } = result.data;
+            login(memberId, memberName, accessToken, refreshToken, role);
+            alert("로그인 성공");
+            window.location.href = "/";
+            //console.log(memberId, memberName, accessToken, refreshToken, role);
+            // localStorage.setItem("memberId", memberId);
+            // localStorage.setItem("memberName", memberName);
+            // localStorage.setItem("accessToken", accessToken);
+            // localStorage.setItem("refreshToken", refreshToken);
+            // localStorage.setItem("role", role);
+
+            //sessionSto.setItem
+        }).catch((error) => {
+             console.error(error);
+          //  alert(error.response.data["error-message"]);
+        });
+
   };
 
   const handleBack = () => {

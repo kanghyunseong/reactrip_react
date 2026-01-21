@@ -23,10 +23,13 @@ import {
   TextLink,
   BackButton
 } from "./SignUpPage.styles";
+import axios from "axios";
 
 export default function SignUpPage() {
   const navigate = useNavigate();
+  const [msg, setMsg] = useState("");
   const [formData, setFormData] = useState({
+    id:"",
     name: "",
     age: "",
     phone: "",
@@ -34,6 +37,15 @@ export default function SignUpPage() {
     password: "",
     confirmPassword: ""
   });
+
+  const signup = (memberId, memberName, age, phone, email, password, confirmPassword) => {
+      localStorage.setItem("memberId", memberId);
+      localStorage.setItem("memberName", memberName);
+      localStorage.setItem("age", age);
+      localStorage.setItem("email", email);
+      localStorage.setItem("password", password);
+      localStorage.setItem("confirmPassword",  confirmPassword);
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,6 +58,49 @@ export default function SignUpPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     // TODO: 회원가입 로직 구현
+    const regexpId = /^[a-zA-Z0-9]{6,20}$/;
+    const regexpPwd = /^[a-zA-Z0-9]{5,20}$/;
+    const regexpName = /^[a-zA-Z가-힣0-9]{3,20}$/;
+    const regexpAge = /^(19|20)\d{2}(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01])$/;
+    const regexpPhone = /^010\d{8}$/;
+    const regexpEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    if(!regexpId.test(formData.id)) {
+      setMsg("아이디는 영어, 숫자만 가능하고 6~20자 사이만 가능합니다");
+      return;
+    } else if(!regexpPwd.test(formData.password)) {
+      setMsg("비밀번호는 영어, 숫자만 가능하고 5~20자 사이만 가능합니다");
+      return;
+    } else if(!regexpName.test(formData.name)){
+      setMsg("이름은 한글, 영어, 숫자만 가능하고 3~20자 사이만 가능합니다");
+      return;
+    } else if(!regexpAge.test(formData.age)) {
+      setMsg("생년월일 형식이 올바르지 않습니다");
+      return;
+    } else if(!regexpPhone.test(formData.phone)) {
+      setMsg("휴대폰 번호 형식이 올바르지 않습니다");
+    } else if(!regexpEmail.test(formData.email)) {
+      setMsg("이메일 형식이 올바르지 않습니다");
+    } else if(formData.password !== formData.confirmPassword) {
+      setMsg("비밀번호가 일치하지 않습니다");
+    }
+
+    axios.post("http://localhost:8081/api/members/signup", {
+      memberId: formData.id,
+      memberName : formData.name,
+      memberPwd : formData.password,
+      birthDay : formData.age,
+      email : formData.email,
+      phone : formData.phone
+    }).then((result) => {
+      const {memberId, memberName, age, phone, email, password, confirmPassword} = result.data;
+      signup(memberId, memberName, age, phone, email, password, confirmPassword);
+      alert("회원가입 성공");
+      navigate("/login");
+    }).catch((error) => {
+      console.error(error);
+    });
+      
     console.log("SignUp:", formData);
   };
 
@@ -83,6 +138,21 @@ export default function SignUpPage() {
 
         <FormContainer>
           <FormBox onSubmit={handleSubmit}>
+             <InputField data-node-id="80:123">
+              <InputLabel>
+                ID
+              </InputLabel>
+              <Input
+                type="text"
+                name="id"
+                placeholder="영문, 한글 최소 6자 ~ 최대 20자"
+                autoComplete="id"
+                required
+                value={formData.id}
+                onChange={handleChange}
+                data-node-id="80:123"
+              />
+            </InputField>
             <InputField data-node-id="73:1045">
               <InputLabel>
                 Name
