@@ -70,7 +70,6 @@ export default function LoginPage() {
             const refreshToken = result.data.refreshToken;
             */
            console.log('머임?');
-            const { memberId, memberName, accessToken, refreshToken, role } = result.data;
             login(memberId, memberName, accessToken, refreshToken, role);
             alert("로그인 성공");
             window.location.href = "/";
@@ -83,7 +82,6 @@ export default function LoginPage() {
 
             //sessionSto.setItem
         }).catch((error) => {
-             console.error(error);
           //  alert(error.response.data["error-message"]);
         });
 
