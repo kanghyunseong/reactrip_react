@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ChartContainer, ChartTitle, ChartControls, ChevronButton, DotsContainer, LegendContainer, LegendItem, DataDisplay, DataValue } from "./CPUTemperatureChart.styles";
 import { imgChevronLeft, imgChevronRight, imgDots } from "../../../constants/constants";
 
-export default function CPUTemperatureChart() {
+const CPUTemperatureChart = () => {
   const [cpuTemperature, setCpuTemperature] = useState(0);
   const [projectData, setProjectData] = useState({
     kfc: 0,
@@ -90,4 +90,6 @@ export default function CPUTemperatureChart() {
       </DotsContainer>
     </ChartContainer>
   );
-}
+};
+
+export default CPUTemperatureChart;

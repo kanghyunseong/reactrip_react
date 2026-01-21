@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import MainPage from "./components/home/MainPage";
 import SchedulePage from "./components/schedule/SchedulePage";
 import TourPage from "./components/tour/TourPage";
@@ -7,34 +7,46 @@ import DiaryPage from "./components/diary/DiaryPage";
 import ContactPage from "./components/contact/ContactPage";
 import LoginPage from "./components/login/LoginPage";
 import SignUpPage from "./components/signup/SignUpPage";
-import AdminPage from "./components/admin/AdminPage";
+import AdminLayout from "./components/admin/AdminLayout";
+import DashboardSection from "./components/admin/features/dashboard/DashboardSection";
+import SensorsSection from "./components/admin/features/sensors/SensorsSection";
+import MembersSection from "./components/admin/features/members/MembersSection";
+import TravelSection from "./components/admin/features/travel/TravelSection";
+import NoticesSection from "./components/admin/features/notices/NoticesSection";
+import DiariesSection from "./components/admin/features/diaries/DiariesSection";
+import CommentsSection from "./components/admin/features/comments/CommentsSection";
 // import ProtectedRoute from "./utils/ProtectedURL"; // 개발 단계 임시 주석 처리
 import "./App.css";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<MainPage />} />
-      <Route path="/schedule" element={<SchedulePage />} />
-      <Route path="/tour" element={<TourPage />} />
-      <Route path="/roulette" element={<RoulettePage />} />
-      <Route path="/diary" element={<DiaryPage />} />
-      <Route path="/contact" element={<ContactPage />} />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/signup" element={<SignUpPage />} />
-      {/* 개발 단계: 권한 체크 임시 비활성화 */}
-      <Route path="/admin" element={<AdminPage />} />
-      {/* 프로덕션 배포 시 아래 코드로 변경
-      <Route
-        path="/admin"
-        element={
-          <ProtectedRoute requiredRole="ADMIN">
-            <AdminPage />
-          </ProtectedRoute>
-        }
-      />
-      */}
-    </Routes>
+    <>
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/schedule" element={<SchedulePage />} />
+        <Route path="/tour" element={<TourPage />} />
+        <Route path="/roulette" element={<RoulettePage />} />
+        <Route path="/diary" element={<DiaryPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
+        
+        {/* 개발 단계: 권한 체크 임시 비활성화 */}
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<Navigate to="/admin/dashboard" replace />} />
+          <Route path="dashboard" element={<DashboardSection />} />
+          <Route path="sensors" element={<SensorsSection />} />
+          <Route path="members" element={<MembersSection />} />
+          <Route path="travel" element={<TravelSection />} />
+          <Route path="notices" element={<NoticesSection />} />
+          <Route path="diaries" element={<DiariesSection />} />
+          <Route path="comments" element={<CommentsSection />} />
+        </Route>
+      </Routes>
+      <ToastContainer position="top-right" autoClose={3000} />
+    </>
   );
 }
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ChartContainer, ChartTitle, DataDisplay, DataValue, PercentageDisplay } from "./RAMUsageWidget.styles";
 
-export default function RAMUsageWidget() {
+const RAMUsageWidget = () => {
   const [ramUsage, setRamUsage] = useState(0);
 
   // 리얼타임 데이터 수신
@@ -28,4 +28,6 @@ export default function RAMUsageWidget() {
       </DataDisplay>
     </ChartContainer>
   );
-}
+};
+
+export default RAMUsageWidget;

@@ -8,6 +8,7 @@ import {
   Label,
   FormInput,
   Textarea,
+  Help,
 } from "../AdminUI.styles";
 
 const empty = {
@@ -17,20 +18,9 @@ const empty = {
   image: "",
 };
 
-// 이미지 URL 생성 헬퍼
-const getImageUrl = (path) => {
-  if (path == null || path == "") return null;
-  if (path.startsWith('http')) return path;
-  const baseUrl = window.ENV?.API_URL || "http://localhost:8081";
-  if (path.startsWith('/uploads/') && baseUrl.endsWith('/')) {
-    return `${baseUrl.slice(0, -1)}${path}`;
-  }
-  return `${baseUrl}${path}`;
-};
-
 const NoticeFormModal = ({
   open,
-  mode = "create",
+  mode = "create", // create | edit
   initialValue,
   onClose,
   onSubmit,
@@ -40,15 +30,22 @@ const NoticeFormModal = ({
 
   useEffect(() => {
     if (!open) return;
-    const formData = { ...empty, ...(initialValue || {}) };
-    if (formData.image) {
-      formData.image = getImageUrl(formData.image);
-    }
-    setForm(formData);
+    setForm({ ...empty, ...(initialValue || {}) });
     setFile(null);
   }, [open, initialValue]);
 
   const title = mode === "edit" ? "공지 수정" : "공지 등록";
+
+  // 이미지 URL 생성 헬퍼
+  const getImageUrl = (path) => {
+    // 이미지가 없는 경우 null 반환 (미리보기를 띄우지 않기 위함)
+    if (path == null || path == "") return null;
+    
+    if (path.startsWith('http')) return path;
+    const baseUrl = window.ENV?.API_URL || "http://localhost:8081";
+    const cleanPath = path.startsWith('/') ? path : `/${path}`;
+    return `${baseUrl}${cleanPath}`;
+  };
 
   return (
     <AdminModal
@@ -68,8 +65,8 @@ const NoticeFormModal = ({
     >
       <Field>
         <Label>공지 제목</Label>
-        <FormInput
-          value={form.noticeTitle}
+        <FormInput 
+          value={form.noticeTitle} 
           onChange={(e) => setForm((p) => ({ ...p, noticeTitle: e.target.value }))}
           placeholder="공지 제목을 입력하세요"
         />
@@ -86,11 +83,11 @@ const NoticeFormModal = ({
 
       <Field style={{ marginTop: "1rem" }}>
         <Label>이미지 업로드</Label>
-        <FileUpload
-          onFileChange={setFile}
-          accept="image/*"
-          maxSize={10 * 1024 * 1024}
-          initialPreview={form.image}
+        <FileUpload 
+          onFileChange={setFile} 
+          accept="image/*" 
+          maxSize={10 * 1024 * 1024} 
+          initialPreview={getImageUrl(initialValue?.image)}
         />
       </Field>
     </AdminModal>

@@ -144,94 +144,91 @@ const FileUpload = ({ onFileChange, accept = "image/*", maxSize = 10 * 1024 * 10
     }
   }, [initialPreview]);
 
-    const handleDragOver = (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      setIsDragging(true);
-    };
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
 
-    const handleDragLeave = (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      setIsDragging(false);
-    };
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    setIsDragging(false);
+  };
 
-    const handleDrop = (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      setIsDragging(false);
-      
-      const droppedFile = e.dataTransfer.files[0];
-      if (droppedFile) {
-        handleFile(droppedFile);
-      }
-    };
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setIsDragging(false);
+    
+    const droppedFile = e.dataTransfer.files[0];
+    if (droppedFile) {
+      handleFile(droppedFile);
+    }
+  };
 
-    const handleFileInput = (e) => {
-      const selectedFile = e.target.files[0];
-      if (selectedFile) {
-        handleFile(selectedFile);
-      }
-    };
+  const handleFileInput = (e) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      handleFile(selectedFile);
+    }
+  };
 
-    const handleFile = (selectedFile) => {
-      // 파일 크기 체크
-      if (selectedFile.size > maxSize) {
-        toast.warning(`파일 크기는 ${Math.round(maxSize / 1024 / 1024)}MB를 초과할 수 없습니다.`);
-        return;
-      }
+  const handleFile = (selectedFile) => {
+    // 파일 크기 체크
+    if (selectedFile.size > maxSize) {
+      toast.warning(`파일 크기는 ${Math.round(maxSize / 1024 / 1024)}MB를 초과할 수 없습니다.`);
+      return;
+    }
 
-      // 파일 타입 체크 (이미지만)
-      if (accept === "image/*" && !selectedFile.type.startsWith('image/')) {
-        toast.warning('이미지 파일만 업로드 가능합니다.');
-        return;
-      }
+    // 파일 타입 체크 (이미지만)
+    if (accept === "image/*" && !selectedFile.type.startsWith('image/')) {
+      toast.warning('이미지 파일만 업로드 가능합니다.');
+      return;
+    }
 
-      setFile(selectedFile);
-      onFileChange?.(selectedFile);
+    setFile(selectedFile);
+    onFileChange?.(selectedFile);
 
-      // 이미지 미리보기 생성
-      if (selectedFile.type.startsWith('image/')) {
-        const reader = new FileReader();
-        reader.onload = (e) => setPreview(e.target.result);
-        reader.readAsDataURL(selectedFile);
-      }
-    };
+    // 이미지 미리보기 생성
+    if (selectedFile.type.startsWith('image/')) {
+      const reader = new FileReader();
+      reader.onload = (e) => setPreview(e.target.result);
+      reader.readAsDataURL(selectedFile);
+    }
+  };
 
-    const handleRemove = (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      console.log("[FileUpload] 이미지 삭제 버튼 클릭");
-      setFile(null);
-      setPreview(null);
-      onFileChange?.(null);
-      if (fileInputRef.current) {
-        fileInputRef.current.value = '';
-      }
-    };
+  const handleRemove = (e) => {
+    e.stopPropagation();
+    console.log("[FileUpload] 이미지 삭제 버튼 클릭");
+    setFile(null);
+    setPreview(null);
+    onFileChange?.(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
 
-    const formatFileSize = (bytes) => {
-      if (bytes === 0) return '0 Bytes';
-      const k = 1024;
-      const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-      const i = Math.floor(Math.log(bytes) / Math.log(k));
-      return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
-    };
+  const formatFileSize = (bytes) => {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+  };
 
-    return (
-      <>
-        <DropZone
-          $isDragging={isDragging}
-          onDragOver={handleDragOver}
-          onDragLeave={handleDragLeave}
-          onDrop={handleDrop}
-        >
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept={accept}
-            onChange={handleFileInput}
-          />
+  return (
+    <>
+      <DropZone
+        $isDragging={isDragging}
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop}
+        onClick={() => fileInputRef.current?.click()}
+      >
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept={accept}
+          onChange={handleFileInput}
+        />
         <DropContent $isDragging={isDragging}>
           <UploadIcon $isDragging={isDragging}>
             {isDragging ? '📂' : '📁'}

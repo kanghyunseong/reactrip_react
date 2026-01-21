@@ -1,17 +1,12 @@
 import React from "react";
-import { Toolbar, ToolbarLeft, ToolbarRight, Input, ToolbarPrimaryButton, Spinner } from "../../ui/AdminUI.styles";
+import { 
+  Toolbar, ToolbarLeft, ToolbarRight, Input, 
+  ToolbarPrimaryButton 
+} from "../../ui/AdminUI.styles";
 
-const TravelToolbar = ({
-  keyword,
-  setKeyword,
-  loading,
-  onSearch,
-  onReset,
-  searchKeyword,
-  totalCount,
-  onSyncApi,
-  syncing,
-  onAddTravel,
+const TravelToolbar = ({ 
+  keyword, setKeyword, onSearch, onReset, 
+  onSyncApi, syncing, onAdd, loading 
 }) => {
   return (
     <Toolbar>
@@ -24,37 +19,18 @@ const TravelToolbar = ({
           disabled={loading}
         />
         <ToolbarPrimaryButton type="button" onClick={onSearch} disabled={loading}>
-          {loading ? "검색 중..." : "검색"}
+          검색
         </ToolbarPrimaryButton>
         <ToolbarPrimaryButton type="button" onClick={onReset} disabled={loading}>
           초기화
         </ToolbarPrimaryButton>
-        {searchKeyword && (
-          <span style={{
-            fontSize: "0.85rem",
-            color: "rgba(15, 23, 42, 0.6)",
-            fontWeight: "600",
-            whiteSpace: "nowrap"
-          }}>
-            '{searchKeyword}' 검색 결과: {totalCount}건
-          </span>
-        )}
       </ToolbarLeft>
+      
       <ToolbarRight>
         <ToolbarPrimaryButton type="button" onClick={onSyncApi} disabled={syncing}>
-          {syncing ? (
-            <>
-              <Spinner $small />
-              동기화 중...
-            </>
-          ) : (
-            "API 동기화"
-          )}
+          {syncing ? "동기화 중..." : "API 동기화"}
         </ToolbarPrimaryButton>
-        <ToolbarPrimaryButton
-          type="button"
-          onClick={onAddTravel}
-        >
+        <ToolbarPrimaryButton type="button" onClick={onAdd}>
           여행지 등록
         </ToolbarPrimaryButton>
       </ToolbarRight>

@@ -1,157 +1,227 @@
-import React, { useState, useContext } from "react";
+import React, { useContext, useMemo, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
-import CPUUsageWidget from "./charts/CPUUsageWidget";
-import RAMUsageWidget from "./charts/RAMUsageWidget";
-import TemperatureWidget1 from "./charts/TemperatureWidget1";
-import TemperatureWidget2 from "./charts/TemperatureWidget2";
+import DashboardSection from "./features/dashboard/DashboardSection";
+import SensorsSection from "./features/sensors/SensorsSection";
+import MembersSection from "./features/members/MembersSection";
+import TravelSection from "./features/travel/TravelSection";
+import NoticesSection from "./features/notices/NoticesSection";
+import DiariesSection from "./features/diaries/DiariesSection";
+import CommentsSection from "./features/comments/CommentsSection";
 import {
-  PageContainer,
-  AdminHeader,
-  TopBarBg,
-  LogoContainer,
-  LogoImg,
-  SearchContainer,
-  SearchIcon,
-  SearchIconWrapper,
-  SearchIconFallback,
+  Page,
+  Topbar,
+  TopbarInner,
+  Brand,
+  BrandMark,
+  BrandTitle,
+  BrandName,
+  BrandSub,
+  TopbarRight,
+  Search,
   SearchInput,
-  NotificationIcon,
-  NotificationIconWrapper,
-  NotificationIconFallback,
-  ProfileContainer,
-  ProfileAvatar,
-  ProfileDropdown,
-  ProfileName,
-  AdminContent,
+  Pill,
+  Avatar,
+  UserName,
+  Layout,
   Sidebar,
-  SidebarMenu,
-  MenuItem,
-  MenuItemActive,
-  MenuIcon,
-  MenuIconEmoji,
-  MenuText,
-  WidgetsGrid,
-  Widget,
-  WidgetTitle,
-  EmptyWidget,
-  EmptyText,
-  CreditsCard,
-  CreditsTitle,
-  CreditsVersion,
-} from "./AdminPage.styles";
-import {
-  imgLogoRemovebgPreview2,
-  imgTopBarBg,
-  imgIconOtherSearch,
-  imgIconSocialNotifications,
-  imgAvatarMan15,
-} from "../../constants/constants";
+  NavGroup,
+  NavItem,
+  NavItemActive,
+  NavIcon,
+  NavText,
+  NavTitle,
+  NavDesc,
+  Main,
+  SectionHeader,
+  SectionTitle,
+  SectionSub,
+} from "./ui/AdminUI.styles";
 
 export default function AdminPage() {
   const { auth } = useContext(AuthContext);
-  const [activeMenu, setActiveMenu] = useState("raspberry");
+  const [activeMenu, setActiveMenu] = useState("dashboard");
+  const [globalSearch, setGlobalSearch] = useState("");
 
-  const menuItems = [
-    { id: "raspberry", label: "Raspberry Pi", icon: "📊", iconType: "emoji" },
-    { id: "people", label: "People", icon: "👥", iconType: "emoji" },
-    { id: "projects", label: "Projects", icon: "📁", iconType: "emoji" },
-    { id: "calendar", label: "Calendar", icon: "📅", iconType: "emoji" },
-    { id: "training", label: "Training", icon: "💻", iconType: "emoji" },
-    { id: "timesheet", label: "Timesheet", icon: "⏰", iconType: "emoji" },
-    { id: "reports", label: "Reports", icon: "📊", iconType: "emoji" },
-    { id: "administration", label: "Administration", icon: "⚙️", iconType: "emoji" },
-    { id: "help", label: "Help", icon: "❓", iconType: "emoji" },
-  ];
+  // 화면만: 더미 데이터(axios 연동 시 교체)
+  const [keyword, setKeyword] = useState("");
+  const [pageInfo, setPageInfo] = useState({ currentPage: 1, maxPage: 1 });
+  const rows = [];
 
-  const userName = auth?.userName || "홍길동";
+  const userName = auth?.userName || "관리자";
+
+  const menuItems = useMemo(
+    () => [
+      { id: "dashboard", icon: "📌", title: "대시보드", desc: "요약/현황" },
+      { id: "sensors", icon: "🌡️", title: "모니터링", desc: "온도/CPU/RAM" },
+      { id: "members", icon: "👥", title: "회원 관리", desc: "/api/admin/members" },
+      { id: "travel", icon: "🗺️", title: "여행지 관리", desc: "/api/admin/travel" },
+      { id: "notices", icon: "📣", title: "공지 관리", desc: "/api/admin/notices" },
+      { id: "diaries", icon: "📓", title: "일기 관리", desc: "/api/admin/community/diaries" },
+      { id: "comments", icon: "💬", title: "댓글 관리", desc: "/api/admin/community/comments" },
+    ],
+    []
+  );
+
+  const currentMeta = menuItems.find((m) => m.id === activeMenu);
+
+  // 로직은 사용자 구현(axios 연결 지점만 남김)
+  const actions = {
+    onSearch: () => {},
+    onReset: () => setKeyword(""),
+    onPageChange: (p) => setPageInfo((prev) => ({ ...prev, currentPage: p })),
+    onCreate: () => {},
+    onEdit: () => {},
+    onView: () => {},
+    onDelete: () => {},
+    onUpdateRole: () => {},
+    onToggleStatus: () => {},
+    onSyncApi: () => {},
+  };
 
   return (
-    <PageContainer>
-      <AdminHeader>
-        <TopBarBg src={imgTopBarBg} alt="top bar" onError={(e) => { e.target.style.display = 'none'; }} />
-        <LogoContainer>
-          <LogoImg src={imgLogoRemovebgPreview2} alt="ReacTrip Logo" onError={(e) => { e.target.style.display = 'none'; }} />
-        </LogoContainer>
-        <SearchContainer>
-          <SearchIconWrapper>
-            <SearchIcon 
-              src={imgIconOtherSearch} 
-              alt="search" 
-              onError={(e) => { 
-                e.target.style.display = 'none';
-                const fallback = e.target.nextSibling;
-                if (fallback) fallback.style.display = 'block';
-              }} 
-            />
-            <SearchIconFallback style={{ display: 'none' }}>🔍</SearchIconFallback>
-          </SearchIconWrapper>
-          <SearchInput type="text" placeholder="Quick search" />
-        </SearchContainer>
-        <NotificationIconWrapper>
-          <NotificationIcon 
-            src={imgIconSocialNotifications} 
-            alt="notifications" 
-            onError={(e) => { 
-              e.target.style.display = 'none';
-              const fallback = e.target.nextSibling;
-              if (fallback) fallback.style.display = 'block';
-            }} 
-          />
-          <NotificationIconFallback style={{ display: 'none' }}>🔔</NotificationIconFallback>
-        </NotificationIconWrapper>
-        <ProfileContainer>
-          <ProfileAvatar src={imgAvatarMan15} alt="avatar" onError={(e) => { e.target.style.display = 'none'; }} />
-          <ProfileName>{userName}, 관리자님</ProfileName>
-          <ProfileDropdown>▼</ProfileDropdown>
-        </ProfileContainer>
-      </AdminHeader>
+    <Page>
+      <Topbar>
+        <TopbarInner>
+          <Brand>
+            <BrandMark />
+            <BrandTitle>
+              <BrandName>ReacTrip Admin</BrandName>
+              <BrandSub>관리자 콘솔 (화면만 구성)</BrandSub>
+            </BrandTitle>
+          </Brand>
 
-      <AdminContent>
+          <TopbarRight>
+            <Search>
+              <span style={{ opacity: 0.6 }}>🔎</span>
+              <SearchInput
+                value={globalSearch}
+                onChange={(e) => setGlobalSearch(e.target.value)}
+                placeholder="(옵션) 전역 검색 UI"
+              />
+            </Search>
+            <Pill>
+              <Avatar />
+              <UserName>{userName}</UserName>
+            </Pill>
+          </TopbarRight>
+        </TopbarInner>
+      </Topbar>
+
+      <Layout>
         <Sidebar>
-          <SidebarMenu>
-            {menuItems.map((item) =>
-              activeMenu === item.id ? (
-                <MenuItemActive key={item.id} onClick={() => setActiveMenu(item.id)}>
-                  {item.iconType === "emoji" ? (
-                    <MenuIconEmoji>{item.icon}</MenuIconEmoji>
-                  ) : (
-                    <MenuIcon src={item.icon} alt={item.label} onError={(e) => { e.target.style.display = 'none'; }} />
-                  )}
-                  <MenuText>{item.label}</MenuText>
-                </MenuItemActive>
+          <NavGroup>
+            {menuItems.map((m) =>
+              m.id === activeMenu ? (
+                <NavItemActive key={m.id} type="button" onClick={() => setActiveMenu(m.id)}>
+                  <NavIcon>{m.icon}</NavIcon>
+                  <NavText>
+                    <NavTitle>{m.title}</NavTitle>
+                    <NavDesc>{m.desc}</NavDesc>
+                  </NavText>
+                </NavItemActive>
               ) : (
-                <MenuItem key={item.id} onClick={() => setActiveMenu(item.id)}>
-                  {item.iconType === "emoji" ? (
-                    <MenuIconEmoji>{item.icon}</MenuIconEmoji>
-                  ) : (
-                    <MenuIcon src={item.icon} alt={item.label} onError={(e) => { e.target.style.display = 'none'; }} />
-                  )}
-                  <MenuText>{item.label}</MenuText>
-                </MenuItem>
+                <NavItem key={m.id} type="button" onClick={() => setActiveMenu(m.id)}>
+                  <NavIcon>{m.icon}</NavIcon>
+                  <NavText>
+                    <NavTitle>{m.title}</NavTitle>
+                    <NavDesc>{m.desc}</NavDesc>
+                  </NavText>
+                </NavItem>
               )
             )}
-          </SidebarMenu>
-          <CreditsCard>
-            <CreditsTitle>ReacTrip</CreditsTitle>
-            <CreditsVersion>Version: 1.0.0.11</CreditsVersion>
-          </CreditsCard>
+          </NavGroup>
         </Sidebar>
 
-        <WidgetsGrid>
-          <Widget>
-            <CPUUsageWidget />
-          </Widget>
-          <Widget>
-            <RAMUsageWidget />
-          </Widget>
-          <Widget>
-            <TemperatureWidget1 />
-          </Widget>
-          <Widget>
-            <TemperatureWidget2 />
-          </Widget>
-        </WidgetsGrid>
-      </AdminContent>
-    </PageContainer>
+        <Main>
+          {activeMenu !== "dashboard" ? (
+            <SectionHeader>
+              <div>
+                <SectionTitle>{currentMeta?.title}</SectionTitle>
+                <SectionSub>{currentMeta?.desc}</SectionSub>
+              </div>
+            </SectionHeader>
+          ) : null}
+
+          {activeMenu === "dashboard" ? (
+            <DashboardSection />
+          ) : null}
+
+          {activeMenu === "sensors" ? <SensorsSection /> : null}
+
+          {activeMenu === "members" ? (
+            <MembersSection
+              keyword={keyword}
+              onKeywordChange={setKeyword}
+              onSearch={actions.onSearch}
+              onReset={actions.onReset}
+              onDelete={actions.onDelete}
+              onUpdateRole={actions.onUpdateRole}
+              pageInfo={pageInfo}
+              rows={rows}
+              onPageChange={actions.onPageChange}
+            />
+          ) : null}
+
+          {activeMenu === "travel" ? (
+            <TravelSection
+              keyword={keyword}
+              onKeywordChange={setKeyword}
+              onSearch={actions.onSearch}
+              onReset={actions.onReset}
+              onCreate={actions.onCreate}
+              onEdit={actions.onEdit}
+              onToggleStatus={actions.onToggleStatus}
+              onSyncApi={actions.onSyncApi}
+              pageInfo={pageInfo}
+              rows={rows}
+              onPageChange={actions.onPageChange}
+            />
+          ) : null}
+
+          {activeMenu === "notices" ? (
+            <NoticesSection
+              keyword={keyword}
+              onKeywordChange={setKeyword}
+              onSearch={actions.onSearch}
+              onReset={actions.onReset}
+              onCreate={actions.onCreate}
+              onEdit={actions.onEdit}
+              onDelete={actions.onDelete}
+              pageInfo={pageInfo}
+              rows={rows}
+              onPageChange={actions.onPageChange}
+            />
+          ) : null}
+
+          {activeMenu === "diaries" ? (
+            <DiariesSection
+              keyword={keyword}
+              onKeywordChange={setKeyword}
+              onSearch={actions.onSearch}
+              onReset={actions.onReset}
+              onView={actions.onView}
+              onDelete={actions.onDelete}
+              pageInfo={pageInfo}
+              rows={rows}
+              onPageChange={actions.onPageChange}
+            />
+          ) : null}
+
+          {activeMenu === "comments" ? (
+            <CommentsSection
+              keyword={keyword}
+              onKeywordChange={setKeyword}
+              onSearch={actions.onSearch}
+              onReset={actions.onReset}
+              onView={actions.onView}
+              onDelete={actions.onDelete}
+              pageInfo={pageInfo}
+              rows={rows}
+              onPageChange={actions.onPageChange}
+            />
+          ) : null}
+        </Main>
+      </Layout>
+    </Page>
   );
 }

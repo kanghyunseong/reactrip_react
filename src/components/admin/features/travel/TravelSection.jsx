@@ -96,7 +96,7 @@ const TravelSection = () => {
   return (
     <>
       {syncing && (
-        <LoadingOverlay><Spinner /><LoadingText>데이터 동기화 중...</LoadingText></LoadingOverlay>
+        <LoadingOverlay><Spinner $size="3rem" /><LoadingText>데이터 동기화 중...</LoadingText></LoadingOverlay>
       )}
       
       <TravelToolbar 
@@ -104,10 +104,8 @@ const TravelSection = () => {
         onSearch={() => { setSearchKeyword(keyword); fetchTravels(1, keyword); }}
         onReset={() => { setKeyword(""); setSearchKeyword(""); fetchTravels(1, ""); }}
         onSyncApi={onSyncApi} syncing={syncing}
-        onAddTravel={() => { setSelected(null); setFormMode("create"); setIsFormOpen(true); }}
+        onAdd={() => { setSelected(null); setFormMode("create"); setIsFormOpen(true); }}
         loading={loading}
-        searchKeyword={searchKeyword}
-        totalCount={pageInfo.totalCount}
       />
 
       <AdminTable
