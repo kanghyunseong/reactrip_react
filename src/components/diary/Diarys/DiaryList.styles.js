@@ -10,8 +10,8 @@
     transition: "background 0.2s",
   },
   thumbnailBox: {
-    width: "100px",
-    height: "100px",
+    width: "80px",
+    height: "80px",
     borderRadius: "12px",
     overflow: "hidden",
     marginRight: "20px",

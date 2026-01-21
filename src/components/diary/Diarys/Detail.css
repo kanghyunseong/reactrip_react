@@ -1,0 +1,197 @@
+.diary-detail {
+  display: flex;
+  min-height: 100vh;
+  gap: 40px;
+  padding: 10px;
+  padding-top: 120px;
+  align-items: flex-start;
+}
+
+
+/* 왼쪽 글 */
+.diary-content {
+  flex: 1;
+  color: white;
+}
+
+.diary-content .title {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.diary-content .content {
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+/* 오른쪽 이미지 */
+.diary-image {
+  width: 420px;
+}
+
+.diary-image img {
+  width: 100%;
+  border-radius: 12px;
+}
+
+/* 이미지 없을 때 */
+.no-image {
+  width: 100%;
+  height: 300px;
+  background: #f3f3f3;
+  color: #888;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  font-weight: bold;
+}
+
+.comment-input {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.comment-input textarea {
+  resize: none;
+  height: 80px;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+}
+
+.comment-input button {
+  align-self: flex-end;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: none;
+  background: #ff5a5a;
+  color: white;
+  cursor: pointer;
+}
+
+.comment-input button:hover {
+  opacity: 0.9;
+}
+
+.image-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  height: 320px;       /* 🔥 이미지 높이 고정 */
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;    /* 이미지 넘침 방지 */
+}
+
+.image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* 비율 유지 */
+}
+
+/* 좌우 버튼 */
+.image-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.image-nav.left {
+  left: 10px;
+}
+
+.image-nav.right {
+  right: 10px;
+}
+
+.image-nav:hover {
+  background: rgba(0,0,0,0.7);
+}
+
+.comment-section {
+  margin-top: 40px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 16px;
+  color: #fff;
+}
+
+.comment-title {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.comment-title span {
+  font-size: 12px;
+  opacity: 0.7;
+  margin-left: 6px;
+}
+
+.no-comment {
+  text-align: center;
+  padding: 30px 0;
+  opacity: 0.7;
+}
+
+/* 댓글 카드 */
+.comment-item {
+  display: flex;
+  gap: 10px;
+  padding: 7px;
+  margin-bottom: 7px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+}
+
+/* 프로필 */
+.comment-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #ddd;
+  flex-shrink: 0;
+}
+
+/* 본문 */
+.comment-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.comment-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.comment-writer {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.comment-date {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.comment-content {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  word-break: break-word;
+}
