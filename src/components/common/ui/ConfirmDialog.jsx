@@ -1,6 +1,6 @@
 import React from "react";
-import AdminModal from "./AdminModal";
-import { Button, DangerButton, ModalText } from "./AdminUI.styles";
+import Modal from "./Modal";
+import { Button, DangerButton, ModalText } from "./CommonUI.styles";
 
 const ConfirmDialog = ({
   open,
@@ -13,7 +13,7 @@ const ConfirmDialog = ({
   onClose,
 }) => {
   return (
-    <AdminModal
+    <Modal
       open={open}
       title={title}
       onClose={onClose}
@@ -35,7 +35,7 @@ const ConfirmDialog = ({
       }
     >
       {description ? <ModalText>{description}</ModalText> : null}
-    </AdminModal>
+    </Modal>
   );
 };
 

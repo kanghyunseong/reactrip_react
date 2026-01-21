@@ -1,20 +1,20 @@
 import React from "react";
 import {
-  TableWrap,
-  Table,
-  Thead,
-  Th,
-  Tbody,
-  Tr,
-  Td,
-  RowActions,
   ActionButton,
-  EmptyWrap,
-  EmptyTitle,
   EmptyDesc,
-} from "./AdminUI.styles";
+  EmptyTitle,
+  EmptyWrap,
+  RowActions,
+  Table,
+  TableWrap,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+} from "./CommonUI.styles";
 
-const AdminTable = ({
+const DataTable = ({
   columns = [],
   rows = [],
   rowKey = (row) => row?.id,
@@ -77,5 +77,5 @@ const AdminTable = ({
   );
 };
 
-export default AdminTable;
+export default DataTable;
 

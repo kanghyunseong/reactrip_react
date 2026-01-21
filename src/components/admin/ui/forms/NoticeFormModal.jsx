@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import AdminModal from "../AdminModal";
-import FileUpload from "../FileUpload";
+import Modal from "../../../common/ui/Modal";
+import FileUpload from "../../../common/ui/FileUpload";
 import {
   Button,
   ToolbarPrimaryButton,
@@ -48,7 +48,7 @@ const NoticeFormModal = ({
   };
 
   return (
-    <AdminModal
+    <Modal
       open={open}
       title={title}
       onClose={onClose}
@@ -90,7 +90,7 @@ const NoticeFormModal = ({
           initialPreview={getImageUrl(initialValue?.image)}
         />
       </Field>
-    </AdminModal>
+    </Modal>
   );
 };
 

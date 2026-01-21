@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import AdminTable from "../../ui/AdminTable";
-import Pagination from "../../ui/Pagination";
+import DataTable from "../../../common/ui/DataTable";
+import Pagination from "../../../common/ui/Pagination";
 import TravelToolbar from "./TravelToolbar";
 import TravelFormModal from "../../ui/forms/TravelFormModal";
-import ConfirmDialog from "../../ui/ConfirmDialog";
+import ConfirmDialog from "../../../common/ui/ConfirmDialog";
 import { LoadingOverlay, Spinner, LoadingText } from "../../ui/AdminUI.styles";
 import { axiosAuth } from "../../../../api/api";
 import { toast } from "react-toastify";
@@ -108,7 +108,7 @@ const TravelSection = () => {
         loading={loading}
       />
 
-      <AdminTable
+      <DataTable
         columns={columns} rows={loading ? [] : rows} rowKey={(r) => r.travelNo}
         actions={[
           { key: "edit", label: "수정", variant: "primary", onClick: (row) => { setSelected(row); setFormMode("edit"); setIsFormOpen(true); }},

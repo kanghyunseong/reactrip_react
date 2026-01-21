@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import AdminTable from "../../ui/AdminTable";
-import Pagination from "../../ui/Pagination";
+import DataTable from "../../../common/ui/DataTable";
+import Pagination from "../../../common/ui/Pagination";
 import { Toolbar, ToolbarLeft, ToolbarRight, Input, ToolbarPrimaryButton } from "../../ui/AdminUI.styles";
 
 const CommentsSection = () => {
@@ -61,7 +61,7 @@ const CommentsSection = () => {
         </ToolbarLeft>
       </Toolbar>
 
-      <AdminTable
+      <DataTable
         columns={columns}
         rows={rows}
         rowKey={(r) => r.commentNo}

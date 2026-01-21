@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AdminModal from "../AdminModal";
+import Modal from "../../../common/ui/Modal";
 import { Button, FormInput } from "../AdminUI.styles";
 import { loadKakaoSDK, isKakaoSDKReady } from "../../../../utils/kakaoMaps";
 import { toast } from "react-toastify";
@@ -36,7 +36,7 @@ const AddressSearchModal = ({ open, onClose, onSelect }) => {
   };
 
   return (
-    <AdminModal
+    <Modal
       open={open}
       title="주소 검색"
       onClose={onClose}
@@ -73,7 +73,7 @@ const AddressSearchModal = ({ open, onClose, onSelect }) => {
           </div>
         )}
       </div>
-    </AdminModal>
+    </Modal>
   );
 };
 

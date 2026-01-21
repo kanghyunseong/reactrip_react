@@ -1,11 +1,7 @@
 import React from "react";
-import { PaginationWrap, PageButton, PageInfo } from "./AdminUI.styles";
+import { PageButton, PageInfo, PaginationWrap } from "./CommonUI.styles";
 
-const Pagination = ({
-  page = 1,
-  maxPage = 1,
-  onChange,
-}) => {
+const Pagination = ({ page = 1, maxPage = 1, onChange }) => {
   const canPrev = page > 1;
   const canNext = page < maxPage;
 
