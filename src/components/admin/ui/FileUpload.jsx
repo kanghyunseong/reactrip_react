@@ -221,7 +221,6 @@ const FileUpload = ({ onFileChange, accept = "image/*", maxSize = 10 * 1024 * 10
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
-        onClick={() => fileInputRef.current?.click()}
       >
         <input
           ref={fileInputRef}
