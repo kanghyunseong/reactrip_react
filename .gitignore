@@ -21,6 +21,9 @@ dist-ssr
 .env.production.local
 .env*.local
 
+config.js
+*.config.js
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
