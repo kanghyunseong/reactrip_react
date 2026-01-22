@@ -24,7 +24,7 @@ export default function DiaryDetail() {
         getCommentList(res.data.diaryNo);
       })
       .catch((e) => {
-        console.error(e);
+        // console.error(e);
         alert("일기 조회 실패");
       });
   }, [diaryNo]);
@@ -36,14 +36,14 @@ export default function DiaryDetail() {
       })
       .then((res) => {
         const list = res.data?.listVo ?? [];
-        console.log("댓글:", res.data);
+        // console.log("댓글:", res.data);
 
         setComments(res.data?.listVo ?? []);
         setPage(res.data?.page ?? 1);
         setTotalPage(res.data?.totalPage ?? 1);
       })
       .catch((e) => {
-        console.error(e);
+        // console.error(e);
         alert("댓글 가져오는도중오류 " + e);
       });
   }
@@ -69,7 +69,7 @@ export default function DiaryDetail() {
       getCommentList(diary.diaryNo, page); // 댓글 새로고침
     })
     .catch((e) => {
-      console.error(e);
+      // console.error(e);
       alert("댓글 등록 실패");
     });
 };
