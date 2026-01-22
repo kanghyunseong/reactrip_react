@@ -3,6 +3,7 @@ import axios from "axios";
 import { listStyles } from "./DiaryList.styles";
 import Pagination from "../Pagination/Pagination";
 import { useNavigate } from "react-router-dom";
+import { axiosPublic } from "../../../api/api";
 
 const DiaryList = () => {
   const [diarys, setDiarys] = useState([]);
@@ -22,19 +23,19 @@ const DiaryList = () => {
       try {
         const size = 5;
 
-        const response = await axios.get(
-          "http://localhost:8081/api/diarys",
+        const data = await axiosPublic.getActual(
+          `/api/diarys`,
           {
             params: { page: currentPage, size },
           }
         );
 
-        setDiarys(response.data.diary || []);
+        console.log("목록 : ", data);
 
-        const serverCurrentPage = Number(
-          response.data.currentPage ?? currentPage
-        );
-        const totalCnt = Number(response.data.totalCnt ?? 0);
+        setDiarys(data.diary ?? []);
+
+        const serverCurrentPage = Number(data.currentPage ?? currentPage);
+        const totalCnt = Number(data.totalCnt ?? 0);
 
         const totalPage = Math.max(1, Math.ceil(totalCnt / size));
         const blockSize = 5;
