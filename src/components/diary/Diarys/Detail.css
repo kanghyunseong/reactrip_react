@@ -9,9 +9,30 @@
 
 
 /* 왼쪽 글 */
+.writer {
+  font-size: 14px;
+  color: #ffffff;
+  margin-bottom: 12px;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.button-group button {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  background: #fff;
+  cursor: pointer;
+}
+
 .diary-content {
-  flex: 1;
+  flex: 2;
   color: white;
+  padding: 1px;
 }
 
 .diary-content .title {
@@ -51,7 +72,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-top: 15px;
+  margin-top: 20px;
 }
 
 .comment-input textarea {
@@ -194,4 +215,35 @@
   font-size: 15px;
   line-height: 1.6;
   word-break: break-word;
+}
+
+.comment-pagination {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: auto;
+}
+
+.comment-pagination button {
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+}
+
+.comment-pagination button.active {
+  background: #333;
+  color: white;
+  font-weight: bold;
+}
+
+.comment-pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.divider {
+  margin: 40px 0;
+  border: none;
+  border-top: 1px solid #e0e0e0;
 }

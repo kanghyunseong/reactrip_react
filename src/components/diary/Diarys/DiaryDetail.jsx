@@ -8,17 +8,17 @@ export default function DiaryDetail() {
   const navigate = useNavigate();
 
   const [diary, setDiary] = useState(null);
-  const [commentList, setCommentList] = useState([]);
+  const [comments, setComments] = useState([]);
   const [commentContent, setCommentContent] = useState("");
+  const [page, setPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(1);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
 
 
   useEffect(() => {
     axios
-      .post("http://localhost:8081/api/diarys/detail", {
-        diaryNo: diaryNo,
-      })
+      .get(`http://localhost:8081/api/diarys/${diaryNo}`)
       .then((res) => {
         setDiary(res.data);
         getCommentList(res.data.diaryNo);
@@ -29,20 +29,29 @@ export default function DiaryDetail() {
       });
   }, [diaryNo]);
 
-  const getCommentList = (diaryNo) => {
+  const getCommentList = (diaryNo, pageNum = 1) => {
     axios
-      .post("http://localhost:8081/api/diarys/commentList", {
-        diaryNo: diaryNo,
+      .get(`http://localhost:8081/api/diarys/${diaryNo}/comments`, {
+        params: { page: pageNum, size: 5 }
       })
       .then((res) => {
-        console.log("댓글:" +res.data);
-        setCommentList(res.data.commentList);
+        const list = res.data?.listVo ?? [];
+        console.log("댓글:", res.data);
+
+        setComments(res.data?.listVo ?? []);
+        setPage(res.data?.page ?? 1);
+        setTotalPage(res.data?.totalPage ?? 1);
       })
       .catch((e) => {
         console.error(e);
         alert("댓글 가져오는도중오류 " + e);
       });
   }
+
+  const changePage = (pageNum) => {
+  if (pageNum < 1 || pageNum > totalPage) return;
+  getCommentList(diary.diaryNo, pageNum);
+};
 
   const handleCommentSubmit = () => {
   if (!commentContent.trim()) {
@@ -51,13 +60,13 @@ export default function DiaryDetail() {
   }
 
   axios
-    .post("http://localhost:8081/api/diarys/commentInsert", {
+    .post(`http://localhost:8081/api/diarys/${diaryNo}/comments`, {
       diaryNo: diary.diaryNo,
       commentContent: commentContent,
     })
     .then(() => {
       setCommentContent("");
-      getCommentList(diary.diaryNo); // 댓글 새로고침
+      getCommentList(diary.diaryNo, page); // 댓글 새로고침
     })
     .catch((e) => {
       console.error(e);
@@ -96,9 +105,18 @@ const nextImage = () => {
 
   {/* ================= 왼쪽 ================= */}
   <div className="diary-content">
-    <p className="writer">작성자: {diary.memberName} / 작성일: {diary.createdDate} </p>
-    <h2 className="title">{diary.diaryTitle}</h2>
-    <p className="content">{diary.diaryContent}</p>
+    <p className="writer">
+      작성자: {diary.memberName} / 작성일: {diary.createdDate} </p>
+   
+    <h2 className="title">
+      제목 : {diary.diaryTitle}</h2>
+   
+    <p className="content">
+      내용 : {diary.diaryContent}</p>
+   
+   <hr className="divider" />
+
+   <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 
     {/* 댓글 입력 */}
     <div className="comment-input">
@@ -141,13 +159,13 @@ const nextImage = () => {
  {/* 댓글 목록 */}
 <div className="comment-section">
   <h4 className="comment-title">
-    댓글 <span>{commentList.length}</span>
+    댓글 <span>{comments?.length || 0}</span>
   </h4>
 
-  {commentList.length === 0 ? (
+  {comments?.length === 0 ? (
     <div className="no-comment">작성된 댓글이 없습니다.</div>
   ) : (
-    commentList.map((item) => (
+    comments.map((item) => (
       <div key={item.commentNo} className="comment-item">
         
         {/* 프로필 */}
@@ -173,6 +191,36 @@ const nextImage = () => {
     ))
   )}
 </div>
+{/* 댓글 페이징 */}
+{totalPage > 1 && (
+  <div className="comment-pagination">
+
+    <button
+      disabled={page === 1}
+      onClick={() => changePage(page - 1)}
+    >
+      이전
+    </button>
+
+    {Array.from({ length: totalPage }, (_, i) => i + 1).map((num) => (
+      <button
+        key={num}
+        className={num === page ? "active" : ""}
+        onClick={() => changePage(num)}
+      >
+        {num}
+      </button>
+    ))}
+
+    <button
+      disabled={page === totalPage}
+      onClick={() => changePage(page + 1)}
+    >
+      다음
+    </button>
+
+  </div>
+)}
   </div>
 </div>
 
