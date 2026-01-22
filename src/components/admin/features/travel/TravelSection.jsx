@@ -21,9 +21,9 @@ const TravelSection = () => {
   const [isStatusOpen, setIsStatusOpen] = useState(false);
 
   const isSuccessResponse = (res) => {
-    const s = res?.success;
-    if (s === true) return true;
-    if (typeof s === "string") return s.includes("성공");
+    const success = res?.success;
+    if (success === true) return true;
+    if (typeof success === "string") return success.includes("성공");
     return false;
   };
 

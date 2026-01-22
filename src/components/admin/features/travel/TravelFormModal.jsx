@@ -36,9 +36,9 @@ const TravelFormModal = ({ open, mode = "create", initialValue, onClose, onSubmi
 
   const normalizeRegionToken = (token) => {
     if (!token) return "";
-    const t = String(token).trim();
-    if (t.endsWith("특별자치도")) return t.replace("특별자치도", "도");
-    return t;
+    const travelToken = String(token).trim();
+    if (travelToken.endsWith("특별자치도")) return travelToken.replace("특별자치도", "도");
+    return travelToken;
   };
 
   useEffect(() => {
