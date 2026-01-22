@@ -7,6 +7,57 @@ export const Surface = styled.div`
   box-shadow: 0 12px 30px rgba(2, 6, 23, 0.06);
 `;
 
+export const Badge = styled.span`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.28rem 0.6rem;
+  border-radius: 999px;
+  font-weight: 900;
+  font-size: 0.78rem;
+  letter-spacing: -0.1px;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  background: rgba(2, 6, 23, 0.03);
+  color: rgba(15, 23, 42, 0.8);
+
+  ${({ $variant }) =>
+    $variant === "success"
+      ? `
+    background: rgba(34, 197, 94, 0.10);
+    border-color: rgba(34, 197, 94, 0.22);
+    color: rgba(21, 128, 61, 0.95);
+  `
+      : ""}
+
+  ${({ $variant }) =>
+    $variant === "danger"
+      ? `
+    background: rgba(239, 68, 68, 0.10);
+    border-color: rgba(239, 68, 68, 0.22);
+    color: rgba(185, 28, 28, 0.95);
+  `
+      : ""}
+
+  ${({ $variant }) =>
+    $variant === "info"
+      ? `
+    background: rgba(99, 102, 241, 0.12);
+    border-color: rgba(99, 102, 241, 0.25);
+    color: rgba(67, 56, 202, 0.95);
+  `
+      : ""}
+
+  ${({ $variant }) =>
+    $variant === "warn"
+      ? `
+    background: rgba(245, 158, 11, 0.12);
+    border-color: rgba(245, 158, 11, 0.25);
+    color: rgba(180, 83, 9, 0.95);
+  `
+      : ""}
+`;
+
 export const Button = styled.button`
   border: 1px solid rgba(15, 23, 42, 0.12);
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.88));
@@ -238,7 +289,8 @@ export const Select = styled.select`
 `;
 
 export const TableWrap = styled(Surface)`
-  overflow: hidden;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
 `;
 
 export const Table = styled.table`
@@ -248,6 +300,9 @@ export const Table = styled.table`
 
 export const Thead = styled.thead`
   background: rgba(2, 6, 23, 0.03);
+  position: sticky;
+  top: 0;
+  z-index: 2;
 `;
 
 export const Th = styled.th`
@@ -264,6 +319,10 @@ export const Th = styled.th`
 export const Tbody = styled.tbody``;
 
 export const Tr = styled.tr`
+  &:nth-child(even) td {
+    background: rgba(2, 6, 23, 0.012);
+  }
+
   &:hover td {
     background: rgba(99, 102, 241, 0.04);
   }

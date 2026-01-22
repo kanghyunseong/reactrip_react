@@ -8,6 +8,12 @@ export const useRegions = (open, initialValue) => {
   const [regions, setRegions] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const isSuccessResponse = (res) => {
+    const s = res?.success;
+    if (s === true) return true;
+    return String(s || "").includes("성공");
+  };
+
   useEffect(() => {
     if (!open) return;
 
@@ -15,11 +21,7 @@ export const useRegions = (open, initialValue) => {
       try {
         setLoading(true);
         const possibleEndpoints = [
-          "/api/admin/travel/regions",
-          "/api/admin/region",
-          "/api/admin/region/list",
-          "/api/region",
-          "/api/region/list",
+          "/api/admin/travel/region",
         ];
 
         let regionList = [];
@@ -27,7 +29,7 @@ export const useRegions = (open, initialValue) => {
         for (const endpoint of possibleEndpoints) {
           try {
             const response = await axiosAuth.getList(endpoint);
-            const isSuccess = response.success === "요청성공" || response.success === true;
+            const isSuccess = isSuccessResponse(response);
 
             if (isSuccess) {
               if (Array.isArray(response?.data?.data)) regionList = response.data.data;
@@ -40,7 +42,7 @@ export const useRegions = (open, initialValue) => {
             if (e.response?.status === 401) {
               try {
                 const response = await axiosPublic.getList(endpoint);
-                if (response.success === "요청성공" || response.success === true) {
+                if (isSuccessResponse(response)) {
                   regionList = response.data?.data || response.data || response;
                   if (regionList.length > 0) break;
                 }

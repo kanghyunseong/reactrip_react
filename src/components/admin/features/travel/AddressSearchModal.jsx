@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Modal from "../../../common/ui/Modal";
-import { Button, FormInput } from "../AdminUI.styles";
+import { Button, FormInput } from "../../ui/AdminUI.styles";
 import { loadKakaoSDK, isKakaoSDKReady } from "../../../../utils/kakaoMaps";
 import { toast } from "react-toastify";
 
@@ -15,7 +15,7 @@ const AddressSearchModal = ({ open, onClose, onSelect }) => {
 
     try {
       if (!isKakaoSDKReady()) await loadKakaoSDK();
-      
+
       const places = new window.kakao.maps.services.Places();
       places.keywordSearch(searchKeyword.trim(), (data, status) => {
         setSearching(false);
@@ -40,7 +40,11 @@ const AddressSearchModal = ({ open, onClose, onSelect }) => {
       open={open}
       title="주소 검색"
       onClose={onClose}
-      footer={<Button type="button" onClick={onClose}>닫기</Button>}
+      footer={
+        <Button type="button" onClick={onClose}>
+          닫기
+        </Button>
+      }
     >
       <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
         <div style={{ display: "flex", gap: "0.5rem" }}>
@@ -57,12 +61,26 @@ const AddressSearchModal = ({ open, onClose, onSelect }) => {
         </div>
 
         {searchResults.length > 0 && (
-          <div style={{ maxHeight: "400px", overflowY: "auto", border: "1px solid rgba(15,23,42,0.1)", borderRadius: "0.75rem", padding: "0.5rem" }}>
+          <div
+            style={{
+              maxHeight: "400px",
+              overflowY: "auto",
+              border: "1px solid rgba(15,23,42,0.1)",
+              borderRadius: "0.75rem",
+              padding: "0.5rem",
+            }}
+          >
             {searchResults.map((place, index) => (
               <div
                 key={index}
                 onClick={() => onSelect(place)}
-                style={{ padding: "0.75rem", marginBottom: "0.5rem", border: "1px solid rgba(15,23,42,0.05)", borderRadius: "0.5rem", cursor: "pointer" }}
+                style={{
+                  padding: "0.75rem",
+                  marginBottom: "0.5rem",
+                  border: "1px solid rgba(15,23,42,0.05)",
+                  borderRadius: "0.5rem",
+                  cursor: "pointer",
+                }}
               >
                 <div style={{ fontWeight: "600" }}>{place.place_name}</div>
                 <div style={{ fontSize: "0.85rem", color: "rgba(15,23,42,0.6)" }}>
@@ -78,3 +96,4 @@ const AddressSearchModal = ({ open, onClose, onSelect }) => {
 };
 
 export default AddressSearchModal;
+

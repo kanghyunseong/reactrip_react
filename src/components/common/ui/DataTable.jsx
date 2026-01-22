@@ -1,6 +1,7 @@
 import React from "react";
 import {
   ActionButton,
+  Badge,
   EmptyDesc,
   EmptyTitle,
   EmptyWrap,
@@ -34,6 +35,22 @@ const DataTable = ({
   return (
     <TableWrap>
       <Table>
+        <colgroup>
+          {columns.map((c) => (
+            <col
+              key={c.key}
+              style={{
+                width:
+                  c?.thStyle?.width !== undefined
+                    ? typeof c.thStyle.width === "number"
+                      ? `${c.thStyle.width}px`
+                      : c.thStyle.width
+                    : undefined,
+              }}
+            />
+          ))}
+          {actions?.length ? <col style={{ width: 180 }} /> : null}
+        </colgroup>
         <Thead>
           <Tr>
             {columns.map((c) => (
@@ -41,7 +58,7 @@ const DataTable = ({
                 {c.label}
               </Th>
             ))}
-            {actions?.length ? <Th style={{ width: 160 }}>액션</Th> : null}
+            {actions?.length ? <Th style={{ width: 180, textAlign: "right" }}>액션</Th> : null}
           </Tr>
         </Thead>
         <Tbody>
@@ -49,11 +66,11 @@ const DataTable = ({
             <Tr key={rowKey(row)}>
               {columns.map((c) => (
                 <Td key={c.key} style={c.tdStyle} title={c.title ? c.title(row) : undefined}>
-                  {typeof c.render === "function" ? c.render(row) : row?.[c.key]}
+                  {typeof c.render === "function" ? c.render(row, { Badge }) : row?.[c.key]}
                 </Td>
               ))}
               {actions?.length ? (
-                <Td>
+                <Td style={{ textAlign: "right" }}>
                   <RowActions>
                     {actions.map((a) => (
                       <ActionButton

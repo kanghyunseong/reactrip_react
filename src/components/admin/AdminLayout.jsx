@@ -1,5 +1,5 @@
 import React, { useContext, useMemo, useState } from "react";
-import { Outlet, useNavigate, useLocation } from "react-router-dom";
+import { Outlet, useNavigate, useLocation, Route } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import {
   Page,
@@ -38,6 +38,8 @@ const AdminLayout = () => {
   const [globalSearch, setGlobalSearch] = useState("");
 
   const userName = auth?.userName || "관리자";
+
+
 
   const menuItems = useMemo(
     () => [

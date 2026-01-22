@@ -130,6 +130,7 @@ export const axiosAuth = {
   put: (url, obj, file) => api.put(url, { ...obj, file }),
   putJson: (url, obj) => api.put(url, obj),
   delete: (url, pk) => api.delete(url, pk),
+  deleteJson: (url) => api.delete(url),
 };
 
 export const axiosPublic = {

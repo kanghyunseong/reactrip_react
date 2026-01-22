@@ -85,11 +85,27 @@ const FilePreview = styled.div`
 `;
 
 const PreviewImage = styled.img`
-  width: 3.5rem;
-  height: 3.5rem;
+  width: ${(props) => props.$size || "3.5rem"};
+  height: ${(props) => props.$size || "3.5rem"};
   object-fit: cover;
   border-radius: 0.5rem;
   border: 1px solid rgba(15, 23, 42, 0.1);
+`;
+
+const PreviewFallback = styled.div`
+  width: ${(props) => props.$size || "3.5rem"};
+  height: ${(props) => props.$size || "3.5rem"};
+  border-radius: 0.5rem;
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  background: rgba(2, 6, 23, 0.03);
+  color: rgba(15, 23, 42, 0.6);
+  font-weight: 800;
+  font-size: 0.78rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0.5rem;
 `;
 
 const FileInfo = styled.div`
@@ -139,15 +155,18 @@ const FileUpload = ({
   accept = "image/*",
   maxSize = 10 * 1024 * 1024,
   initialPreview = null,
+  previewSize = "3.5rem",
 }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(initialPreview);
+  const [previewError, setPreviewError] = useState(false);
   const fileInputRef = useRef(null);
 
   useEffect(() => {
     setPreview(initialPreview);
     setFile(null);
+    setPreviewError(false);
     if (fileInputRef.current) fileInputRef.current.value = "";
   }, [initialPreview]);
 
@@ -231,7 +250,18 @@ const FileUpload = ({
 
       {(file || preview) && (
         <FilePreview>
-          {preview && <PreviewImage src={preview} alt="미리보기" />}
+          {preview ? (
+            previewError ? (
+              <PreviewFallback $size={previewSize}>미리보기 실패</PreviewFallback>
+            ) : (
+              <PreviewImage
+                $size={previewSize}
+                src={preview}
+                alt="미리보기"
+                onError={() => setPreviewError(true)}
+              />
+            )
+          ) : null}
           <FileInfo>
             {file ? (
               <>
