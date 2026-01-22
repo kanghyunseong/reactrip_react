@@ -19,7 +19,6 @@ export default function DiaryPage() {
         <Content>
           <Title>DIARY</Title>
 
-          {/* 🔥 여기 중요 */}
           <Routes>
             <Route index element={<DiaryList />} />
             <Route path="detail/:diaryNo" element={<DiaryDetail />} />

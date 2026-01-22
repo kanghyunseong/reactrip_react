@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import './Detail.css';
+import { axiosPublic } from "../../../api/api";
+
 
 export default function DiaryDetail() {
   const { diaryNo } = useParams();
@@ -17,33 +19,34 @@ export default function DiaryDetail() {
 
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8081/api/diarys/${diaryNo}`)
-      .then((res) => {
-        setDiary(res.data);
-        getCommentList(res.data.diaryNo);
+    axiosPublic
+      .getActual(`/api/diarys/${diaryNo}`)
+      .then((data) => {
+        console.log("상세조회 : ", data);
+        setDiary(data);
+
+        getCommentList(data.diaryNo);
       })
       .catch((e) => {
-        // console.error(e);
+        console.error(e);
         alert("일기 조회 실패");
       });
   }, [diaryNo]);
 
   const getCommentList = (diaryNo, pageNum = 1) => {
-    axios
-      .get(`http://localhost:8081/api/diarys/${diaryNo}/comments`, {
+    axiosPublic
+      .getActual(`/api/diarys/${diaryNo}/comments`, {
         params: { page: pageNum, size: 5 }
       })
-      .then((res) => {
-        const list = res.data?.listVo ?? [];
+      .then((data) => {
         // console.log("댓글:", res.data);
 
-        setComments(res.data?.listVo ?? []);
-        setPage(res.data?.page ?? 1);
-        setTotalPage(res.data?.totalPage ?? 1);
+        setComments(data.listVo ?? []);
+        setPage(data?.page ?? 1);
+        setTotalPage(data.totalPage ?? 1);
       })
       .catch((e) => {
-        // console.error(e);
+        console.error(e);
         alert("댓글 가져오는도중오류 " + e);
       });
   }
@@ -60,7 +63,7 @@ export default function DiaryDetail() {
   }
 
   axios
-    .post(`http://localhost:8081/api/diarys/${diaryNo}/comments`, {
+    .post(`/api/diarys/${diaryNo}/comments`, {
       diaryNo: diary.diaryNo,
       commentContent: commentContent,
     })
