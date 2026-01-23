@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import axios from "axios";
+import { axiosPublic } from "../../api/api.js"; // import 추가
 import { imgTimoSternIUBgeNeyVy8Unsplash1, imgLogoRemovebgPreview1 } from "../../constants/constants";
 import {
   LoginPageContainer,
@@ -34,57 +34,58 @@ export default function LoginPage() {
   const [msg, setMsg] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
 
-  // login 함수 추가
-  const login = (memberId, memberName, accessToken, refreshToken, role) => {
-      localStorage.setItem("memberId", memberId);
-      localStorage.setItem("memberName", memberName);
-      localStorage.setItem("accessToken", accessToken);
-      localStorage.setItem("refreshToken", refreshToken);
-      localStorage.setItem("role", role);
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const regexpId = /^[a-zA-Z0-9]{6,20}$/;
     const regexpPwd = /^[a-zA-Z0-9]{5,20}$/;
-    // TODO: 로그인 로직 구현
-    console.log("Login:", { memberId, password, rememberMe });
 
-    if(!regexpId.test(memberId)) {
-            setMsg("아이디는 영어 숫자만 가능하고 6~20자 사이만 가능합니다");
-            return;
-        } else if(!regexpPwd.test(password)) {
-            setMsg("비밀번호는 영어 숫자만 가능하고 5~20자 사이만 가능합니다");
-            return;
-        } else {
-            setMsg("");
-        }
+    if (!regexpId.test(memberId)) {
+      setMsg("아이디는 영어 숫자만 가능하고 6~20자 사이만 가능합니다");
+      return;
+    } else if (!regexpPwd.test(password)) {
+      setMsg("비밀번호는 영어 숫자만 가능하고 5~20자 사이만 가능합니다");
+      return;
+    } else {
+      setMsg("");
+    }
 
-        axios.post("http://localhost:8081/api/auth/login",{
+    try {
+        const response = await axiosPublic.post("/api/auth/login", {
             memberId,
             memberPwd: password,
-        }).then((result) => {
-            /*
-            console.log(result);
-            const accessToken = result.data.accessToken;
-            const refreshToken = result.data.refreshToken;
-            */
-           console.log('머임?');
-            login(memberId, memberName, accessToken, refreshToken, role);
-            alert("로그인 성공");
-            window.location.href = "/";
-            //console.log(memberId, memberName, accessToken, refreshToken, role);
-            // localStorage.setItem("memberId", memberId);
-            // localStorage.setItem("memberName", memberName);
-            // localStorage.setItem("accessToken", accessToken);
-            // localStorage.setItem("refreshToken", refreshToken);
-            // localStorage.setItem("role", role);
-
-            //sessionSto.setItem
-        }).catch((error) => {
-          //  alert(error.response.data["error-message"]);
         });
 
+        console.log('로그인 응답:', response);
+
+        // response.data가 바로 토큰 객체
+        const loginData = response.data;
+        
+        console.log('loginData:', loginData);
+        
+        if (loginData) {
+          console.log('=== 토큰 저장 전 ===');
+          console.log('loginData:', loginData);
+          
+          if (typeof loginData === 'object') {
+              localStorage.setItem('accessToken', loginData.accessToken);
+              localStorage.setItem('refreshToken', loginData.refreshToken);
+              localStorage.setItem('memberId', loginData.userId);
+              
+              console.log('=== 토큰 저장 후 ===');
+              console.log('저장된 accessToken:', localStorage.getItem('accessToken'));
+              console.log('저장된 refreshToken:', localStorage.getItem('refreshToken'));
+          }
+          
+          alert('로그인 성공');
+          navigate('/');
+        } else {
+            console.error('토큰이 응답에 없습니다:', response);
+            alert('로그인 응답에 토큰이 없습니다.');
+        }
+    } catch (error) {
+        console.error('로그인 실패:', error);
+        alert(error.response?.data?.message || '로그인 실패');
+    }
   };
 
   const handleBack = () => {
@@ -140,6 +141,8 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </InputField>
+
+            {msg && <div style={{ color: 'red', fontSize: '14px' }}>{msg}</div>}
 
             <LoginButton type="submit">
               Welcome to ReacTrip

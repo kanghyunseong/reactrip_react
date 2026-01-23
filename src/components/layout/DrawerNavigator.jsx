@@ -51,7 +51,7 @@ export default function DrawerNavigator({ isOpen, onClose }) {
           <MenuDivider />
           {isLoggedIn ? (
             <>
-              <MenuItem onClick={() => handleMenuClick("/my")}>마이페이지</MenuItem>
+              <MenuItem onClick={() => handleMenuClick("/mypage")}>마이페이지</MenuItem>
               <MenuItem onClick={handleLogout}>로그아웃</MenuItem> 
             </>
           ) : (
