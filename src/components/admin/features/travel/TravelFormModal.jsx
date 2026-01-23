@@ -37,9 +37,35 @@ const TravelFormModal = ({ open, mode = "create", initialValue, onClose, onSubmi
 
   const normalizeRegionToken = (token) => {
     if (!token) return "";
-    const travelToken = String(token).trim();
-    if (travelToken.endsWith("특별자치도")) return travelToken.replace("특별자치도", "도");
-    return travelToken;
+    let s = String(token).trim().replace(/\s+/g, "");
+
+    // 주소 축약 토큰 매핑 (카카오: "경기", "경남" 등)
+    const abbr = {
+      서울: "서울",
+      부산: "부산",
+      대구: "대구",
+      인천: "인천",
+      광주: "광주",
+      대전: "대전",
+      울산: "울산",
+      세종: "세종",
+      경기: "경기",
+      강원: "강원",
+      충북: "충청북",
+      충남: "충청남",
+      전북: "전라북",
+      전남: "전라남",
+      경북: "경상북",
+      경남: "경상남",
+      제주: "제주",
+    };
+    if (abbr[s]) s = abbr[s];
+
+    // "서울특별시" / "경기도" / "제주특별자치도" → 공통 비교 키
+    s = s.replace(/특별자치도|특별자치시|광역시|특별시/g, "");
+    s = s.replace(/(도|시)$/g, "");
+
+    return s;
   };
 
   useEffect(() => {
@@ -52,6 +78,7 @@ const TravelFormModal = ({ open, mode = "create", initialValue, onClose, onSubmi
   const handleSelectAddress = (place) => {
     const y = place.y || ""; // 위도
     const x = place.x || ""; // 경도
+    const placeName = (place?.place_name || "").trim();
     const fullAddress = place.road_address_name
       ? `${place.road_address_name} ${place.place_name}`.trim()
       : `${place.address_name} ${place.place_name}`.trim();
@@ -64,6 +91,9 @@ const TravelFormModal = ({ open, mode = "create", initialValue, onClose, onSubmi
 
     setForm((prev) => ({
       ...prev,
+      // 등록(create)에서는 장소명을 자동으로 채워주고,
+      // 수정(edit)에서는 사용자가 이미 입력한 값이 있으면 덮어쓰지 않는다.
+      travelName: mode === "edit" && String(prev.travelName || "").trim() ? prev.travelName : (placeName || prev.travelName),
       travelAddress: fullAddress,
       mapY: y,
       mapX: x,
@@ -72,6 +102,25 @@ const TravelFormModal = ({ open, mode = "create", initialValue, onClose, onSubmi
 
     setShowAddressSearch(false);
   };
+
+  // regions 로딩이 주소 선택보다 늦어도 자동 매칭되게 보강
+  useEffect(() => {
+    if (!open) return;
+    if (!form?.travelAddress) return;
+    if (String(form?.regionNo || "").trim()) return;
+    if (!Array.isArray(regions) || regions.length === 0) return;
+
+    const firstToken = normalizeRegionToken(String(form.travelAddress).split(" ")[0]);
+    if (!firstToken) return;
+
+    const matched = regions.find((r) => normalizeRegionToken(r?.regionName) === firstToken);
+    if (!matched?.regionNo) return;
+
+    setForm((prev) => {
+      if (String(prev.regionNo || "").trim()) return prev;
+      return { ...prev, regionNo: matched.regionNo };
+    });
+  }, [open, regions, form.travelAddress, form.regionNo]);
 
   const validate = () => {
     const next = {};
