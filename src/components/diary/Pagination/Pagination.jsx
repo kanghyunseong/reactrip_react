@@ -1,5 +1,6 @@
 import React from 'react';
 import { PageButton, PaginationContainer } from './Pagination.styles';
+import { useNavigate } from 'react-router-dom';
 
 const Pagination = ({ 
     currentPage, 
@@ -28,8 +29,11 @@ const Pagination = ({
         }
     };
 
+    const navigate = useNavigate();
+
     const handlePageClick = (page) => {
         setCurrentPage(page);
+        navigate(`/diarys?page=${page}&size=5`);
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 

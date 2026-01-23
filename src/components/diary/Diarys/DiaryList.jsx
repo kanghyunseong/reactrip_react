@@ -23,19 +23,19 @@ const DiaryList = () => {
       try {
         const size = 5;
 
-        const data = await axiosPublic.getActual(
-          `/api/diarys`,
+        const res = await axiosPublic.getActual(
+          `/api/diarys?page=${currentPage}&size=5`,
           {
-            params: { page: currentPage, size },
+            params: { page: currentPage, size: 5 },
           }
         );
 
-        console.log("목록 : ", data);
+        console.log("목록 : ", res);
 
-        setDiarys(data.diary ?? []);
+        setDiarys(res.diary ?? []);
 
-        const serverCurrentPage = Number(data.currentPage ?? currentPage);
-        const totalCnt = Number(data.totalCnt ?? 0);
+        const serverCurrentPage = Number(res.currentPage ?? currentPage);
+        const totalCnt = Number(res.totalCnt ?? 0);
 
         const totalPage = Math.max(1, Math.ceil(totalCnt / size));
         const blockSize = 5;
@@ -69,6 +69,7 @@ const DiaryList = () => {
 
   return (
     <div style={listStyles.listWrapper}>
+      <button>일 기 작 성</button>
       {diarys.length === 0 ? (
         <p>작성된 다이어리가 없습니다.</p>
       ) : (
@@ -78,7 +79,7 @@ const DiaryList = () => {
             <div
               style={listStyles.thumbnailBox}
               onClick={() => handleClick(item.diaryNo)}
-            >
+              >
               <img
                 src={
                   item.thumbnailUrl ||
