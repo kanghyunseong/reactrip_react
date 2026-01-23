@@ -55,12 +55,10 @@ export default function LoginPage() {
             memberPwd: password,
         });
 
-        console.log('로그인 응답:', response);
 
         // response.data가 바로 토큰 객체
         const loginData = response.data;
         
-        console.log('loginData:', loginData);
         
         if (loginData) {
           

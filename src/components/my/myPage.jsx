@@ -83,7 +83,6 @@ const MyPage = () => {
             setIsEditingName(false);
             fetchUserInfo();
         } catch (err) {
-            console.error('이름 변경 실패:', err);
             alert(err.response?.data?.message || '이름 변경에 실패했습니다.');
         }
     };
@@ -116,7 +115,6 @@ const MyPage = () => {
             setIsEditingEmail(false);
             fetchUserInfo();
         } catch (err) {
-            console.error('이메일 변경 실패:', err);
             alert(err.response?.data?.message || '이메일 변경에 실패했습니다.');
         }
     };
@@ -149,7 +147,6 @@ const MyPage = () => {
             setIsEditingPhone(false);
             fetchUserInfo();
         } catch (err) {
-            console.error('전화번호 변경 실패:', err);
             alert(err.response?.data?.message || '전화번호 변경에 실패했습니다.');
         }
     };

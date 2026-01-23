@@ -101,7 +101,6 @@ export default function SignUpPage() {
     }).catch((error) => {
     });
       
-    console.log("SignUp:", formData);
   };
 
   const handleLoginClick = () => {
