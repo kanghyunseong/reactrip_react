@@ -45,7 +45,6 @@ const MyPage = () => {
             setUserInfo(response);
             setError(null);
         } catch (err) {
-            console.error('fetchUserInfo 에러:', err);
             
             if (err.response?.status === 401 || err.response?.status === 403) {
                 alert('로그인이 필요합니다.');
@@ -183,7 +182,6 @@ const MyPage = () => {
             setIsEditingBirthday(false);
             fetchUserInfo();
         } catch (err) {
-            console.error('생년월일 변경 실패:', err);
             alert(err.response?.data?.message || '생년월일 변경에 실패했습니다.');
         }
     };
@@ -238,7 +236,6 @@ const MyPage = () => {
                 confirmPassword: ''
             });
         } catch (err) {
-            console.error('비밀번호 변경 실패:', err);
             alert(err.response?.data?.message || '비밀번호 변경에 실패했습니다.');
         }
     };

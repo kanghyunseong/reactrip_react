@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { axiosPublic } from "../../api/api.js"; // import 추가
+import { axiosPublic } from "../../api/api.js";
 import { imgTimoSternIUBgeNeyVy8Unsplash1, imgLogoRemovebgPreview1 } from "../../constants/constants";
 import {
   LoginPageContainer,
@@ -63,27 +63,20 @@ export default function LoginPage() {
         console.log('loginData:', loginData);
         
         if (loginData) {
-          console.log('=== 토큰 저장 전 ===');
-          console.log('loginData:', loginData);
           
           if (typeof loginData === 'object') {
               localStorage.setItem('accessToken', loginData.accessToken);
               localStorage.setItem('refreshToken', loginData.refreshToken);
               localStorage.setItem('memberId', loginData.userId);
               
-              console.log('=== 토큰 저장 후 ===');
-              console.log('저장된 accessToken:', localStorage.getItem('accessToken'));
-              console.log('저장된 refreshToken:', localStorage.getItem('refreshToken'));
           }
           
           alert('로그인 성공');
           navigate('/');
         } else {
-            console.error('토큰이 응답에 없습니다:', response);
             alert('로그인 응답에 토큰이 없습니다.');
         }
     } catch (error) {
-        console.error('로그인 실패:', error);
         alert(error.response?.data?.message || '로그인 실패');
     }
   };

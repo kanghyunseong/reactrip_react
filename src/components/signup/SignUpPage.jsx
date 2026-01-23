@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { axiosPublic } from "../../api/api.js";
 import { imgImage13, imgLogoRemovebgPreview1 } from "../../constants/constants";
 import {
   SignUpPageContainer,
@@ -85,7 +86,7 @@ export default function SignUpPage() {
       setMsg("비밀번호가 일치하지 않습니다");
     }
 
-    axios.post("http://localhost:8081/api/members/signup", {
+    axiosPublic.post("/api/members/signup", {
       memberId: formData.id,
       memberName : formData.name,
       memberPwd : formData.password,
