@@ -49,9 +49,9 @@ const toIsoDay = (d) => {
 const parseLooseDate = (value) => {
   if (!value) return null;
   if (value instanceof Date) return Number.isNaN(value.getTime()) ? null : value;
-  const s = String(value).trim();
-  if (!s) return null;
-  const normalized = s.includes("T") ? s : s.replace(" ", "T");
+  const dataString = String(value).trim();
+  if (!dataString) return null;
+  const normalized = dataString.includes("T") ? dataString : dataString.replace(" ", "T");
   const date = new Date(normalized);
   return Number.isNaN(date.getTime()) ? null : date;
 };
@@ -60,10 +60,10 @@ const buildLastNDays = (n) => {
   const today = new Date();
   const days = [];
   for (let i = n - 1; i >= 0; i -= 1) {
-    const d = new Date(today);
-    d.setHours(0, 0, 0, 0);
-    d.setDate(d.getDate() - i);
-    days.push(d);
+    const date = new Date(today);
+    date.setHours(0, 0, 0, 0);
+    date.setDate(date.getDate() - i);
+    days.push(date);
   }
   return days;
 };
