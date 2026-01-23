@@ -154,21 +154,24 @@ const FileUpload = ({
   onFileChange,
   accept = "image/*",
   maxSize = 10 * 1024 * 1024,
+  // 호환: 기존 코드에서는 preview, 일부에서는 initialPreview 사용
+  preview: previewProp,
   initialPreview = null,
   previewSize = "3.5rem",
 }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [file, setFile] = useState(null);
-  const [preview, setPreview] = useState(initialPreview);
+  const effectivePreview = previewProp ?? initialPreview;
+  const [preview, setPreview] = useState(effectivePreview);
   const [previewError, setPreviewError] = useState(false);
   const fileInputRef = useRef(null);
 
   useEffect(() => {
-    setPreview(initialPreview);
+    setPreview(effectivePreview);
     setFile(null);
     setPreviewError(false);
     if (fileInputRef.current) fileInputRef.current.value = "";
-  }, [initialPreview]);
+  }, [effectivePreview]);
 
   const handleDragOver = (e) => {
     e.preventDefault();

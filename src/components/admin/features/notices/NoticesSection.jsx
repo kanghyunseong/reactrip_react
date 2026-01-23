@@ -11,6 +11,8 @@ import {
 import { toast } from "react-toastify";
 import { axiosAuth } from "../../../../api/api";
 import NoticeFormModal from "./NoticeFormModal";
+import ImageThumb from "../../../common/ui/ImageThumb";
+import { getImageUrl } from "../../../../utils/imageUrl";
 
 const NoticesSection = () => {
   const [keyword, setKeyword] = useState("");
@@ -45,6 +47,8 @@ const NoticesSection = () => {
     if (status === 404) return msg || "요청한 API를 찾을 수 없습니다.";
     return msg || "요청 처리 중 오류가 발생했습니다.";
   };
+
+  
 
   const fetchNotices = async (page = 1, searchTerm = searchKeyword, options = {}) => {
     const { showToast = false, isSearching = false } = options;
@@ -130,6 +134,12 @@ const NoticesSection = () => {
   const [selected, setSelected] = useState(null);
 
   const columns = [
+    {
+      key: "image",
+      label: "이미지",
+      thStyle: { width: 90 },
+      render: (r) => <ImageThumb src={getImageUrl(r?.image || r?.noticeImage)} alt="공지 이미지" width={56} height={40} />,
+    },
     { key: "noticeNo", label: "번호", thStyle: { width: 90 } },
     { key: "noticeTitle", label: "제목", thStyle: { width: 360 } },
     {

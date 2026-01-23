@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Modal from "../../../common/ui/Modal";
 import FileUpload from "../../../common/ui/FileUpload";
 import { Button, ToolbarPrimaryButton, Field, Label, FormInput, Textarea, Help } from "../../ui/AdminUI.styles";
+import { getImageUrl } from "../../../../utils/imageUrl";
 
 const empty = {
   noticeNo: "",
@@ -21,14 +22,8 @@ const NoticeFormModal = ({ open, mode = "create", initialValue, onClose, onSubmi
   }, [open, initialValue]);
 
   const title = mode === "edit" ? "공지 수정" : "공지 등록";
-
-  const getImageUrl = (path) => {
-    if (path == null || path == "") return null;
-    if (path.startsWith("http")) return encodeURI(path);
-    const baseUrl = window.ENV?.API_URL || "http://localhost:8081";
-    const cleanPath = path.startsWith("/") ? path : `/${path}`;
-    return encodeURI(`${baseUrl}${cleanPath}`);
-  };
+  const payload = {...form};
+  if (mode === "edit" && !file) delete payload.noticeImage;
 
   const validate = () => {
     if (!String(form.noticeTitle || "").trim()) return "제목을 입력해주세요.";
@@ -51,7 +46,7 @@ const NoticeFormModal = ({ open, mode = "create", initialValue, onClose, onSubmi
             onClick={() => {
               const err = validate();
               if (err) return;
-              onSubmit?.(form, file);
+              onSubmit?.(payload, file);
             }}
           >
             저장
@@ -81,10 +76,10 @@ const NoticeFormModal = ({ open, mode = "create", initialValue, onClose, onSubmi
         <Field>
           <Label>이미지</Label>
           <FileUpload
-            preview={getImageUrl(form.image)}
-            onFileChange={(f) => setFile(f)}
-            previewSize="6.25rem"
-          />
+              preview={getImageUrl(form.noticeImage || form.image)}
+              onFileChange={(f) => setFile(f)}
+              previewSize="6.25rem"
+            />
           <Help>이미지는 선택사항입니다.</Help>
         </Field>
       </div>

@@ -58,7 +58,7 @@ const DataTable = ({
                 {c.label}
               </Th>
             ))}
-            {actions?.length ? <Th style={{ width: 180, textAlign: "right" }}>액션</Th> : null}
+            {actions?.length ? <Th style={{ width: 180, textAlign: "center" }}>액션</Th> : null}
           </Tr>
         </Thead>
         <Tbody>

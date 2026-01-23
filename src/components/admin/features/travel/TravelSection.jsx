@@ -4,9 +4,11 @@ import Pagination from "../../../common/ui/Pagination";
 import TravelToolbar from "./TravelToolbar";
 import TravelFormModal from "./TravelFormModal";
 import ConfirmDialog from "../../../common/ui/ConfirmDialog";
+import ImageThumb from "../../../common/ui/ImageThumb";
 import { LoadingOverlay, Spinner, LoadingText } from "../../ui/AdminUI.styles";
 import { axiosAuth } from "../../../../api/api";
 import { toast } from "react-toastify";
+import { getImageUrl } from "../../../../utils/imageUrl";
 
 const TravelSection = () => {
   const [keyword, setKeyword] = useState("");
@@ -141,6 +143,15 @@ const TravelSection = () => {
   };
 
   const columns = [
+    {
+      key: "travelImage",
+      label: "이미지",
+      thStyle: { width: 90 },
+      render: (r) => {
+        const src = getImageUrl(r?.travelImage || r?.image);
+        return <ImageThumb src={src} alt="여행지 이미지" width={56} height={40} />;
+      },
+    },
     { key: "travelNo", label: "번호", thStyle: { width: 90 } },
     { key: "travelName", label: "여행지명", thStyle: { width: 220 } },
     { key: "regionName", label: "지역", render: (r) => r?.regionName || r?.regionNo || "-" },

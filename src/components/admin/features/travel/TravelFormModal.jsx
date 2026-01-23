@@ -15,6 +15,7 @@ import {
   Help,
 } from "../../ui/AdminUI.styles";
 import { toast } from "react-toastify";
+import { getImageUrl } from "../../../../utils/imageUrl";
 
 const empty = {
   travelNo: "",
@@ -47,14 +48,6 @@ const TravelFormModal = ({ open, mode = "create", initialValue, onClose, onSubmi
     setFile(null);
     setErrors({});
   }, [open, initialValue]);
-
-  const getImageUrl = (path) => {
-    if (path == null || path == "") return null;
-    // S3 URL에 공백/한글 등이 포함되면 미리보기 로딩이 실패할 수 있어 안전하게 인코딩
-    if (path.startsWith("http")) return encodeURI(path);
-    const baseUrl = window.ENV?.API_URL || "http://localhost:8081";
-    return encodeURI(`${baseUrl}${path.startsWith("/") ? path : `/${path}`}`);
-  };
 
   const handleSelectAddress = (place) => {
     const y = place.y || ""; // 위도
