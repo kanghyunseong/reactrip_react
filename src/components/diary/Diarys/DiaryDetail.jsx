@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import './Detail.css';
 import { axiosPublic } from "../../../api/api";
+import { AuthContext } from "../../../context/AuthContext";
 
 
 export default function DiaryDetail() {
+  const { auth } = useContext(AuthContext);
+  console.log("login : " + auth.userNo);
+  console.log("login : " + auth.userName);
   const { diaryNo } = useParams();
   const navigate = useNavigate();
 
@@ -134,8 +138,13 @@ const nextImage = () => {
     {/* 버튼 */}
     <div className="button-group">
       <button onClick={() => navigate("/diarys")}>목록</button>
-      <button>수정</button>
-      <button>삭제</button>
+      {auth.userNo === diary.memberNo && (
+        <>
+        <button>수정</button>
+        <button>삭제</button>
+        </>
+      )}
+      
       <button>❤️좋아요</button>
     </div>
   </div>
