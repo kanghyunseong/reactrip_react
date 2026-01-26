@@ -123,7 +123,7 @@ const nextImage = () => {
    
    <hr className="divider" />
 
-   <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+   <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 
     {/* 댓글 입력 */}
     <div className="comment-input">

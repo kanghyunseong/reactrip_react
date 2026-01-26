@@ -4,6 +4,7 @@ import { listStyles } from "./DiaryList.styles";
 import Pagination from "../Pagination/Pagination";
 import { useNavigate } from "react-router-dom";
 import { axiosPublic } from "../../../api/api";
+import DiaryInsert from "./DiaryInsert";
 
 const DiaryList = () => {
   const [diarys, setDiarys] = useState([]);
@@ -16,6 +17,19 @@ const DiaryList = () => {
   });
 
   const navigate = useNavigate();
+
+  const handleWrite = () => {
+  const token = localStorage.getItem("accessToken");
+
+    if (!token) {
+      alert("로그인 후 이용해주세요.");
+      navigate("/login");
+      return;
+    }
+
+    navigate("/diarys/insert");
+  };
+
 
   useEffect(() => {
     const fetchDiaries = async () => {
@@ -69,7 +83,11 @@ const DiaryList = () => {
 
   return (
     <div style={listStyles.listWrapper}>
-      <button>일 기 작 성</button>
+      <div style={listStyles.listWrapper}>
+        <button onClick={handleWrite}>
+        일 기 작 성
+       </button>
+    </div>
       {diarys.length === 0 ? (
         <p>작성된 다이어리가 없습니다.</p>
       ) : (

@@ -9,6 +9,7 @@ import {
   Title,
   Description
 } from "./DiaryPage.styles";
+import DiaryInsert from "./Diarys/DiaryInsert";
 
 export default function DiaryPage() {
   return (
@@ -21,6 +22,7 @@ export default function DiaryPage() {
 
           <Routes>
             <Route index element={<DiaryList />} />
+            <Route path="insert" element={<DiaryInsert />} />
             <Route path="detail/:diaryNo" element={<DiaryDetail />} />
           </Routes>
 
