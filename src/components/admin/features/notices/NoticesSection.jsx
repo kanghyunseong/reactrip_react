@@ -17,18 +17,15 @@ import { getImageUrl } from "../../../../utils/imageUrl";
 const NoticesSection = () => {
   const [keyword, setKeyword] = useState("");
   const [searchKeyword, setSearchKeyword] = useState("");
-  const [pageInfo, setPageInfo] = useState({
-    currentPage: 1,
-    maxPage: 1,
-    totalCount: 0,
-  });
+  const [pageInfo, setPageInfo] = useState({ currentPage: 1, maxPage: 1, totalCount : 0});
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const isSuccessResponse = (res) => {
-    const s = res?.success;
-    if (s === true) return true;
-    return String(s || "").includes("성공");
+    const success = res?.success;
+    if (success === true) return true;
+    if (typeof success === "string") return success.includes("성공");
+    return false;
   };
 
   const getErrorMessage = (err) => {
@@ -45,6 +42,7 @@ const NoticesSection = () => {
     if (status === 401) return "로그인이 필요합니다. 다시 로그인해주세요.";
     if (status === 403) return "권한이 없습니다. 관리자 계정으로 로그인해주세요.";
     if (status === 404) return msg || "요청한 API를 찾을 수 없습니다.";
+    if(status === 500) return msg || "서버 오류가 발생하였습니다. 관리자에게 문의해주세요.";
     return msg || "요청 처리 중 오류가 발생했습니다.";
   };
 
