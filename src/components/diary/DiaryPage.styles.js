@@ -10,29 +10,33 @@ export const PageContainer = styled.div`
 
 export const Section = styled.section`
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  padding-top: 120px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
   color: white;
 `;
 
 export const Content = styled.div`
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   max-width: 800px;
-  padding: 0 20px;
+  padding: 0;          /* 🔥 padding 제거 */
 `;
 
 export const Title = styled.h2`
   font-size: 48px;
   font-weight: 800;
-  margin-bottom: 30px;
+  margin: 0 0 10px 0;  /* ❗ 여기만 조절 */
   font-family: 'Lato', sans-serif;
 `;
 
 export const Description = styled.p`
-  font-size: 20px;
-  line-height: 1.8;
-  font-family: 'Noto Sans KR', sans-serif;
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.6;
 `;
+
