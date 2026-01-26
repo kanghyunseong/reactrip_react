@@ -26,7 +26,7 @@ export default function AboutSection() {
 
   return (
     <>
-      <AboutPage1 id="about">
+      <AboutPage1 id="about" data-snap-section>
         <AboutBackground>
           <AboutBackgroundImg alt="" src={imgJackAnsteyXVoyX7L9OcYUnsplash1} />
         </AboutBackground>
@@ -53,7 +53,7 @@ export default function AboutSection() {
           </ImageWrapper>
         </ImageContainer>
       </AboutPage1>
-      <AboutPage2 id="about-page-2">
+      <AboutPage2 id="about-page-2" data-snap-section>
         <AboutBackground>
           <AboutBackgroundImg alt="" src={imgSylwiaBartyzelEU4PipU8HaUnsplash1} />
         </AboutBackground>

@@ -46,7 +46,7 @@ export default function DrawerNavigator({ isOpen, onClose }) {
           <MenuItem onClick={() => handleMenuClick("/schedule")}>일정</MenuItem>
           <MenuItem onClick={() => handleMenuClick("/tour")}>투어</MenuItem>
           <MenuItem onClick={() => handleMenuClick("/roulette")}>룰렛</MenuItem>
-          <MenuItem onClick={() => handleMenuClick("/diary")}>일기</MenuItem>
+          <MenuItem onClick={() => handleMenuClick("/diarys")}>일기</MenuItem>
           <MenuItem onClick={() => handleMenuClick("/contact")}>연락처</MenuItem>
           <MenuDivider />
           {isLoggedIn ? (
