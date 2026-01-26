@@ -86,6 +86,16 @@ const formatNumber = (v) => {
   return n.toLocaleString();
 };
 
+const getTooltipValue = (ctx) => {
+  const indexAxis = ctx?.chart?.options?.indexAxis || "x";
+  const parsed = ctx?.parsed;
+  if (parsed == null) return 0;
+  if (typeof parsed === "number") return parsed;
+  // bar(horizontal): parsed.x = value, parsed.y = category index
+  // bar(vertical)/line: parsed.y = value
+  return indexAxis === "y" ? parsed.x ?? 0 : parsed.y ?? 0;
+};
+
 const basePlugins = {
   tooltip: {
     mode: "index",
@@ -99,7 +109,7 @@ const basePlugins = {
     callbacks: {
       label: (ctx) => {
         const label = ctx?.dataset?.label ? `${ctx.dataset.label}: ` : "";
-        return `${label}${formatNumber(ctx.parsed?.y ?? ctx.parsed ?? 0)}`;
+        return `${label}${formatNumber(getTooltipValue(ctx))}`;
       },
     },
   },

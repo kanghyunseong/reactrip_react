@@ -12,6 +12,9 @@ import {
 
 export default function DrawerNavigator({ isOpen, onClose }) {
   const navigate = useNavigate();
+  const isLoggedIn = localStorage.getItem("accessToken") !== null;
+  const role = localStorage.getItem("role");
+  const isAdmin = String(role || "").toUpperCase().includes("ADMIN");
 
   const handleMenuClick = (path) => {
     onClose();
@@ -19,6 +22,17 @@ export default function DrawerNavigator({ isOpen, onClose }) {
       navigate(path);
     }
   };
+
+  const handleLogout = () => {
+    localStorage.removeItem("memberId");
+    localStorage.removeItem("memberName");
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    localStorage.removeItem("role");
+    alert("로그아웃 되었습니다");
+    onClose();
+    navigate("/");
+  }
 
   if (!isOpen) return null;
 
@@ -37,8 +51,20 @@ export default function DrawerNavigator({ isOpen, onClose }) {
           <MenuItem onClick={() => handleMenuClick("/diary")}>일기</MenuItem>
           <MenuItem onClick={() => handleMenuClick("/contact")}>연락처</MenuItem>
           <MenuDivider />
-          <MenuItem onClick={() => handleMenuClick("/login")}>로그인</MenuItem>
-          <MenuItem onClick={() => handleMenuClick("/signup")}>회원가입</MenuItem>
+          {isLoggedIn ? (
+            <>
+              {isAdmin ? (
+                <MenuItem onClick={() => handleMenuClick("/admin/dashboard")}>관리자 페이지</MenuItem>
+              ) : null}
+              <MenuItem onClick={() => handleMenuClick("/mypage")}>마이페이지</MenuItem>
+              <MenuItem onClick={handleLogout}>로그아웃</MenuItem> 
+            </>
+          ) : (
+            <>
+              <MenuItem onClick={() => handleMenuClick("/login")}>로그인</MenuItem>
+              <MenuItem onClick={() => handleMenuClick("/signup")}>회원가입</MenuItem>
+            </>
+          )}
         </MenuList>
       </DrawerContainer>
     </>

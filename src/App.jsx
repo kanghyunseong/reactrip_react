@@ -15,7 +15,9 @@ import TravelSection from "./components/admin/features/travel/TravelSection";
 import NoticesSection from "./components/admin/features/notices/NoticesSection";
 import DiariesSection from "./components/admin/features/diaries/DiariesSection";
 import CommentsSection from "./components/admin/features/comments/CommentsSection";
-// import ProtectedRoute from "./utils/ProtectedURL"; // 개발 단계 임시 주석 처리
+import AdminPage from "./components/admin/AdminPage";
+import MyPage from "./components/my/myPage";
+import ProtectedRoute from "./utils/ProtectedURL";
 import "./App.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -33,8 +35,14 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         
-        {/* 개발 단계: 권한 체크 임시 비활성화 */}
-        <Route path="/admin" element={<AdminLayout />}>
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute requiredRole="ROLE_ADMIN">
+              <AdminLayout />
+            </ProtectedRoute>
+          }
+        >
           <Route index element={<Navigate to="/admin/dashboard" replace />} />
           <Route path="dashboard" element={<DashboardSection />} />
           <Route path="sensors" element={<SensorsSection />} />
