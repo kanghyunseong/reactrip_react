@@ -1,5 +1,5 @@
  export const listStyles = {
-  listWrapper: { maxWidth: "700px", margin: "40px auto", padding: "0 20px" },
+  listWrapper: { maxWidth: "700px", margin: "10px auto", padding: "0 20px" },
   sectionTitle: { fontSize: "22px", fontWeight: "bold", marginBottom: "20px", color: "#333" },
   listItem: {
     display: "flex",

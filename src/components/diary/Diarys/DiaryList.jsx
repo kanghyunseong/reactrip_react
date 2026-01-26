@@ -4,7 +4,7 @@ import { listStyles } from "./DiaryList.styles";
 import Pagination from "../Pagination/Pagination";
 import { useNavigate } from "react-router-dom";
 import { axiosPublic } from "../../../api/api";
-import DiaryInsert from "./DiaryInsert";
+import "./DiaryWrite.css";
 
 const DiaryList = () => {
   const [diarys, setDiarys] = useState([]);
@@ -19,16 +19,16 @@ const DiaryList = () => {
   const navigate = useNavigate();
 
   const handleWrite = () => {
-  const token = localStorage.getItem("accessToken");
+  // const token = localStorage.getItem("accessToken");
 
-    if (!token) {
-      alert("로그인 후 이용해주세요.");
-      navigate("/login");
-      return;
-    }
+  //   if (!token) {
+  //     alert("로그인 후 이용해주세요.");
+  //     navigate("/login");
+  //     return;
+  //   }
 
-    navigate("/diarys/insert");
-  };
+     navigate("/diarys/insert");
+   };
 
 
   useEffect(() => {
@@ -84,7 +84,7 @@ const DiaryList = () => {
   return (
     <div style={listStyles.listWrapper}>
       <div style={listStyles.listWrapper}>
-        <button onClick={handleWrite}>
+        <button className="submit" onClick={handleWrite}>
         일 기 작 성
        </button>
     </div>

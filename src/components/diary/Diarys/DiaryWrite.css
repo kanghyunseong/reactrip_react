@@ -1,14 +1,14 @@
 body {
-  background-color: #b6b6b691;
+  background-color: #f5f6f8;
   font-family: "Noto Sans KR", sans-serif;
 }
 
 /* 전체 */
 .diary-container {
   max-width: 1100px;
-  margin: 30px auto;
+  margin: 40px auto;
   padding: 30px;
-  background: #ffffff5b;
+  background: #ffffff98;
   border-radius: 10px;
 }
 
@@ -27,19 +27,20 @@ body {
 .left label {
   font-weight: 600;
   margin-bottom: 6px;
+  color: rgb(83, 83, 83);
 }
 
 .left input,
 .left textarea,
 .left select {
-  margin-bottom: 15px;
+  margin-bottom: 18px;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 6px;
 }
 
 .left textarea {
-  width: 500px;
+  width: 400px;
   height: 300px;
   resize: none;
 }
@@ -52,21 +53,22 @@ body {
 /* 오른쪽 */
 .right {
   width: 360px;
+  display: flex;
+  flex-direction: column;
 }
 
 /* 🔥 드래그 앤 드롭 박스 */
 .image-box {
   width: 100%;
-  height: 260px;
+  min-height: 260px;
   border: 2px dashed #bbb;
   border-radius: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  position: relative;
-  transition: all 0.2s ease;
-  background-color: #fafafa;
+  padding: 10px;
+  background: #fafafa;
+}
+
+.image-area {
+  flex-shrink: 0;     /* 🔥 중요 */
 }
 
 .image-box.dragover {
@@ -85,6 +87,12 @@ body {
   font-size: 14px;
 }
 
+.preview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 10px;
+}
+
 /* 버튼 */
 .button-area {
   margin-top: 30px;
@@ -94,7 +102,7 @@ body {
 }
 
 .submit {
-  padding: 10px 26px;
+  padding: 10px 20px;
   background: #333;
   color: white;
   border: none;
@@ -103,10 +111,27 @@ body {
 }
 
 .cancel {
-  padding: 10px 26px;
+  padding: 10px 20px;
   background: #d9534f;
   color: white;
   border: none;
   border-radius: 6px;
   cursor: pointer;
+}
+
+.submit:disabled {
+  background: #aaa;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.right-buttons {
+  margin-top: auto; 
+  display: flex;
+  gap: 12px;
+}
+
+.right-buttons button {
+  flex: 1;
+  height: 50px;
 }
