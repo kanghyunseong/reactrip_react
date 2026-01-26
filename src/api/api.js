@@ -111,8 +111,13 @@ const api = {
 
     return instance.put(url, payload, { ...config, headers }).then(wrap);
   },
-  delete: (url, pk, config = {}) =>
-    instance.delete(pk ? `${url}/${pk}` : url, config).then(wrap),
+  delete: (url, pk, config = {}) => {
+    const finalUrl = pk ? `${url}/${pk}` : url;
+    if (config.data) {
+      return instance.delete(finalUrl, { data: config.data, ...config }).then(wrap);
+    }
+    return instance.delete(finalUrl, config).then(wrap);
+  },
 };
 
 // --------------------------------------------------------
@@ -131,6 +136,8 @@ export const axiosAuth = {
   putJson: (url, obj) => api.put(url, obj),
   delete: (url, pk) => api.delete(url, pk),
   deleteJson: (url) => api.delete(url),
+  // DELETE 요청에 body가 필요한 경우
+  deleteWithBody: (url, body) => api.delete(url, undefined, { data: body }),
 };
 
 export const axiosPublic = {

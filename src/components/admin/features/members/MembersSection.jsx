@@ -100,12 +100,12 @@ const MembersSection = () => {
   // options.showToast=true 일 때만 검색 성공/실패/결과없음 토스트 표시(중복 토스트 방지)
   const fetchMembers = async (page = 1, searchTerm = searchKeyword, options = {}) => {
     try {
-      // const accessToken = localStorage.getItem("accessToken");
-      // if (!accessToken) {
-      //   toast.error("로그인이 필요합니다. 로그인 후 다시 시도해주세요.");
-      //   window.location.href = "/login";
-      //   return;
-      // }
+      const accessToken = localStorage.getItem("accessToken");
+      if (!accessToken) {
+        toast.error("로그인이 필요합니다. 로그인 후 다시 시도해주세요.");
+        window.location.href = "/login";
+        return;
+      }
 
       setLoading(true);
 

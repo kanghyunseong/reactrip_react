@@ -428,6 +428,8 @@ export const PaginationWrap = styled.div`
   justify-content: flex-end;
   gap: 0.5rem;
   padding: 0.75rem 0;
+  margin-top: 20px;
+  margin-bottom: 20px;
 `;
 
 export const PageButton = styled.button`

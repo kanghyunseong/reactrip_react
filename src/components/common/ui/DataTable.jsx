@@ -72,17 +72,21 @@ const DataTable = ({
               {actions?.length ? (
                 <Td style={{ textAlign: "right" }}>
                   <RowActions>
-                    {actions.map((a) => (
-                      <ActionButton
-                        key={a.key}
-                        $variant={a.variant}
-                        type="button"
-                        onClick={() => a.onClick?.(row)}
-                        disabled={a.disabled?.(row)}
-                      >
-                        {a.label}
-                      </ActionButton>
-                    ))}
+                    {actions.map((a) => {
+                      const label = typeof a.label === "function" ? a.label(row) : a.label;
+                      const variant = typeof a.variant === "function" ? a.variant(row) : a.variant;
+                      return (
+                        <ActionButton
+                          key={a.key}
+                          $variant={variant}
+                          type="button"
+                          onClick={() => a.onClick?.(row)}
+                          disabled={a.disabled?.(row)}
+                        >
+                          {label}
+                        </ActionButton>
+                      );
+                    })}
                   </RowActions>
                 </Td>
               ) : null}

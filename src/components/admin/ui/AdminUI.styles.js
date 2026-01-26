@@ -5,60 +5,66 @@ export { Surface, Button, PrimaryButton };
 
 export const Page = styled.div`
   min-height: 100vh;
-  background: radial-gradient(1200px 800px at 15% 0%, rgba(99, 102, 241, 0.14), transparent 55%),
-    radial-gradient(900px 600px at 85% 10%, rgba(236, 72, 153, 0.12), transparent 55%),
-    #f7f8fb;
-  color: #0f172a;
+  background: #e8e8e8;
+  color: #2c2c2c;
 `;
 
 export const Topbar = styled.header`
   position: sticky;
   top: 0;
   z-index: 50;
-  backdrop-filter: blur(12px);
-  background: rgba(247, 248, 251, 0.7);
-  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  background: #2c3e50;
+  border-bottom: 3px solid #1a252f;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 `;
 
 export const TopbarInner = styled.div`
-  height: 4.25rem;
+  height: 55px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 1.25rem;
+  padding: 0 24px;
   gap: 1rem;
 `;
 
 export const Brand = styled.div`
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  min-width: 14rem;
+  gap: 14px;
+  min-width: 220px;
 `;
 
 export const BrandMark = styled.div`
-  width: 2.25rem;
-  height: 2.25rem;
-  border-radius: 0.75rem;
-  background: linear-gradient(135deg, #6366f1, #ec4899);
-  box-shadow: 0 10px 25px rgba(99, 102, 241, 0.25);
+  width: 36px;
+  height: 36px;
+  border-radius: 3px;
+  background: #3498db;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  border: 1px solid #2980b9;
 `;
 
 export const BrandTitle = styled.div`
   display: flex;
   flex-direction: column;
-  line-height: 1.1;
+  line-height: 1.3;
 `;
 
 export const BrandName = styled.div`
-  font-weight: 800;
-  font-size: 0.95rem;
-  letter-spacing: 0.2px;
+  font-weight: 700;
+  font-size: 17px;
+  color: #ffffff;
+  letter-spacing: 0.3px;
 `;
 
 export const BrandSub = styled.div`
-  font-size: 0.78rem;
-  color: rgba(15, 23, 42, 0.62);
+  font-size: 11px;
+  color: #bdc3c7;
+  font-weight: 400;
 `;
 
 export const TopbarRight = styled.div`
@@ -70,15 +76,15 @@ export const TopbarRight = styled.div`
 export const Search = styled.div`
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.6rem 0.75rem;
-  border-radius: 999px;
-  border: 1px solid rgba(15, 23, 42, 0.1);
-  background: rgba(255, 255, 255, 0.85);
-  min-width: 18rem;
+  gap: 10px;
+  padding: 8px 14px;
+  border-radius: 3px;
+  border: 1px solid #34495e;
+  background: #34495e;
+  min-width: 300px;
 
   @media (max-width: 900px) {
-    min-width: 12rem;
+    min-width: 220px;
   }
 
   @media (max-width: 640px) {
@@ -91,127 +97,239 @@ export const SearchInput = styled.input`
   outline: none;
   background: transparent;
   width: 100%;
-  font-size: 0.9rem;
-  color: #0f172a;
+  font-size: 13px;
+  color: #ffffff;
   &::placeholder {
-    color: rgba(15, 23, 42, 0.45);
+    color: #95a5a6;
   }
 `;
 
 export const Pill = styled.div`
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 0.75rem;
-  border-radius: 999px;
-  border: 1px solid rgba(15, 23, 42, 0.1);
-  background: rgba(255, 255, 255, 0.85);
+  gap: 10px;
+  padding: 6px 12px;
+  border-radius: 3px;
+  border: 1px solid #34495e;
+  background: #34495e;
 `;
 
 export const Avatar = styled.div`
-  width: 2rem;
-  height: 2rem;
-  border-radius: 999px;
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.9), rgba(236, 72, 153, 0.9));
+  width: 30px;
+  height: 30px;
+  border-radius: 3px;
+  background: #3498db;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 13px;
+  border: 1px solid #2980b9;
 `;
 
 export const UserName = styled.div`
-  font-weight: 700;
-  font-size: 0.9rem;
+  font-weight: 500;
+  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  line-height: 1.3;
+`;
+
+export const UserNameText = styled.div`
+  font-weight: 500;
+  font-size: 13px;
+  color: #ffffff;
+`;
+
+export const UserRole = styled.div`
+  font-size: 10px;
+  color: #bdc3c7;
+  font-weight: 400;
 `;
 
 export const Layout = styled.div`
   display: grid;
-  grid-template-columns: 16.5rem 1fr;
-  gap: 1.25rem;
-  padding: 1.25rem;
+  grid-template-columns: 200px 1fr;
+  gap: 0;
+  padding: 0;
 
   @media (max-width: 980px) {
     grid-template-columns: 1fr;
   }
 `;
 
-export const Sidebar = styled(Surface)`
-  padding: 0.75rem;
-  height: fit-content;
+export const Sidebar = styled.div`
+  padding: 0;
+  min-height: calc(100vh - 55px);
   position: sticky;
-  top: 5.25rem;
+  top: 55px;
+  background: #34495e;
+  border-right: 2px solid #2c3e50;
+  overflow-y: auto;
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+
+  &::after {
+    content: "";
+    flex: 1;
+    background: #34495e;
+    min-height: 0;
+  }
 
   @media (max-width: 980px) {
     position: relative;
     top: auto;
+    min-height: auto;
+    border-right: none;
+    border-bottom: 2px solid #2c3e50;
+
+    &::after {
+      display: none;
+    }
   }
 `;
 
 export const NavGroup = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0;
+  flex-shrink: 0;
 `;
 
 export const NavItem = styled.button`
   width: 100%;
   text-align: left;
-  border: 1px solid transparent;
-  background: transparent;
-  padding: 0.75rem 0.75rem;
-  border-radius: 0.75rem;
+  border: none;
+  border-bottom: 1px solid #2c3e50;
+  background: #34495e;
+  padding: 12px 16px;
+  border-radius: 0;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 12px;
   cursor: pointer;
-  color: rgba(15, 23, 42, 0.85);
-  transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+  color: #ecf0f1;
+  transition: background 0.15s ease;
 
   &:hover {
-    background: rgba(99, 102, 241, 0.08);
+    background: #3d566e;
   }
 
   &:active {
-    transform: translateY(1px);
+    background: #2c3e50;
   }
 
   &:focus-visible {
-    outline: none;
-    border-color: rgba(99, 102, 241, 0.5);
-    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.16);
+    outline: 2px solid #3498db;
+    outline-offset: -2px;
   }
 `;
 
 export const NavItemActive = styled(NavItem)`
-  background: rgba(99, 102, 241, 0.12);
-  border-color: rgba(99, 102, 241, 0.25);
-  color: rgba(15, 23, 42, 0.95);
+  background: #2c3e50;
+  border-left: 4px solid #3498db;
+  color: #ffffff;
+  font-weight: 600;
+
+  &:hover {
+    background: #253544;
+  }
 `;
 
 export const NavIcon = styled.div`
-  width: 2rem;
-  height: 2rem;
-  border-radius: 0.65rem;
+  width: 20px;
+  height: 20px;
+  border-radius: 2px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(2, 6, 23, 0.06);
+  background: rgba(255, 255, 255, 0.1);
+  font-size: 12px;
+  flex-shrink: 0;
 `;
 
 export const NavText = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.1rem;
+  gap: 2px;
+  flex: 1;
 `;
 
 export const NavTitle = styled.div`
-  font-weight: 800;
-  font-size: 0.92rem;
+  font-weight: 500;
+  font-size: 13px;
+  color: #ecf0f1;
 `;
 
 export const NavDesc = styled.div`
-  font-size: 0.78rem;
-  color: rgba(15, 23, 42, 0.55);
+  font-size: 10px;
+  color: #95a5a6;
+`;
+
+export const SidebarFooter = styled.div`
+  margin-top: auto;
+  padding: 12px 0;
+  border-top: 2px solid #2c3e50;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+`;
+
+export const SidebarButton = styled.button`
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: #34495e;
+  padding: 12px 16px;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  color: #ecf0f1;
+  transition: background 0.15s ease;
+  font-size: 13px;
+  font-weight: 500;
+
+  &:hover {
+    background: #3d566e;
+  }
+
+  &:active {
+    background: #2c3e50;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #3498db;
+    outline-offset: -2px;
+  }
+`;
+
+export const SidebarButtonDanger = styled(SidebarButton)`
+  color: #e74c3c;
+
+  &:hover {
+    background: #3d566e;
+    color: #c0392b;
+  }
+
+  &:active {
+    background: #2c3e50;
+  }
 `;
 
 export const Main = styled.div`
   min-width: 0;
+  background: #e8e8e8;
+  padding: 24px;
+  padding-bottom: 60px;
+  min-height: calc(100vh - 55px);
+  box-sizing: border-box;
+  overflow-x: auto;
 `;
 
 export const SectionHeader = styled.div`
@@ -219,29 +337,40 @@ export const SectionHeader = styled.div`
   align-items: flex-end;
   justify-content: space-between;
   gap: 1rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: 20px;
+  padding: 18px 24px;
+  border-bottom: 3px solid #bdc3c7;
+  background: #ffffff;
+  border-radius: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `;
 
 export const SectionTitle = styled.div`
-  font-weight: 900;
-  font-size: 1.35rem;
-  letter-spacing: -0.2px;
+  font-weight: 700;
+  font-size: 22px;
+  color: #2c3e50;
+  letter-spacing: 0.2px;
 `;
 
 export const SectionSub = styled.div`
-  margin-top: 0.25rem;
-  font-size: 0.92rem;
-  color: rgba(15, 23, 42, 0.6);
+  margin-top: 6px;
+  font-size: 12px;
+  color: #7f8c8d;
+  font-weight: 400;
 `;
 
 export const Toolbar = styled(Surface)`
-  padding: 0.75rem;
+  padding: 14px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.75rem;
-  margin-bottom: 0.75rem;
+  gap: 12px;
+  margin-bottom: 20px;
   flex-wrap: wrap;
+  background: #ffffff;
+  border: 1px solid #bdc3c7;
+  border-radius: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 `;
 
 export const ToolbarLeft = styled.div`
@@ -265,7 +394,90 @@ export const ToolbarRight = styled.div`
 
 /* 툴바에서 "같은 모양"으로 쓰는 프라이머리 버튼 */
 export const ToolbarPrimaryButton = styled(PrimaryButton)`
-  min-width: 7.25rem;
+  min-width: 100px;
+  background: #3498db;
+  color: white;
+  border: 1px solid #2980b9;
+  border-radius: 3px;
+  padding: 9px 18px;
+  font-weight: 600;
+  font-size: 13px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background: #2980b9;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    transform: translateY(-1px);
+  }
+  
+  &:active {
+    background: #21618c;
+    transform: translateY(0);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  }
+`;
+
+// Admin-specific overrides for traditional admin panel style
+export const AdminTableWrap = styled.div`
+  overflow: auto;
+  background: #ffffff;
+  border: 1px solid #bdc3c7;
+  border-radius: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+`;
+
+export const AdminTable = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+`;
+
+export const AdminThead = styled.thead`
+  background: #ecf0f1;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+`;
+
+export const AdminTh = styled.th`
+  text-align: left;
+  padding: 14px 18px;
+  font-size: 13px;
+  color: #2c3e50;
+  font-weight: 700;
+  border-bottom: 2px solid #bdc3c7;
+  white-space: nowrap;
+  background: #ecf0f1;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 12px;
+`;
+
+export const AdminTbody = styled.tbody``;
+
+export const AdminTr = styled.tr`
+  border-bottom: 1px solid #ecf0f1;
+  background: #ffffff;
+
+  &:nth-child(even) {
+    background: #f8f9fa;
+  }
+
+  &:hover {
+    background: #e8f4f8;
+  }
+`;
+
+export const AdminTd = styled.td`
+  padding: 14px 18px;
+  border-bottom: 1px solid #ecf0f1;
+  font-size: 13px;
+  color: #2c3e50;
+  vertical-align: middle;
+  max-width: 22rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 // Re-export common styles used in existing admin components to avoid breaking them immediately

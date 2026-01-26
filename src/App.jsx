@@ -15,7 +15,6 @@ import TravelSection from "./components/admin/features/travel/TravelSection";
 import NoticesSection from "./components/admin/features/notices/NoticesSection";
 import DiariesSection from "./components/admin/features/diaries/DiariesSection";
 import CommentsSection from "./components/admin/features/comments/CommentsSection";
-import AdminPage from "./components/admin/AdminPage";
 import MyPage from "./components/my/myPage";
 import ProtectedRoute from "./utils/ProtectedURL";
 import "./App.css";
