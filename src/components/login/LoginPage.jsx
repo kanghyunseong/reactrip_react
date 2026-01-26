@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { axiosPublic } from "../../api/api.js";
 import { imgTimoSternIUBgeNeyVy8Unsplash1, imgLogoRemovebgPreview1 } from "../../constants/constants";
 import {
   LoginPageContainer,
@@ -30,12 +31,52 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const [memberId, setMemberId] = useState("");
   const [password, setPassword] = useState("");
+  const [msg, setMsg] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // TODO: 로그인 로직 구현
-    console.log("Login:", { memberId, password, rememberMe });
+    const regexpId = /^[a-zA-Z0-9]{6,20}$/;
+    const regexpPwd = /^[a-zA-Z0-9]{5,20}$/;
+
+    if (!regexpId.test(memberId)) {
+      setMsg("아이디는 영어 숫자만 가능하고 6~20자 사이만 가능합니다");
+      return;
+    } else if (!regexpPwd.test(password)) {
+      setMsg("비밀번호는 영어 숫자만 가능하고 5~20자 사이만 가능합니다");
+      return;
+    } else {
+      setMsg("");
+    }
+
+    try {
+        const response = await axiosPublic.post("/api/auth/login", {
+            memberId,
+            memberPwd: password,
+        });
+
+
+        // response.data가 바로 토큰 객체
+        const loginData = response.data;
+        
+        
+        if (loginData) {
+          
+          if (typeof loginData === 'object') {
+              localStorage.setItem('accessToken', loginData.accessToken);
+              localStorage.setItem('refreshToken', loginData.refreshToken);
+              localStorage.setItem('memberId', loginData.userId);
+              
+          }
+          
+          alert('로그인 성공');
+          navigate('/');
+        } else {
+            alert('로그인 응답에 토큰이 없습니다.');
+        }
+    } catch (error) {
+        alert(error.response?.data?.message || '로그인 실패');
+    }
   };
 
   const handleBack = () => {
@@ -91,6 +132,8 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </InputField>
+
+            {msg && <div style={{ color: 'red', fontSize: '14px' }}>{msg}</div>}
 
             <LoginButton type="submit">
               Welcome to ReacTrip

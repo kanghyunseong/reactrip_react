@@ -8,6 +8,7 @@ import ContactPage from "./components/contact/ContactPage";
 import LoginPage from "./components/login/LoginPage";
 import SignUpPage from "./components/signup/SignUpPage";
 import AdminPage from "./components/admin/AdminPage";
+import MyPage from "./components/my/myPage";
 // import ProtectedRoute from "./utils/ProtectedURL"; // 개발 단계 임시 주석 처리
 import "./App.css";
 
@@ -22,6 +23,7 @@ function App() {
       <Route path="/contact" element={<ContactPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignUpPage />} />
+      <Route path="/mypage" element={<MyPage />} />
       {/* 개발 단계: 권한 체크 임시 비활성화 */}
       <Route path="/admin" element={<AdminPage />} />
       {/* 프로덕션 배포 시 아래 코드로 변경
