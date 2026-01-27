@@ -19,13 +19,13 @@ const DiaryList = () => {
   const navigate = useNavigate();
 
   const handleWrite = () => {
-  // const token = localStorage.getItem("accessToken");
+  const token = localStorage.getItem("accessToken");
 
-  //   if (!token) {
-  //     alert("로그인 후 이용해주세요.");
-  //     navigate("/login");
-  //     return;
-  //   }
+    if (!token) {
+      alert("로그인 후 이용해주세요.");
+      navigate("/login");
+      return;
+    }
 
      navigate("/diarys/insert");
    };
