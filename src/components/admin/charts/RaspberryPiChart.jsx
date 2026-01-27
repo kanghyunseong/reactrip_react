@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ChartContainer, ChartTitle, ChartControls, ChevronButton, DotsContainer, DataDisplay, DataItem, DataLabel, DataValue } from "./RaspberryPiChart.styles";
 import { imgChevronLeft, imgChevronRight, imgDots } from "../../../constants/constants";
 
-export default function RaspberryPiChart() {
+const RaspberryPiChart = () => {
   const [realTimeData, setRealTimeData] = useState({
     paris: 0,
     bangkok: 0,
@@ -80,4 +80,6 @@ export default function RaspberryPiChart() {
       </DotsContainer>
     </ChartContainer>
   );
-}
+};
+
+export default RaspberryPiChart;

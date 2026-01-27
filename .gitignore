@@ -21,6 +21,12 @@ dist-ssr
 .env.production.local
 .env*.local
 
+config.js
+*.config.js
+<<<<<<< HEAD
+
+=======
+>>>>>>> 78383cf (feat: 카카오맵 기능 구현)
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

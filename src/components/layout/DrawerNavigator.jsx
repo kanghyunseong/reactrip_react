@@ -13,6 +13,8 @@ import {
 export default function DrawerNavigator({ isOpen, onClose }) {
   const navigate = useNavigate();
   const isLoggedIn = localStorage.getItem("accessToken") !== null;
+  const role = localStorage.getItem("role");
+  const isAdmin = String(role || "").toUpperCase().includes("ADMIN");
 
   const handleMenuClick = (path) => {
     onClose();
@@ -51,6 +53,9 @@ export default function DrawerNavigator({ isOpen, onClose }) {
           <MenuDivider />
           {isLoggedIn ? (
             <>
+              {isAdmin ? (
+                <MenuItem onClick={() => handleMenuClick("/admin/dashboard")}>관리자 페이지</MenuItem>
+              ) : null}
               <MenuItem onClick={() => handleMenuClick("/mypage")}>마이페이지</MenuItem>
               <MenuItem onClick={handleLogout}>로그아웃</MenuItem> 
             </>

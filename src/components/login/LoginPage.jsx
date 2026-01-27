@@ -65,6 +65,14 @@ export default function LoginPage() {
           if (typeof loginData === 'object') {
               localStorage.setItem('accessToken', loginData.accessToken);
               localStorage.setItem('refreshToken', loginData.refreshToken);
+              // AuthContext / ProtectedRoute / DrawerNavigator에서 사용하는 키들
+              if (loginData.userNo != null) localStorage.setItem('userNo', String(loginData.userNo));
+              if (loginData.userId != null) localStorage.setItem('userId', String(loginData.userId));
+              if (loginData.role != null) localStorage.setItem('role', String(loginData.role));
+              if (loginData.email != null) localStorage.setItem('email', String(loginData.email));
+              if (loginData.phone != null) localStorage.setItem('phone', String(loginData.phone));
+              if (loginData.birthDay != null) localStorage.setItem('birthDay', String(loginData.birthDay));
+              // 기존 코드에서 쓰던 키도 유지 (호환)
               localStorage.setItem('memberId', loginData.userId);
               
           }

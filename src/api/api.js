@@ -15,6 +15,7 @@ instance.interceptors.request.use(
       console.warn("토큰 없음:", config.url);
     }
     delete config.headers.noAuth;
+    
     console.log("API 요청:", config.method?.toUpperCase(), config.url);
     return config;
   },
@@ -93,6 +94,16 @@ const api = {
       });
       headers["Content-Type"] = "multipart/form-data";
     }
+
+    return instance.put(url, payload, { ...config, headers }).then(wrap);
+  },
+  delete: (url, pk, config = {}) => {
+    const finalUrl = pk ? `${url}/${pk}` : url;
+    if (config.data) {
+      return instance.delete(finalUrl, { data: config.data, ...config }).then(wrap);
+    }
+    return instance.delete(finalUrl, config).then(wrap);
+  },
     return instance.put(url, payload, { ...config, headers }).then(wrap);
   },
   delete: (url, pk, config = {}) =>
@@ -113,6 +124,8 @@ export const axiosAuth = {
   putJson: (url, obj) => api.put(url, obj),
   delete: (url, pk) => api.delete(url, pk),
   deleteJson: (url) => api.delete(url),
+  // DELETE 요청에 body가 필요한 경우
+  deleteWithBody: (url, body) => api.delete(url, undefined, { data: body }),
 };
 export const axiosPublic = {
   post: (url, data) => api.post(url, data, { headers: { noAuth: true } }),

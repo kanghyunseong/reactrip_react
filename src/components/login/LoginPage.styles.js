@@ -34,22 +34,41 @@ export const BackgroundImageContainer = styled.div`
     pointer-events: none;
   }
   
+  @media (max-width: 1600px) {
+    width: 62%;
+    max-width: 62%;
+  }
+  
   @media (max-width: 1400px) {
-    width: 60%;
-    max-width: 60%;
-    height: 100%;
+    width: 58%;
+    max-width: 58%;
+  }
+  
+  @media (max-width: 1200px) {
+    width: 52%;
+    max-width: 52%;
   }
   
   @media (max-width: 1024px) {
-    width: 55%;
-    max-width: 55%;
-    height: 100%;
+    width: 50%;
+    max-width: 50%;
+  }
+  
+  @media (max-width: 900px) {
+    width: 45%;
+    max-width: 45%;
   }
   
   @media (max-width: 768px) {
     width: 100%;
     max-width: 100%;
-    height: 44vh;
+    height: 40vh;
+    min-height: 280px;
+  }
+  
+  @media (max-width: 480px) {
+    height: 35vh;
+    min-height: 240px;
   }
 `;
 
@@ -71,14 +90,34 @@ export const LeftTextContainer = styled.div`
   top: 15.625rem;
   z-index: 2;
 
+  @media (max-width: 1400px) {
+    left: 10rem;
+    top: 14rem;
+  }
+
+  @media (max-width: 1200px) {
+    left: 7.5rem;
+    top: 13rem;
+  }
+
   @media (max-width: 1024px) {
-    left: 9.375rem;
-    top: 12.5rem;
+    left: 5rem;
+    top: 12rem;
+  }
+
+  @media (max-width: 900px) {
+    left: 3.5rem;
+    top: 11rem;
   }
 
   @media (max-width: 768px) {
     left: 1.25rem;
-    top: 9.375rem;
+    top: 8rem;
+  }
+
+  @media (max-width: 480px) {
+    left: 1rem;
+    top: 6rem;
   }
 `;
 
@@ -92,6 +131,21 @@ export const TitleText = styled.p`
   text-transform: capitalize;
   margin: 0 0 0.3125rem 0;
   text-shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
+
+  @media (max-width: 1024px) {
+    font-size: 1.25rem;
+    line-height: 1.4rem;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1.125rem;
+    line-height: 1.3rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1rem;
+    line-height: 1.25rem;
+  }
 `;
 
 export const SubtitleText = styled.p`
@@ -103,6 +157,21 @@ export const SubtitleText = styled.p`
   text-transform: capitalize;
   margin: 0;
   text-shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
+
+  @media (max-width: 1024px) {
+    font-size: 1.25rem;
+    line-height: 1.4rem;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1.125rem;
+    line-height: 1.3rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1rem;
+    line-height: 1.25rem;
+  }
 `;
 
 export const RightContainer = styled.div`
@@ -127,15 +196,37 @@ export const RightContainer = styled.div`
   overflow-y: auto;
   scrollbar-width: thin; /* Firefox */
 
+  @media (max-width: 1600px) {
+    width: 36rem;
+    max-width: calc(100vw - 11rem);
+    padding: 2.25rem 2rem;
+  }
+
   @media (max-width: 1400px) {
     right: 1.5rem;
+    width: 34rem;
     max-width: calc(100vw - 9.375rem);
+    padding: 2rem 1.875rem;
+  }
+
+  @media (max-width: 1200px) {
+    right: 1.25rem;
+    width: 32rem;
+    max-width: calc(100vw - 8rem);
+    padding: 2rem 1.75rem;
   }
 
   @media (max-width: 1024px) {
     right: 1.5rem;
     width: 31.25rem;
     max-width: calc(100vw - 9.375rem);
+    padding: 2rem 1.75rem;
+  }
+
+  @media (max-width: 900px) {
+    width: 28rem;
+    max-width: calc(100vw - 7rem);
+    padding: 1.875rem 1.5rem;
   }
 
   @media (max-width: 768px) {
@@ -151,6 +242,12 @@ export const RightContainer = styled.div`
     overflow: visible;
     padding: 2rem 1.25rem 2.25rem;
   }
+
+  @media (max-width: 480px) {
+    padding: 1.75rem 1rem 2rem;
+    margin-top: -1.25rem;
+    border-radius: 1.25rem 1.25rem 0 0;
+  }
 `;
 
 export const LogoContainer = styled.div`
@@ -158,6 +255,18 @@ export const LogoContainer = styled.div`
   height: 5.125rem;
   width: 13rem;
   margin-bottom: 0.875rem;
+
+  @media (max-width: 768px) {
+    height: 4.5rem;
+    width: 11.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  @media (max-width: 480px) {
+    height: 4rem;
+    width: 10rem;
+    margin-bottom: 0.625rem;
+  }
 `;
 
 export const LogoImg = styled.img`
@@ -182,23 +291,36 @@ export const LogoText = styled.p`
   text-align: center;
   margin: 0;
   width: 12.1875rem;
+
+  @media (max-width: 768px) {
+    font-size: 2.25rem;
+    height: 3.5rem;
+    width: 11rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 2rem;
+    height: 3rem;
+    width: 10rem;
+  }
 `;
 
 export const FormContainer = styled.div`
   margin-top: 1.75rem;
   width: 100%;
   max-width: 26.5rem;
-  max-width: 100%;
 
   @media (max-width: 1024px) {
-    width: 100%;
-    max-width: 31.25rem;
+    max-width: 100%;
   }
 
   @media (max-width: 768px) {
-    width: 100%;
-    max-width: calc(100vw - 2.5rem);
-    padding: 0 1.25rem;
+    max-width: 100%;
+    padding: 0;
+  }
+
+  @media (max-width: 480px) {
+    margin-top: 1.5rem;
   }
 `;
 
@@ -206,6 +328,10 @@ export const FormBox = styled.form`
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
+
+  @media (max-width: 480px) {
+    gap: 1rem;
+  }
 `;
 
 export const InputField = styled.div`
@@ -231,6 +357,11 @@ export const Input = styled.input`
   outline: none;
   transition: border-color 0.25s, box-shadow 0.25s;
 
+  @media (max-width: 480px) {
+    padding: 0.625rem 0.875rem;
+    font-size: 0.9375rem;
+  }
+
   &:focus {
     border-color: #4a90e2;
     box-shadow: 0 0 0 4px rgba(74, 144, 226, 0.18);
@@ -254,6 +385,12 @@ export const LoginButton = styled.button`
   cursor: pointer;
   transition: transform 0.15s, filter 0.2s;
   margin-top: 0.625rem;
+
+  @media (max-width: 480px) {
+    padding: 0.75rem;
+    font-size: 0.9375rem;
+    border-radius: 0.625rem;
+  }
 
   &:hover {
     filter: brightness(1.03);
@@ -296,9 +433,16 @@ export const LinksContainer = styled.div`
     color: inherit;
   }
 
+  @media (max-width: 768px) {
+    gap: 12px;
+    margin-top: 16px;
+  }
+
   @media (max-width: 480px) {
     flex-wrap: wrap;
     justify-content: center;
+    gap: 10px;
+    margin-top: 14px;
   }
 `;
 
@@ -309,6 +453,10 @@ export const LinkText = styled.span`
   cursor: pointer;
   text-decoration: none;
   transition: color 0.3s;
+
+  @media (max-width: 480px) {
+    font-size: 13px;
+  }
 
   &:hover {
     color: #357abd;
@@ -332,6 +480,20 @@ export const BackButton = styled.button`
   cursor: pointer;
   z-index: 1000;
   transition: all 0.3s;
+
+  @media (max-width: 768px) {
+    top: 12px;
+    left: 12px;
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  @media (max-width: 480px) {
+    top: 10px;
+    left: 10px;
+    padding: 6px 12px;
+    font-size: 13px;
+  }
 
   &:hover {
     background-color: rgba(255, 255, 255, 0.2);
