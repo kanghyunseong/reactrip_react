@@ -17,12 +17,10 @@ instance.interceptors.request.use(
     delete config.headers.noAuth;
     
     console.log("API 요청:", config.method?.toUpperCase(), config.url);
-    
     return config;
   },
   (_error) => Promise.reject(_error)
 );
-
 // 응답 인터셉터 - 401 에러 처리
 instance.interceptors.response.use(
   (response) => response,
@@ -50,7 +48,6 @@ instance.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
 /**
  * 헬퍼 함수
  * unwrap: ResponseData<T> 구조에서 T(실제 데이터)만 추출
@@ -106,8 +103,8 @@ const api = {
     }
     return instance.delete(finalUrl, config).then(wrap);
   },
-
 };
+
 // --------------------------------------------------------
 // 실제 Export 영역
 // --------------------------------------------------------
