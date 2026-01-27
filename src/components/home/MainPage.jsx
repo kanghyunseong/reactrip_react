@@ -16,7 +16,27 @@ export default function MainPage() {
     const container = containerRef.current;
     if (!container) return;
 
-    // 스크롤 효과는 제거했지만, 헤더 하이라이트(activeSection)는 유지(비용 최소화)
+    const updateScrollEffects = (currentScroll, windowHeight) => {
+      const container = containerRef.current;
+      if (!container) return;
+
+      const snapSections = container.querySelectorAll("[data-snap-section]");
+      snapSections.forEach((el) => {
+        const sectionTop = el.offsetTop;
+        const sectionCenter = sectionTop + el.offsetHeight / 2;
+        const viewportCenter = currentScroll + windowHeight / 2;
+        const delta = Math.abs(sectionCenter - viewportCenter);
+
+        // 0~1 정규화 (가까울수록 1)
+        const t = Math.min(1, delta / (windowHeight * 0.9));
+        const raw = 1 - t;
+
+        // easeOutCubic (부드럽지만 티 나게)
+        const active = 1 - Math.pow(1 - raw, 3);
+        el.style.setProperty("--snap-active", active.toFixed(4));
+      });
+    };
+
     const handleScroll = () => {
       const currentScroll = container.scrollTop;
       const sections = ["home", "about"];
@@ -38,6 +58,11 @@ export default function MainPage() {
           break;
         }
       }
+
+        updateScrollEffects(currentScroll, windowHeight);
+        
+        ticking = false;
+      });
     };
 
     container.addEventListener("scroll", handleScroll, { passive: true });

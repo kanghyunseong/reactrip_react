@@ -119,7 +119,7 @@ export default function Header({ activeSection = "home", setActiveSection }) {
       <NavLink 
         style={{ left: "calc(60% - 30px)" }} 
         data-node-id="58:666"
-        onClick={() => handleNavigation("/diary")}
+        onClick={() => handleNavigation("/diarys")}
       >
         DIARY
       </NavLink>
