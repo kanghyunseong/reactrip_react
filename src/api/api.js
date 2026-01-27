@@ -94,7 +94,6 @@ const api = {
       });
       headers["Content-Type"] = "multipart/form-data";
     }
-
     return instance.put(url, payload, { ...config, headers }).then(wrap);
   },
   delete: (url, pk, config = {}) => {
@@ -104,11 +103,8 @@ const api = {
     }
     return instance.delete(finalUrl, config).then(wrap);
   },
-    return instance.put(url, payload, { ...config, headers }).then(wrap);
-  },
-  delete: (url, pk, config = {}) =>
-    instance.delete(pk ? `${url}/${pk}` : url, config).then(wrap),
 };
+
 // --------------------------------------------------------
 // 실제 Export 영역
 // --------------------------------------------------------
