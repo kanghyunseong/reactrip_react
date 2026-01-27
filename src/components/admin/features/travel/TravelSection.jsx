@@ -116,11 +116,11 @@ const TravelSection = () => {
   const onEdit = async (form, file) => {
     try {
       const accessToken = localStorage.getItem("accessToken");
-      // if (!accessToken) {
-      //   toast.error("로그인이 필요합니다. 로그인 후 다시 시도해주세요.");
-      //   window.location.href = "/login";
-      //   return;
-      // }
+      if (!accessToken) {
+        toast.error("로그인이 필요합니다. 로그인 후 다시 시도해주세요.");
+        window.location.href = "/login";
+        return;
+      }
 
       const payload = { ...form };
       if (formMode === "edit" && !file) delete payload.travelImage;
