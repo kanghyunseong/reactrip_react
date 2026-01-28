@@ -11,8 +11,8 @@ const DiaryInsert = () => {
   const [isDragOver, setIsDragOver] = useState(false);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [region, setRegion] = useState("");
-  const [theme, setTheme] = useState("");
+  const [region, setRegion] = useState(0);
+  const [theme, setTheme] = useState(0);
   const navigate = useNavigate();
 
   const handleFiles = (files) => {
@@ -79,17 +79,17 @@ const DiaryInsert = () => {
     const imageUrls = imgRes.data; // ✅ S3 URL 리스트
 
     // 글 등록
-    const diaryRes = await axiosPublic.post("/diarys", {
-      title,
-      content,
-      region,
-      theme
+    const diaryRes = await axiosPublic.post("/api/diarys/insert", {
+      diaryTitle: title,
+      diaryContent: content,
+      regionNo: Number(region),
+      themeNo: Number(theme)
     });
 
     const diaryNo = diaryRes.data.diaryNo;
 
     // 이미지 DB 저장
-    await axiosPublic.post("/diarys/upload/images", {
+    await axiosPublic.post("/upload/images", {
       diaryNo,
       imageUrls
     });
@@ -134,32 +134,32 @@ const DiaryInsert = () => {
           <div className="select-row">
             <select value={region} onChange={(e) => setRegion(e.target.value)}>
               <option value="">지  역</option>
-              <option value="서울">서  울</option>
-              <option value="인천">인  천</option>
-              <option value="경기">경  기</option>
-              <option value="세종">세  종</option>
-              <option value="강원도">강원도</option>
-              <option value="제주도">제주도</option>
-              <option value="충청남도">충청남도</option>
-              <option value="충청북도">충청북도</option>
-              <option value="전라남도">전라남도</option>
-              <option value="전라북도">전라북도</option>
-              <option value="경상남도">경상남도</option>
-              <option value="경상북도">경상북도</option>
+              <option value="1">서  울</option>
+              <option value="2">인  천</option>
+              <option value="3">경  기</option>
+              <option value="8">세  종</option>
+              <option value="32">강원도</option>
+              <option value="39">제주도</option>
+              <option value="34">충청남도</option>
+              <option value="33">충청북도</option>
+              <option value="38">전라남도</option>
+              <option value="37">전라북도</option>
+              <option value="36">경상남도</option>
+              <option value="35">경상북도</option>
             </select>
 
             <select value={theme} onChange={(e) => setTheme(e.target.value)}>
               <option value="">테    마</option>
-              <option value="호캉스">호 캉 스</option>
-              <option value="전통 문화">전통 문화</option>
-              <option value="액티 비티">액티 비티</option>
-              <option value="자연/풍경">자연/풍경</option>
-              <option value="바다/해변">바다/해변</option>
-              <option value="캠핑/차박">캠핑/차박</option>
-              <option value="전시/공연">전시/공연</option>
-              <option value="계절 꽃놀이">계절 꽃놀이</option>
-              <option value="식도락/맛집">식도락/맛집</option>
-              <option value="기타">기타</option>
+              <option value="10">호 캉 스</option>
+              <option value="2">전통 문화</option>
+              <option value="3">액티 비티</option>
+              <option value="4">자연/풍경</option>
+              <option value="5">바다/해변</option>
+              <option value="10">캠핑/차박</option>
+              <option value="7">전시/공연</option>
+              <option value="4">계절 꽃놀이</option>
+              <option value="9">식도락/맛집</option>
+              <option value="10">기타</option>
             </select>
           </div>
         </div>
