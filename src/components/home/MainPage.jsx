@@ -37,32 +37,39 @@ export default function MainPage() {
       });
     };
 
+    let ticking = false;
+    
     const handleScroll = () => {
-      const currentScroll = container.scrollTop;
-      const sections = ["home", "about"];
-      const windowHeight = window.innerHeight;
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const currentScroll = container.scrollTop;
+          const sections = ["home", "about"];
+          const windowHeight = window.innerHeight;
 
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = document.getElementById(sections[i]);
-        if (!section) continue;
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.offsetHeight;
-        if (
-          currentScroll >= sectionTop - windowHeight / 2 &&
-          currentScroll < sectionTop + sectionHeight - windowHeight / 2
-        ) {
-          if (activeSectionRef.current !== sections[i]) {
-            activeSectionRef.current = sections[i];
-            setActiveSection(sections[i]);
+          for (let i = sections.length - 1; i >= 0; i--) {
+            const section = document.getElementById(sections[i]);
+            if (!section) continue;
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            if (
+              currentScroll >= sectionTop - windowHeight / 2 &&
+              currentScroll < sectionTop + sectionHeight - windowHeight / 2
+            ) {
+              if (activeSectionRef.current !== sections[i]) {
+                activeSectionRef.current = sections[i];
+                setActiveSection(sections[i]);
+              }
+              break;
+            }
           }
-          break;
-        }
-      }
 
-        updateScrollEffects(currentScroll, windowHeight);
+          updateScrollEffects(currentScroll, windowHeight);
+          
+          ticking = false;
+        });
         
-        ticking = false;
-      });
+        ticking = true;
+      }
     };
 
     container.addEventListener("scroll", handleScroll, { passive: true });

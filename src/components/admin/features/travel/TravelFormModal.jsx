@@ -16,6 +16,7 @@ import {
 } from "../../ui/AdminUI.styles";
 import { toast } from "react-toastify";
 import { getImageUrl } from "../../../../utils/imageUrl";
+import { THEME_OPTIONS } from "../../../../constants/constants";
 
 const empty = {
   travelNo: "",
@@ -25,6 +26,7 @@ const empty = {
   mapY: "",
   travelStatus: "N",
   regionNo: "",
+  themeNo: "",
   travelContent: "",
 };
 
@@ -70,7 +72,13 @@ const TravelFormModal = ({ open, mode = "create", initialValue, onClose, onSubmi
 
   useEffect(() => {
     if (!open) return;
-    setForm({ ...empty, ...(initialValue || {}) });
+    const from = initialValue || {};
+    setForm({
+      ...empty,
+      ...from,
+      regionNo: from.regionNo != null ? String(from.regionNo) : "",
+      themeNo: from.themeNo != null ? String(from.themeNo) : "",
+    });
     setFile(null);
     setErrors({});
   }, [open, initialValue]);
@@ -187,6 +195,18 @@ const TravelFormModal = ({ open, mode = "create", initialValue, onClose, onSubmi
               ))}
             </Select>
             {errors.regionNo ? <Help $danger>{errors.regionNo}</Help> : null}
+          </Field>
+
+          <Field>
+            <Label>테마</Label>
+            <Select
+              value={form.themeNo ?? ""}
+              onChange={(e) => setForm((p) => ({ ...p, themeNo: e.target.value || undefined }))}
+            >
+              {THEME_OPTIONS.map((opt) => (
+                <option key={opt.value} value={opt.value}>{opt.label}</option>
+              ))}
+            </Select>
           </Field>
 
           <Field style={{ gridColumn: "1 / -1" }}>

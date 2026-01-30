@@ -1,14 +1,12 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { imgLogoRemovebgPreview1, imgGroup } from "../../constants/constants";
+import { imgLogoRemovebgPreview1 } from "../../constants/constants";
 import HamburgerMenu from "./HamburgerMenu";
 import DrawerNavigator from "./DrawerNavigator";
 import {
   NavContainer,
   LogoContainer,
   LogoImg,
-  GroupContainer,
-  GroupImg,
   NavText,
   NavLink,
   RouletteText
@@ -73,11 +71,6 @@ export default function Header({ activeSection = "home", setActiveSection }) {
           onClick={handleLogoClick}
         >
           <LogoImg alt="ReacTrip Logo" src={imgLogoRemovebgPreview1} onError={(e) => { e.target.style.display = 'none'; }} />
-          <GroupContainer data-name="Group" data-node-id="2:176">
-            <div style={{ position: "absolute", inset: "-7.5% -6.25%" }}>
-              <GroupImg alt="" src={imgGroup} />
-            </div>
-          </GroupContainer>
         </LogoContainer>
         <NavText 
           data-node-id="2:139"
