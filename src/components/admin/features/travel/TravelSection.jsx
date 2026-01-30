@@ -9,6 +9,7 @@ import { LoadingOverlay, Spinner, LoadingText } from "../../ui/AdminUI.styles";
 import { axiosAuth } from "../../../../api/api";
 import { toast } from "react-toastify";
 import { getImageUrl } from "../../../../utils/imageUrl";
+import { REGION_OPTIONS } from "../../../../constants/constants";
 
 const TravelSection = () => {
   const [keyword, setKeyword] = useState("");
@@ -124,6 +125,7 @@ const TravelSection = () => {
 
       const payload = { ...form };
       if (formMode === "edit" && !file) delete payload.travelImage;
+      if (payload.themeNo === "" || payload.themeNo == null) delete payload.themeNo;
       
       const res = formMode === "edit" 
         ? await axiosAuth.put(`/api/admin/travel/${form.travelNo}`, payload, file)
@@ -154,7 +156,8 @@ const TravelSection = () => {
     },
     { key: "travelNo", label: "번호", thStyle: { width: 90 } },
     { key: "travelName", label: "여행지명", thStyle: { width: 220 } },
-    { key: "regionName", label: "지역", render: (r) => r?.regionName || r?.regionNo || "-" },
+    { key: "regionName", label: "지역", render: (r) => r?.regionName || REGION_OPTIONS.find((o) => o.value === String(r?.regionNo))?.label || "-" },
+    { key: "themeNames", label: "테마", thStyle: { width: 160 }, render: (r) => r?.themeNames || "-" },
     {
       key: "travelStatus",
       label: "상태",
