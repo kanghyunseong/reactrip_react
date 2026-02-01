@@ -38,6 +38,7 @@ const DiaryInsert = () => {
 };
 
   const handleSubmit = async () => {
+    console.log("call start !!");
   if (title.trim() === "") {
     alert("제목을 입력해주세요.");
     return;
@@ -48,43 +49,52 @@ const DiaryInsert = () => {
     return;
   }
 
-   if (region.trim() === "") {
-    alert("지역을 선택해주세요.");
-    return;
-  }
+  //  if (region.trim() === "") {
+  //   alert("지역을 선택해주세요.");
+  //   return;
+  // }
 
-     if (theme.trim() === "") {
-    alert("테마를 선택해주세요.");
-    return;
-  }
-
+  //    if (theme.trim() === "") {
+  //   alert("테마를 선택해주세요.");
+  //   return;
+  // }
+  console.log("이미지 갯수 : " + imageFiles.length);
+  
     if (imageFiles.length === 0) {
-    alert("이미지를 최소 1장 등록해주세요.");
+    alert("이미지를 1만 등록해주세요.");
     return;
     }
 
     try {
+      console.log("업로드 !!");
     // 이미지 업로드
-    const formData = new FormData();
+    const data = new FormData();
     imageFiles.forEach(file => {
-      formData.append("images", file);
+      console.log("file 정보 : "+ {
+        name: file.name,
+        size: file.size,
+        type: file.type,
+        lastModified: file.lastModified,
+      });
+      data.append("file", file);
     });
 
+    console.log("업로드2 ---> " + JSON.stringify(data.file));
     const imgRes = await axiosPublic.post(
       "/api/diarys/upload/diary-image",
-      formData,
-      { headers: { "Content-Type": "multipart/form-data" } }
+      data
     );
-
+  console.log("업로드3 !!  --> " + imgRes);
     const imageUrls = imgRes.data; // ✅ S3 URL 리스트
-
-    // 글 등록
+    console.log("이미지 결과 url -->" + imageUrls);
+    // 글 등록 
     const diaryRes = await axiosPublic.post("/api/diarys/insert", {
       diaryTitle: title,
       diaryContent: content,
       regionNo: Number(region),
       themeNo: Number(theme)
-    });
+    }
+  );
 
     const diaryNo = diaryRes.data.diaryNo;
 
