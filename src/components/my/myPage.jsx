@@ -75,10 +75,12 @@ const MyPage = () => {
         }
 
         try {
-            const response = await axiosAuth.put('/api/members/mypage/name', {
-                memberName: editName
-            });
-            
+            // const response = await axiosAuth.put('/api/members/mypage/name', {
+            //     memberName: editName
+            // });
+            const response = await axiosAuth.put(
+                `/api/members/mypage/name?memberName=${encodeURIComponent(editName)}`
+            );
             alert(response.message || '이름이 변경되었습니다.');
             setIsEditingName(false);
             fetchUserInfo();
@@ -107,10 +109,12 @@ const MyPage = () => {
         }
 
         try {
-            const response = await axiosAuth.put('/api/members/mypage/email', {
-                email: editEmail
-            });
-            
+            // const response = await axiosAuth.put('/api/members/mypage/email', {
+            //     email: editEmail
+            // });
+            const response = await axiosAuth.put(
+                `/api/members/mypage/email?email=${encodeURIComponent(editEmail)}`
+            );
             alert(response.message || '이메일이 변경되었습니다.');
             setIsEditingEmail(false);
             fetchUserInfo();
@@ -139,10 +143,13 @@ const MyPage = () => {
         }
 
         try {
-            const response = await axiosAuth.put('/api/members/mypage/phone', {
-                phone: editPhone
-            });
-            
+            // const response = await axiosAuth.put('/api/members/mypage/phone', {
+            //     phone: editPhone
+            // });
+            const response = await axiosAuth.put(
+                `/api/members/mypage/phone?phone=${encodeURIComponent(editPhone)}`
+            );
+
             alert(response.message || '전화번호가 변경되었습니다.');
             setIsEditingPhone(false);
             fetchUserInfo();
@@ -171,10 +178,10 @@ const MyPage = () => {
         }
 
         try {
-            const response = await axiosAuth.put('/api/members/mypage/birthday', {
-                birthDay: editBirthday
-            });
-            
+
+            const response = await axiosAuth.put(
+                `/api/members/mypage/birthday?birthday=${encodeURIComponent(editBirthday)}`
+            );
             alert(response.message || '생년월일이 변경되었습니다.');
             setIsEditingBirthday(false);
             fetchUserInfo();
