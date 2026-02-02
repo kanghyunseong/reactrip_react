@@ -60,10 +60,8 @@ export default function TourListPage() {
       const response = await axiosPublic.getList(`/api/places?${params.toString()}`);
 
       // 응답 데이터 처리
-      if (response?.data) {
-        setDestinations(response.data);
-        setCurrentPage(page);
-
+      if (Array.isArray(response)) {
+        setDestinations(response);
         // TODO: 백엔드에서 pagination 정보를 받아오면 아래 주석 해제하고 사용
         // if (response.pageInfo) {
         //   setTotalPages(response.pageInfo.maxPage || 1);
@@ -71,6 +69,7 @@ export default function TourListPage() {
       } else {
         setDestinations([]);
       }
+
     } catch (err) {
       console.error("여행지 목록 조회 실패:", err);
       setError("여행지 목록을 불러오는데 실패했습니다.");
