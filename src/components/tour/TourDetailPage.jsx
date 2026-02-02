@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Header from "../layout/Header";
 import { axiosPublic } from "../../api/api";
+import { loadKakaoSDK, isKakaoSDKReady } from "../../utils/kakaoMaps";
 import {
   PageContainer,
   ContentWrapper,
@@ -67,45 +68,57 @@ export default function TourDetailPage() {
   useEffect(() => {
     if (!destination || !mapRef.current) return;
 
-    // TODO: 카카오 지도 API 사용
-    // 카카오 지도 스크립트가 로드되어 있어야 함
-    // config.js에 KAKAO_APP_KEY가 설정되어 있음
-    
-    // 예시 코드 (kakao 객체가 있을 때만 실행)
-    if (window.kakao && window.kakao.maps) {
-      const { kakao } = window;
-      
-      const latitude = destination.location?.latitude || destination.mapY;
-      const longitude = destination.location?.longitude || destination.mapX;
+    const latitude = destination.location?.latitude || destination.mapY;
+    const longitude = destination.location?.longitude || destination.mapX;
 
-      if (!latitude || !longitude) {
-        console.warn("⚠️ 위치 정보 없음");
-        return;
-      }
-
-      const container = mapRef.current;
-      const options = {
-        center: new kakao.maps.LatLng(latitude, longitude),
-        level: 3, // 확대 레벨
-      };
-
-      const map = new kakao.maps.Map(container, options);
-
-      // 마커 표시
-      const markerPosition = new kakao.maps.LatLng(latitude, longitude);
-      const marker = new kakao.maps.Marker({
-        position: markerPosition,
-      });
-      marker.setMap(map);
-
-      // 인포윈도우 표시
-      const infowindow = new kakao.maps.InfoWindow({
-        content: `<div style="padding:5px;font-size:12px;">${destination.travelName}</div>`,
-      });
-      infowindow.open(map, marker);
-    } else {
-      console.warn("⚠️ 카카오 지도 스크립트 로드 안 됨");
+    if (!latitude || !longitude) {
+      console.warn("⚠️ 위치 정보 없음");
+      return;
     }
+
+    // 카카오맵 SDK 로드 및 지도 초기화
+    const initMap = async () => {
+      try {
+        // SDK 로드
+        await loadKakaoSDK();
+
+        // SDK 준비 확인
+        if (!isKakaoSDKReady()) {
+          console.error("❌ 카카오맵 SDK 로드 실패");
+          return;
+        }
+
+        const { kakao } = window;
+        const container = mapRef.current;
+
+        // 지도 생성
+        const options = {
+          center: new kakao.maps.LatLng(latitude, longitude),
+          level: 3, // 확대 레벨
+        };
+
+        const map = new kakao.maps.Map(container, options);
+
+        // 마커 표시
+        const markerPosition = new kakao.maps.LatLng(latitude, longitude);
+        const marker = new kakao.maps.Marker({
+          position: markerPosition,
+        });
+        marker.setMap(map);
+
+        // 인포윈도우 표시
+        const infowindow = new kakao.maps.InfoWindow({
+          content: `<div style="padding:5px;font-size:12px;">${destination.travelName}</div>`,
+        });
+        infowindow.open(map, marker);
+
+        console.log("✅ 카카오맵 초기화 완료");
+      } catch (error) {
+        console.error("❌ 카카오맵 초기화 실패:", error);
+      }
+    };
+
+    initMap();
   }, [destination]);
 
   // 뒤로가기
