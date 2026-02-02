@@ -42,17 +42,22 @@ export default function TourListPage() {
   const [totalPages, setTotalPages] = useState(10); // 임시 값
   const pageSize = 10;
 
-  // API 호출 함수
-  const fetchDestinations = async (page = 1) => {
+  // API 호출 함수 - filters 파라미터로 즉시 값 받기
+  const fetchDestinations = async (page = 1, filters = {}) => {
     try {
       setLoading(true);
       setError(null);
 
+      // 파라미터로 받은 값 우선 사용, 없으면 state 값 사용
+      const searchKeyword = filters.keyword !== undefined ? filters.keyword : keyword;
+      const searchRegion = filters.regionNo !== undefined ? filters.regionNo : selectedRegion;
+      const searchTheme = filters.themeNo !== undefined ? filters.themeNo : selectedTheme;
+
       // 쿼리 파라미터 구성
       const params = new URLSearchParams();
-      if (keyword.trim()) params.append("keyword", keyword.trim());
-      if (selectedRegion) params.append("regionNo", selectedRegion);
-      if (selectedTheme) params.append("themeNo", selectedTheme);
+      if (searchKeyword.trim()) params.append("keyword", searchKeyword.trim());
+      if (searchRegion) params.append("regionNo", searchRegion);
+      if (searchTheme) params.append("themeNo", searchTheme);
       params.append("page", page);
       params.append("size", pageSize);
 
@@ -69,7 +74,6 @@ export default function TourListPage() {
       } else {
         setDestinations([]);
       }
-
     } catch (err) {
       console.error("여행지 목록 조회 실패:", err);
       setError("여행지 목록을 불러오는데 실패했습니다.");
@@ -88,26 +92,23 @@ export default function TourListPage() {
   // 검색 버튼 클릭 핸들러
   const handleSearch = () => {
     setCurrentPage(1);
-    fetchDestinations(1);
+    // 현재 keyword 값을 직접 전달
+    fetchDestinations(1, { keyword });
   };
 
   // 필터 변경 핸들러 (즉시 반영)
   const handleRegionChange = (regionNo) => {
     setSelectedRegion(regionNo);
     setCurrentPage(1);
-    // 필터 변경 시 즉시 API 호출
-    setTimeout(() => {
-      fetchDestinations(1);
-    }, 0);
+    // 새로운 값을 직접 전달하여 즉시 반영
+    fetchDestinations(1, { regionNo });
   };
 
   const handleThemeChange = (themeNo) => {
     setSelectedTheme(themeNo);
     setCurrentPage(1);
-    // 필터 변경 시 즉시 API 호출
-    setTimeout(() => {
-      fetchDestinations(1);
-    }, 0);
+    // 새로운 값을 직접 전달하여 즉시 반영
+    fetchDestinations(1, { themeNo });
   };
 
   // 초기화 버튼 핸들러
@@ -116,9 +117,8 @@ export default function TourListPage() {
     setSelectedRegion(null);
     setSelectedTheme(null);
     setCurrentPage(1);
-    setTimeout(() => {
-      fetchDestinations(1);
-    }, 0);
+    // 초기화된 값을 직접 전달
+    fetchDestinations(1, { keyword: "", regionNo: null, themeNo: null });
   };
 
   // 카드 클릭 핸들러 - 상세 페이지로 이동
