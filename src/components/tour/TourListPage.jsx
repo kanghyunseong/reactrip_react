@@ -75,10 +75,10 @@ export default function TourListPage() {
         setDestinations([]);
       }
     } catch (err) {
-      console.error("여행지 목록 조회 실패:", err);
-      setError("여행지 목록을 불러오는데 실패했습니다.");
+      console.error("조회된 여행지가 없습니다. 여행지 목록 조회 실패:", err);
+      setError("조회된 여행지가 없습니다.");
       // TODO: 에러 처리 - toast 메시지나 에러 UI 개선 필요
-      toast.error("여행지 목록을 불러오는데 실패했습니다.");
+      toast.error("조회된 여행지가 없습니다.");
     } finally {
       setLoading(false);
     }
