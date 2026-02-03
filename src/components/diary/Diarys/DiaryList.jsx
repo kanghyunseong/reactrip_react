@@ -101,7 +101,7 @@ const DiaryList = () => {
               <img
                 src={
                   item.thumbnailUrl ||
-                  "https://us.123rf.com/450wm/oculo/oculo2004/oculo200400003/143645399-no-image-available-icon.jpg"
+                  item.imageUrl
                 }
                 alt="썸네일"
                 style={listStyles.thumbnailImg}

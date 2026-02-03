@@ -1,18 +1,20 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useContext } from "react";
 import "./DiaryWrite.css";
 import axios from "axios";
 import { axiosPublic } from "../../../api/api";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../context/AuthContext";
 
 const DiaryInsert = () => {
+  const { auth } = useContext(AuthContext);
   const fileRef = useRef(null);
   const [imageFiles, setImageFiles] = useState([]); // ✅ 추가
   const [previews, setPreviews] = useState([]);
   const [isDragOver, setIsDragOver] = useState(false);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [region, setRegion] = useState(0);
-  const [theme, setTheme] = useState(0);
+  const [region, setRegion] = useState("");
+  const [theme, setTheme] = useState("");
   const navigate = useNavigate();
 
   const handleFiles = (files) => {
@@ -48,16 +50,16 @@ const DiaryInsert = () => {
     alert("내용을 입력해주세요.");
     return;
   }
+  console.log("call start !!" + region);
+    if (region === "") {
+     alert("지역을 선택해주세요.");
+     return;
+   }
 
-  //  if (region.trim() === "") {
-  //   alert("지역을 선택해주세요.");
-  //   return;
-  // }
-
-  //    if (theme.trim() === "") {
-  //   alert("테마를 선택해주세요.");
-  //   return;
-  // }
+      if (theme === "") {
+     alert("테마를 선택해주세요.");
+     return;
+   }
   console.log("이미지 갯수 : " + imageFiles.length);
   
     if (imageFiles.length === 0) {
@@ -84,28 +86,33 @@ const DiaryInsert = () => {
       "/api/diarys/upload/diary-image",
       data
     );
-  console.log("업로드3 !!  --> " + imgRes);
-    const imageUrls = imgRes.data; // ✅ S3 URL 리스트
-    console.log("이미지 결과 url -->" + imageUrls);
+  console.log("업로드3 !!  --> " + imgRes[0]);
+    //const imageUrls = imgRes.data; // ✅ S3 URL 리스트
+    let userNo = localStorage.getItem("userNo");
+    console.log("login memberNo -->" + JSON.stringify(userNo));
     // 글 등록 
     const diaryRes = await axiosPublic.post("/api/diarys/insert", {
       diaryTitle: title,
       diaryContent: content,
       regionNo: Number(region),
-      themeNo: Number(theme)
+      themeNo: Number(theme),
+      memberNo: userNo,
+      scheduleNo : 5,
+      travelNo :1,
+      imageUrl: imgRes[0]
     }
   );
+    console.log("등록 완료 : " + diaryRes);
+     const diaryNo = diaryRes;
 
-    const diaryNo = diaryRes.data.diaryNo;
-
-    // 이미지 DB 저장
-    await axiosPublic.post("/upload/images", {
-      diaryNo,
-      imageUrls
-    });
+    // // 이미지 DB 저장
+    // await axiosPublic.post("/upload/images", {
+    //   diaryNo,
+    //   imageUrls
+    // });
   
         alert("게시글이 등록되었습니다.");
-        navigate(`/diarys/${diaryNo}`);
+        navigate(`/diarys/detail/${diaryNo}`);
   } catch(err) {
     console.error(err);
     console.error("response", err.diaryRes);
