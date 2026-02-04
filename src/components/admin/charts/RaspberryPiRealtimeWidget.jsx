@@ -2,12 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 import styled from "styled-components";
-import { ENV } from "../../../../config";
 
-const WS_RASPBERRY_URL =
-  import.meta.env?.VITE_WS_RASPBERRY_URL ||
-  ENV?.WS_RASPBERRY_URL ||
-  "http://localhost:8081/ws-raspberry";
+const WS_RASPBERRY_URL = window.ENV?.WS_RASPBERRY_URL || "http://localhost:8081/ws-raspberry";
 
 const WidgetCard = styled.div`
   border: 1px solid #e0e0e0;

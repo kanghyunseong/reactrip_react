@@ -8,4 +8,14 @@ export default defineConfig({
     // sockjs-client 등이 브라우저에서 기대하는 global 폴리필
     global: 'globalThis',
   },
-})
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: (id) =>{
+          if(id.includes('node_modules'))
+            return 'vendor';
+        }
+      },
+    },
+  },
+});
