@@ -26,6 +26,9 @@ const MyPage = () => {
         confirmPassword: ''
     });
     
+    const [selectedImage, setSelectedImage] = useState(null);
+    const [previewImage, setPreviewImage] = useState(null);
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -56,6 +59,73 @@ const MyPage = () => {
             setLoading(false);
         }
     };
+
+    // 이미지 선택
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            // 파일 크기 검증 (5MB)
+            if (file.size > 5 * 1024 * 1024) {
+                alert('파일 크기는 5MB 이하만 가능합니다.');
+                return;
+            }
+            
+            // 이미지 파일 검증
+            if (!file.type.startsWith('image/')) {
+                alert('이미지 파일만 업로드 가능합니다.');
+                return;
+            }
+            
+            setSelectedImage(file);
+            
+            // 미리보기
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPreviewImage(reader.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
+    // 이미지 업로드
+    const handleUploadImage = async () => {
+        if (!selectedImage) {
+            alert('이미지를 선택해주세요.');
+            return;
+        }
+        
+        try {
+            const formData = new FormData();
+            formData.append('imageFile', selectedImage);
+            
+            const token = localStorage.getItem('accessToken');
+            
+            // fetch API 사용 (가장 확실한 방법)
+            const response = await fetch('http://localhost:8081/api/members/mypage/image', {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                    // Content-Type 헤더 제거 - 브라우저가 자동 설정
+                },
+                body: formData
+            });
+            
+            const result = await response.json();
+            
+            if (response.ok) {
+                alert(result.message || '프로필 이미지가 변경되었습니다.');
+                setSelectedImage(null);
+                setPreviewImage(null);
+                fetchUserInfo(); // 정보 새로고침
+            } else {
+                alert(result.message || '이미지 업로드에 실패했습니다.');
+            }
+        } catch (err) {
+            console.error('이미지 업로드 실패:', err);
+            alert('이미지 업로드에 실패했습니다.');
+        }
+    };
+
 
     // ========== 이름 변경 ==========
     const handleEditName = () => {
@@ -282,11 +352,49 @@ const MyPage = () => {
                 
                 <S.ProfileSection>
                     <S.ProfileImageWrapper>
-                        <S.ProfileImage 
-                            src={userInfo.image || '/default-profile.png'} 
-                            alt="프로필" 
-                        />
-                    </S.ProfileImageWrapper>
+                            <S.ProfileImage 
+                                src={previewImage || userInfo.image || '/default-profile.png'} 
+                                alt="프로필" 
+                            />
+                            <input 
+                                type="file" 
+                                accept="image/*"
+                                onChange={handleImageChange}
+                                style={{ display: 'none' }}
+                                id="imageUpload"
+                            />
+                            <label 
+                                htmlFor="imageUpload"
+                                style={{
+                                    marginTop: '10px',
+                                    padding: '8px 16px',
+                                    background: '#4a90e2',
+                                    color: 'white',
+                                    borderRadius: '4px',
+                                    cursor: 'pointer',
+                                    textAlign: 'center',
+                                    fontSize: '0.9rem'
+                                }}
+                            >
+                                이미지 선택
+                            </label>
+                            {selectedImage && (
+                                <button 
+                                    onClick={handleUploadImage}
+                                    style={{
+                                        marginTop: '10px',
+                                        padding: '8px 16px',
+                                        background: '#4CAF50',
+                                        color: 'white',
+                                        border: 'none',
+                                        borderRadius: '4px',
+                                        cursor: 'pointer'
+                                    }}
+                                >
+                                    업로드
+                                </button>
+                            )}
+                        </S.ProfileImageWrapper>
                     
                     <S.ProfileInfo>
                         {/* 아이디 (변경 불가) */}
