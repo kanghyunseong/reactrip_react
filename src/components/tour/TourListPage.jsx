@@ -6,6 +6,7 @@ import TourSearchBar from "./TourSearchBar";
 import TourFilterPanel from "./TourFilterPanel";
 import TourDestinationCard from "./TourDestinationCard";
 import { axiosPublic } from "../../api/api";
+import { useFilters } from "../../hooks/useFilters";
 import {
   PageContainer,
   ContentWrapper,
@@ -26,6 +27,9 @@ import {
 
 export default function TourListPage() {
   const navigate = useNavigate();
+
+  // 필터 옵션 (페이지 마운트 시 1번만 로딩)
+  const { regions, themes, loading: filtersLoading, error: filtersError } = useFilters();
 
   // 상태 관리
   const [destinations, setDestinations] = useState([]);
@@ -75,7 +79,7 @@ export default function TourListPage() {
         setDestinations([]);
       }
     } catch (err) {
-      console.error("조회된 여행지가 없습니다. 여행지 목록 조회 실패:", err);
+      console.error("조회된 여행지가 없습니다. 여행지 목록 조회 실패: ", err);
       setError("조회된 여행지가 없습니다.");
       // TODO: 에러 처리 - toast 메시지나 에러 UI 개선 필요
       toast.error("조회된 여행지가 없습니다.");
@@ -84,10 +88,12 @@ export default function TourListPage() {
     }
   };
 
-  // 컴포넌트 마운트 시 초기 데이터 로드
+  // 컴포넌트 마운트 시 필터 로딩 완료 후 초기 데이터 로드
   useEffect(() => {
-    fetchDestinations(1);
-  }, []);
+    if (!filtersLoading) {
+      fetchDestinations(1);
+    }
+  }, [filtersLoading]); // filtersLoading이 false가 되면 실행
 
   // 검색 버튼 클릭 핸들러
   const handleSearch = () => {
@@ -216,6 +222,36 @@ export default function TourListPage() {
     return pageNumbers;
   };
 
+  // 필터 로딩 상태 처리
+  if (filtersLoading) {
+    return (
+      <PageContainer>
+        <Header />
+        <ContentWrapper>
+          <LoadingSpinner>
+            <div className="spinner"></div>
+            <p>필터를 불러오는 중...</p>
+          </LoadingSpinner>
+        </ContentWrapper>
+      </PageContainer>
+    );
+  }
+
+  // 필터 에러 상태 처리
+  if (filtersError) {
+    return (
+      <PageContainer>
+        <Header />
+        <ContentWrapper>
+          <ErrorMessage>
+            <p>{filtersError}</p>
+            <button onClick={() => window.location.reload()}>다시 시도</button>
+          </ErrorMessage>
+        </ContentWrapper>
+      </PageContainer>
+    );
+  }
+
   return (
     <PageContainer>
       <Header />
@@ -279,7 +315,10 @@ export default function TourListPage() {
               ))}
           </CardGrid>
 
+          {/* regions, themes props 전달 */}
           <TourFilterPanel
+            regions={regions}
+            themes={themes}
             selectedRegion={selectedRegion}
             selectedTheme={selectedTheme}
             onRegionChange={handleRegionChange}
