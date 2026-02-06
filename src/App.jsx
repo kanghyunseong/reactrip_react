@@ -5,6 +5,9 @@ import TourListPage from "./components/tour/TourListPage";
 import TourDetailPage from "./components/tour/TourDetailPage";
 import RoulettePage from "./components/roulette/RoulettePage";
 import DiaryPage from "./components/diary/DiaryPage";
+import DiaryList from "./components/diary/Diarys/DiaryList";
+import DiaryDetail from "./components/diary/Diarys/DiaryDetail";
+import DiaryInsert from "./components/diary/Diarys/DiaryInsert";
 import ContactPage from "./components/contact/ContactPage";
 import LoginPage from "./components/login/LoginPage";
 import SignUpPage from "./components/signup/SignUpPage";
@@ -31,7 +34,11 @@ function App() {
         <Route path="/tour" element={<TourListPage />} />
         <Route path="/tour/:travelNo" element={<TourDetailPage />} />
         <Route path="/roulette" element={<RoulettePage />} />
-        <Route path="/diary" element={<DiaryPage />} />
+        <Route path="/diarys" element={<DiaryPage />}>
+          <Route index element={<DiaryList />} />
+          <Route path="insert" element={<DiaryInsert />} />
+          <Route path="detail/:diaryNo" element={<DiaryDetail />} />
+        </Route>
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />

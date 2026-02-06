@@ -127,9 +127,14 @@ export default function TourListPage() {
     fetchDestinations(1, { keyword: "", regionNo: null, themeNo: null });
   };
 
-  // 카드 클릭 핸들러 - 상세 페이지로 이동
+  // 카드 클릭 핸들러 - 상세 페이지로 이동 (유효한 travelNo일 때만)
   const handleCardClick = (travelNo) => {
-    navigate(`/tour/${travelNo}`);
+    const num = Number(travelNo);
+    if (Number.isInteger(num) && num > 0) {
+      navigate(`/tour/${travelNo}`);
+    } else {
+      toast.error("잘못된 여행지 정보입니다.");
+    }
   };
 
   // 페이지 변경 핸들러

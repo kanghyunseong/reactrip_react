@@ -24,8 +24,8 @@ export default function TourFilterPanel({
           onChange={(e) => onRegionChange(e.target.value || null)}
         >
           <option value="">전체 지역</option>
-          {regions.map((region) => (
-            <option key={region.regionNo} value={region.regionNo}>
+          {regions.map((region, index) => (
+            <option key={region.regionNo != null ? `region-${region.regionNo}` : `region-i-${index}`} value={region.regionNo}>
               {region.regionName}
             </option>
           ))}
@@ -39,8 +39,8 @@ export default function TourFilterPanel({
           onChange={(e) => onThemeChange(e.target.value || null)}
         >
           <option value="">전체 테마</option>
-          {themes.map((theme) => (
-            <option key={theme.themeNo} value={theme.themeNo}>
+          {themes.map((theme, index) => (
+            <option key={theme.themeNo != null ? `theme-${theme.themeNo}` : `theme-i-${index}`} value={theme.themeNo}>
               {theme.themeName}
             </option>
           ))}
