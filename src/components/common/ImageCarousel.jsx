@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 import { SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
-import { imgRectangle4, imgRectangle6 } from "../../constants/constants";
 import "swiper/css";
 import "swiper/css/navigation";
 import {
@@ -17,13 +16,13 @@ export default function ImageCarousel() {
   const swiperRef = useRef(null);
   const [activeIndex, setActiveIndex] = React.useState(0);
 
-  // 이미지 배열 (필요에 따라 더 추가 가능)
+  // public 폴더의 slide1~5 이미지 사용
   const images = [
-    { src: imgRectangle6, number: "02" },
-    { src: imgRectangle4, number: "01" },
-    { src: imgRectangle6, number: "03" },
-    { src: imgRectangle4, number: "04" },
-    { src: imgRectangle6, number: "05" },
+    { src: "/slide1.jpg", number: "01" },
+    { src: "/slide2.jpg", number: "02" },
+    { src: "/slide3.jpg", number: "03" },
+    { src: "/slide4.jpg", number: "04" },
+    { src: "/slide5.jpg", number: "05" },
   ];
 
   const handlePrev = () => {
@@ -59,7 +58,7 @@ export default function ImageCarousel() {
           pagination={false}
           navigation={true}
           autoplay={{
-            delay: 3200,
+            delay: 2500,
             disableOnInteraction: false,
             pauseOnMouseEnter: true,
           }}

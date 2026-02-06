@@ -319,6 +319,31 @@ export const Th = styled.th`
 export const Tbody = styled.tbody``;
 
 export const Tr = styled.tr`
+  animation: fadeInUp 0.4s ease-out forwards;
+  opacity: 0;
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  &:nth-child(1) { animation-delay: 0.05s; }
+  &:nth-child(2) { animation-delay: 0.1s; }
+  &:nth-child(3) { animation-delay: 0.15s; }
+  &:nth-child(4) { animation-delay: 0.2s; }
+  &:nth-child(5) { animation-delay: 0.25s; }
+  &:nth-child(6) { animation-delay: 0.3s; }
+  &:nth-child(7) { animation-delay: 0.35s; }
+  &:nth-child(8) { animation-delay: 0.4s; }
+  &:nth-child(9) { animation-delay: 0.45s; }
+  &:nth-child(10) { animation-delay: 0.5s; }
+  
   &:nth-child(even) td {
     background: rgba(2, 6, 23, 0.012);
   }
