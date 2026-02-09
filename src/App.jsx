@@ -38,6 +38,7 @@ function App() {
         <Route path="/tour/:travelNo" element={<TourDetailPage />} />
         <Route path="/roulette" element={<RoulettePage />} />
         <Route path="/diarys" element={<DiaryPage />} />
+        <Route path="/diarys/*" element={<DiaryPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />

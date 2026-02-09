@@ -48,6 +48,7 @@ const CommentsSection = () => {
       setLoading(true);
       const term = String(searchTerm || "").trim();
       const searching = term.length > 0;
+      // 일기와 동일하게 삭제된 댓글도 포함하도록 호출 (백엔드가 기본적으로 삭제된 항목도 반환해야 함)
       const url = searching
         ? `/api/admin/community/comments/search?keyword=${encodeURIComponent(term)}&page=${page}`
         : `/api/admin/community/comments?page=${page}`;
@@ -138,7 +139,13 @@ const CommentsSection = () => {
         toast.success(`댓글 ${action}에 성공했습니다.`);
         fetchComments(pageInfo.currentPage, searchKeyword);
       } else {
-        toast.error(getErrorMessage(error));
+        const errorMessage = error?.response?.data?.message;
+        if (errorMessage && errorMessage.includes("성공")) {
+          toast.success(errorMessage);
+          fetchComments(pageInfo.currentPage, searchKeyword);
+        } else {
+          toast.error(getErrorMessage(error));
+        }
       }
     }
   };
@@ -158,7 +165,12 @@ const CommentsSection = () => {
       label: "일기",
       thStyle: { width: 240 },
       render: (row) => {
-        if (!row?.diaryTitle) return "-";
+        // diaryTitle이 없으면 diaryNo를 표시하거나, 둘 다 없으면 "-"
+        const displayText = row?.diaryTitle || (row?.diaryNo ? `일기 #${row.diaryNo}` : null);
+        if (!displayText) return "-";
+        
+        if (!row?.diaryNo) return displayText;
+        
         return (
           <button
             type="button"
@@ -174,7 +186,7 @@ const CommentsSection = () => {
             }}
             title="클릭하여 일기 관리로 이동"
           >
-            {row.diaryTitle}
+            {displayText}
           </button>
         );
       },

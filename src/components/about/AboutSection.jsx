@@ -20,6 +20,7 @@ import {
   LoginText
 } from "./AboutSection.styles";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 
 export default function AboutSection() {
   const navigate = useNavigate();

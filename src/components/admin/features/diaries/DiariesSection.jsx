@@ -174,10 +174,10 @@ const DiariesSection = () => {
       label: "상태",
       thStyle: { width: 110 },
       render: (r, { Badge }) =>
-        r?.diaryStatus === "N" ? (
-          <Badge $variant="success">활성</Badge>
+        r?.diaryStatus === "Y" ? (
+          <Badge $variant="danger">비활성</Badge>
         ) : (
-          <Badge $variant="danger">삭제됨</Badge>
+          <Badge $variant="success">활성</Badge>
         ),
     },
     { key: "count", label: "조회수", thStyle: { width: 90 } },

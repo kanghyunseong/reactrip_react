@@ -1,3 +1,34 @@
+// 지역/테마 옵션 (TB_REGION, TB_THEME 시드와 동일하게 유지)
+export const REGION_OPTIONS = [
+  { value: "", label: "지 역" },
+  { value: "1", label: "서 울" },
+  { value: "2", label: "인 천" },
+  { value: "3", label: "경 기" },
+  { value: "4", label: "세 종" },
+  { value: "5", label: "강원도" },
+  { value: "6", label: "제주도" },
+  { value: "7", label: "충청남도" },
+  { value: "8", label: "충청북도" },
+  { value: "9", label: "전라남도" },
+  { value: "10", label: "전라북도" },
+  { value: "11", label: "경상남도" },
+  { value: "12", label: "경상북도" }
+];
+
+export const THEME_OPTIONS = [
+  { value: "", label: "테   마" },
+  { value: "1", label: "호캉스" },
+  { value: "2", label: "전통 문화" },
+  { value: "3", label: "액티비티" },
+  { value: "4", label: "자연/풍경" },
+  { value: "5", label: "바다/해변" },
+  { value: "6", label: "캠핑/차박" },
+  { value: "7", label: "전시/공연" },
+  { value: "8", label: "계절 꽃놀이" },
+  { value: "9", label: "식도락/맛집" },
+  { value: "10", label: "기타" }
+];
+
 // 이미지 상수
 export const imgImage1 = "/peter-lloyd-rRWyOn9gat4-unsplash.jpg";
 export const imgRectangle4 = "/imageRectangle4.png";
