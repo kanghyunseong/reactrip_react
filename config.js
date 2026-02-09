@@ -11,4 +11,3 @@ const ENV = window.ENV = {
   /** 라즈베리파이 메트릭 수집기(에이전트) IP (참고용) */
   RASPBERRY_IP: "192.168.151.26",
 };
-ubuntu@ip-172-31-38-121:~/deploy/front$ 
