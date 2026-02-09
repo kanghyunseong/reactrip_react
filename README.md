@@ -1,224 +1,239 @@
 # ReacTrip Frontend
 
-여행 기록 및 경험 공유 플랫폼 ReacTrip의 프론트엔드 프로젝트입니다.
+여행 기록 및 경험 공유 플랫폼 **ReacTrip**의 프론트엔드 저장소입니다.
 
-## 🚀 프로젝트 소개
+---
 
-ReacTrip은 여행의 설렘을 기록하고, 지도 위에 그려지는 경로를 시각화하며, 게임처럼 성취감 있는 보상으로 돌아오는 여행 플랫폼입니다.
+## 목차
 
-## 🛠️ 기술 스택
+- [프로젝트 소개](#-프로젝트-소개)
+- [스크린샷](#-스크린샷)
+- [주요 기능](#-주요-기능)
+- [기술 스택](#-기술-스택)
+- [시작하기](#-시작하기)
+- [환경 설정](#-환경-설정)
+- [프로젝트 구조](#-프로젝트-구조)
+- [협업 및 이슈 관리](#-협업-및-이슈-관리)
+- [배포](#-배포)
+- [주의사항](#-주의사항)
+- [라이선스](#-라이선스)
 
-- **React 19.2.0** - UI 라이브러리
-- **Vite 7.2.4** - 빌드 도구
-- **React Router DOM 7.12.0** - 라우팅
-- **Styled Components 6.3.5** - CSS-in-JS 스타일링
-- **Swiper 12.0.3** - 이미지 캐러셀
-- **Axios 1.13.2** - HTTP 클라이언트
-- **React Toastify 11.0.5** - 알림 메시지
+---
 
-## 📦 설치 및 실행
+## 프로젝트 소개
 
-### 의존성 설치
+### ReacTrip이란?
+
+**ReacTrip**은 여행의 설렘을 기록하고, 지도 위에 그려지는 경로를 시각화하며, 게임처럼 성취감 있는 보상으로 돌아오는 **여행 기록·공유 플랫폼**입니다.
+
+- **기록**: 일정과 일기를 한곳에서 관리하고, 나만의 여행 스토리를 쌓을 수 있습니다.
+- **시각화**: 카카오맵과 연동해 여행 경로와 장소를 한눈에 볼 수 있습니다.
+- **재미**: 룰렛으로 다음 여행지를 추천받고, 일기와 댓글로 다른 사용자와 소통할 수 있습니다.
+
+### 왜 만들었나요?
+
+- 여행 일정·일기를 흩어진 앱이 아닌 **한 플랫폼**에서 관리하고 싶다는 니즈에서 출발했습니다.
+- 팀 프로젝트로 **React 기반 SPA**와 **백엔드 API 연동**, **관리자 기능**, **라즈베리파이 실시간 모니터링**까지 경험하며 실무에 가까운 구조로 설계했습니다.
+
+### 대상 사용자
+
+- 여행을 다니며 일정·일기를 정리하고 싶은 일반 사용자
+- 여행지 추천·일정 공유가 필요한 사용자
+- 서비스 운영을 위한 관리자(회원/콘텐츠/센서·라즈베리파이 모니터링)
+
+---
+
+## 스크린샷
+
+| 메인 페이지 | 로그인 |
+|------------|--------|
+| ![메인 페이지](public/mainPage.png) | ![로그인](public/login.png) |
+
+| 회원가입 |
+|----------|
+| ![회원가입](public/signup.png) |
+
+> 실제 화면에 맞게 캡처 후 `public/`에 이미지를 추가해 교체할 수 있습니다.
+
+---
+
+## 주요 기능
+
+### 사용자 서비스
+
+| 구분 | 설명 |
+|------|------|
+| **메인** | 히어로 섹션, 스크롤 스냅 소개 영역, 이미지 캐러셀(Swiper) |
+| **ABOUT** | ReacTrip 서비스 소개 섹션 |
+| **일정(Schedule)** | FullCalendar 기반 일정 캘린더 보기·관리 |
+| **투어(Tour)** | 카카오맵 연동 여행지 검색·지도 표시 |
+| **룰렛(Roulette)** | 여행지 추천 룰렛 (선택지 랜덤 추천) |
+| **일기(Diary)** | 일기 목록·상세·작성·댓글, 이미지 업로드 |
+| **연락처(Contact)** | 문의/연락처 페이지 |
+| **회원** | 로그인, 회원가입, 마이페이지 |
+
+### 관리자 기능 (Admin)
+
+- **대시보드**: 요약 차트·위젯
+- **회원 관리**: 회원 목록·검색
+- **일정(Travel) 관리**: 여행 일정 CRUD
+- **공지(Notices)**: 공지사항 등록·수정·삭제
+- **일기/댓글 관리**: 일기·댓글 목록·상세·검색
+- **센서**: 센서 데이터 조회
+- **라즈베리파이 모니터링**: WebSocket(SockJS+STOMP) 실시간 CPU/온도 등 차트
+
+관리자 페이지는 `ROLE_ADMIN` 권한이 있을 때만 접근 가능합니다.
+
+---
+
+## 기술 스택
+
+| 분류 | 기술 |
+|------|------|
+| **코어** | React 19, Vite 7, React Router DOM 7 |
+| **스타일** | Styled Components, Tailwind CSS |
+| **UI/차트** | Swiper, FullCalendar, Chart.js, react-chartjs-2 |
+| **통신** | Axios, SockJS + STOMP (WebSocket) |
+| **기타** | React Toastify, @hello-pangea/dnd |
+
+---
+
+## 시작하기
+
+### 요구 사항
+
+- Node.js 18+ (권장: LTS)
+- npm 또는 yarn
+
+### 설치 및 실행
+
 ```bash
+# 의존성 설치
 npm install
-```
 
-### 개발 서버 실행
-```bash
+# 개발 서버 실행 (기본: http://localhost:5173)
 npm run dev
 ```
 
-### 빌드
-```bash
-npm run build
-```
+### 빌드 및 미리보기
 
-### 빌드 미리보기
 ```bash
+# 프로덕션 빌드
+npm run build
+
+# 빌드 결과물 미리보기
 npm run preview
 ```
 
-## 📁 프로젝트 폴더 구조
+### 린트
 
-4명이 함께 작업하는 프로젝트를 위한 체계적인 폴더 구조입니다.
-**네브바 섹션별로 컴포넌트를 분리**하여 각 팀원이 독립적으로 작업할 수 있도록 구성했습니다.
-
-```
-src/
-├── components/               # 컴포넌트
-│   ├── layout/               # 레이아웃 컴포넌트 (공통)
-│   │   ├── Header.jsx        # 헤더 (네비게이션 바)
-│   │   ├── Header.styles.js  # 헤더 스타일
-│   │   ├── Footer.jsx        # 푸터
-│   │   ├── Footer.styles.js  # 푸터 스타일
-│   │   ├── HamburgerMenu.jsx # 햄버거 메뉴
-│   │   ├── HamburgerMenu.styles.js
-│   │   ├── DrawerNavigator.jsx # 드로어 네비게이터
-│   │   ├── DrawerNavigator.styles.js
-│   │   └── CustomScrollbar.jsx # 커스텀 스크롤바
-│   │
-│   ├── common/               # 공통 컴포넌트
-│   │   ├── Background.jsx    # 배경 이미지
-│   │   ├── Background.styles.js
-│   │   ├── ImageCarousel.jsx # 이미지 캐러셀
-│   │   ├── ImageCarousel.styles.js
-│   │   ├── Rectangle.jsx     # 사각형 컴포넌트
-│   │   └── Sheet.jsx         # 시트 컴포넌트
-│   │
-│   ├── home/                 # 홈 섹션 (메인 페이지)
-│   │   ├── MainPage.jsx      # 메인 페이지
-│   │   ├── MainPage.styles.js
-│   │   ├── HeroSection.jsx   # 히어로 섹션
-│   │   └── HeroSection.styles.js
-│   │
-│   ├── about/                # ABOUT 섹션
-│   │   ├── AboutSection.jsx  # 소개 섹션
-│   │   └── AboutSection.styles.js
-│   │
-│   ├── schedule/             # SCHEDULE 섹션
-│   │   ├── SchedulePage.jsx  # 일정 페이지
-│   │   └── SchedulePage.styles.js
-│   │
-│   ├── tour/                 # TOUR 섹션
-│   │   ├── TourPage.jsx      # 투어 페이지
-│   │   └── TourPage.styles.js
-│   │
-│   ├── roulette/             # ROULETTE 섹션
-│   │   ├── RoulettePage.jsx  # 룰렛 페이지
-│   │   └── RoulettePage.styles.js
-│   │
-│   ├── diary/                # DIARY 섹션
-│   │   ├── DiaryPage.jsx    # 일기 페이지
-│   │   └── DiaryPage.styles.js
-│   │
-│   ├── contact/              # CONTACT 섹션
-│   │   ├── ContactPage.jsx   # 연락처 페이지
-│   │   └── ContactPage.styles.js
-│   │
-│   ├── login/                # 로그인 페이지
-│   │   ├── LoginPage.jsx
-│   │   └── LoginPage.styles.js
-│   │
-│   ├── signup/               # 회원가입 페이지
-│   │   ├── SignUpPage.jsx
-│   │   └── SignUpPage.styles.js
-│   │
-│   └── admin/                # 관리자 컴포넌트 (추후 추가)
-│
-├── api/                      # API 관련
-│   └── api.js                # API 함수들
-│
-├── utils/                    # 유틸리티 함수
-│   └── ProtectedURL.jsx       # 보호된 라우트
-│
-├── constants/                # 상수
-│   └── constants.js          # 이미지 URL 등 상수
-│
-├── context/                  # React Context
-│   └── AuthContext.jsx       # 인증 컨텍스트
-│
-├── assets/                   # 정적 자산
-│   └── react.svg
-│
-├── App.jsx                   # 메인 App 컴포넌트
-├── App.css                   # App 스타일
-├── main.jsx                  # 진입점
-└── index.css                 # 전역 스타일
+```bash
+npm run lint
 ```
 
-## 📝 폴더별 설명
+---
 
-### `components/layout/`
-- **모든 페이지에서 공통으로 사용되는 레이아웃 컴포넌트**
-- Header, Footer, HamburgerMenu, DrawerNavigator 등이 포함됩니다.
-- 공통 컴포넌트이므로 수정 시 주의가 필요합니다.
+## 환경 설정
 
-### `components/common/`
-- **여러 곳에서 재사용되는 공통 컴포넌트**
-- Background, ImageCarousel 등이 포함됩니다.
-- 여러 섹션에서 공통으로 사용되는 컴포넌트입니다.
+백엔드 API, 클라이언트 URL, 카카오맵·WebSocket 등은 **런타임 설정**으로 관리합니다.
 
-### `components/home/`, `components/about/`, `components/schedule/` 등
-- **네브바 섹션별로 분리된 컴포넌트 폴더**
-- 각 섹션의 페이지와 관련 컴포넌트들이 포함됩니다.
-- 각 팀원이 독립적으로 작업할 수 있도록 구성되었습니다.
-- 각 컴포넌트는 `.jsx` 파일과 `.styles.js` 파일로 분리되어 있습니다.
+프로젝트 루트의 `index.html`에서 설정 스크립트를 로드하기 전에 `config.js`를 정의합니다.  
+실제 배포 시에는 **`public/config.js`** 또는 서버에서 주입하는 방식으로 사용할 수 있습니다.
 
-### `api/`
-- API 호출 관련 함수들을 포함합니다.
-- 백엔드와의 통신 로직이 여기에 있습니다.
-
-### `utils/`
-- 유틸리티 함수들을 포함합니다.
-- ProtectedRoute, 헬퍼 함수 등이 포함됩니다.
-
-### `constants/`
-- 프로젝트 전역에서 사용되는 상수들을 포함합니다.
-- 이미지 URL, API 엔드포인트 등이 포함됩니다.
-
-### `context/`
-- React Context를 사용하는 파일들을 포함합니다.
-- 전역 상태 관리에 사용됩니다.
-
-## 🔄 작업 가이드
-
-### 새 섹션 추가하기
-1. `components/` 폴더에 새 섹션 폴더 생성 (예: `components/newsection/`)
-2. 해당 폴더에 페이지 컴포넌트와 스타일 파일 생성
-3. `App.jsx`에 라우트 추가
-4. `components/layout/Header.jsx`에 네비게이션 링크 추가
-
-### 새 컴포넌트 추가하기
-- **레이아웃 컴포넌트**: `components/layout/` (모든 페이지에서 사용)
-- **공통 컴포넌트**: `components/common/` (여러 섹션에서 재사용)
-- **섹션별 컴포넌트**: 해당 섹션 폴더 (예: `components/home/`)
-
-### 스타일 파일 분리
-- 모든 컴포넌트는 `.jsx` 파일과 `.styles.js` 파일로 분리되어 있습니다.
-- 스타일은 `styled-components`를 사용합니다.
-
-### Import 경로 규칙
-- 같은 섹션 내: `./ComponentName`
-- 다른 섹션: `../sectionName/ComponentName`
-- 공통 컴포넌트: `../common/ComponentName` 또는 `../layout/ComponentName`
-- 상수/유틸: `../../constants` 또는 `../../utils`
-
-## 👥 협업 가이드
-
-### 섹션별 작업 분담
-- 각 팀원은 하나의 섹션을 담당하여 작업합니다.
-- 예: 팀원 A → `components/home/`, 팀원 B → `components/about/` 등
-
-### 작업 시 주의사항
-1. **자신의 섹션 폴더에서만 작업**: 다른 섹션의 파일은 수정하지 않습니다.
-2. **공통 컴포넌트 수정 시**: `components/layout/` 또는 `components/common/` 수정 시 팀원들과 상의합니다.
-3. **브랜치 전략**: 각 섹션별로 브랜치를 생성하여 작업합니다.
-4. **커밋 메시지**: 섹션명을 포함하여 작성 (예: `[home] 메인 페이지 스타일 수정`)
-
-### 충돌 해결
-- 같은 섹션 내에서 충돌 발생 시: 담당 팀원과 직접 소통
-- 공통 컴포넌트 충돌 시: 팀 전체 회의를 통해 해결
-
-## 📌 주의사항
-
-- ✅ **섹션별 폴더 구조를 유지하세요**
-- ✅ **공통 컴포넌트 수정 시 팀원들과 상의하세요**
-- ✅ **Import 경로는 항상 확인하세요**
-- ✅ **스타일 파일은 별도 `.styles.js` 파일로 분리하세요**
-- ❌ **다른 섹션의 파일을 임의로 수정하지 마세요**
-- ❌ **폴더 구조를 임의로 변경하지 마세요**
-
-## 🌐 환경 설정
-
-프로젝트 루트에 `config.js` 파일을 생성하여 환경 변수를 설정할 수 있습니다.
+**로컬 개발용 예시** (`public/config.js` 또는 빌드 시 주입):
 
 ```javascript
 window.ENV = {
-  API_URL: "http://localhost:8081",
-  CLIENT_URL: "http://localhost:5173",
+  API_URL: "http://localhost:8081",           // 백엔드 API 베이스 URL
+  CLIENT_URL: "http://localhost:5173",       // 프론트엔드 URL
+  KAKAO_APP_KEY: "your-kakao-javascript-key", // 카카오맵/로그인 등
+  WS_RASPBERRY_URL: "http://localhost:8081/ws-raspberry", // 라즈베리파이 WebSocket
+  RASPBERRY_IP: "192.168.x.x",               // (참고용) 라즈베리파이 IP
 };
 ```
 
-## 📄 라이선스
+- `API_URL`: 백엔드 서버 주소 (API 요청 기본 URL)
+- `CLIENT_URL`: 현재 프론트엔드 주소 (리다이렉트 등에 사용)
+- `KAKAO_APP_KEY`: 카카오 JavaScript 키 (맵, 로그인 등)
+- `WS_RASPBERRY_URL`: 관리자 실시간 모니터용 WebSocket 엔드포인트
+- `RASPBERRY_IP`: 참고용 라즈베리파이 IP
 
-이 프로젝트는 팀 프로젝트입니다.
+> ⚠️ `config.js`는 Git에 올리지 않고, 각 환경별로 별도 설정하는 것을 권장합니다. (`.gitignore`에 포함 가능)
+
+### 백엔드 연동
+
+- 이 프론트엔드는 **백엔드 API 서버**와 함께 동작합니다. 로그인, 일기, 일정, 회원, 공지, 룰렛 등 대부분의 기능이 API를 통해 데이터를 주고받습니다.
+- `API_URL`에 백엔드 서버 주소를 넣어주세요. (예: `http://localhost:8081`)
+- 백엔드 저장소 및 API 스펙은 별도 문서 또는 백엔드 팀에 문의하세요.
+
+---
+
+## 프로젝트 구조
+
+네비게이션 섹션별로 컴포넌트를 나누어 팀 단위 개발에 맞춰 두었습니다.
+
+```
+src/
+├── api/                 # API 클라이언트 (axios 등)
+├── components/
+│   ├── layout/          # Header, Footer, Drawer, HamburgerMenu 등 공통 레이아웃
+│   ├── common/          # Background, ImageCarousel, Modal, DataTable 등 공통 UI
+│   ├── home/            # 메인 페이지
+│   ├── about/           # 소개 섹션
+│   ├── schedule/        # 일정 페이지 (FullCalendar)
+│   ├── tour/            # 투어(맵) 페이지
+│   ├── roulette/        # 룰렛 페이지
+│   ├── diary/           # 일기 목록·상세·작성
+│   ├── contact/         # 연락처
+│   ├── login/           # 로그인
+│   ├── signup/          # 회원가입
+│   ├── my/              # 마이페이지
+│   └── admin/           # 관리자 레이아웃, 대시보드, 회원/일정/공지/일기/댓글/센서, 라즈베리파이 차트
+├── constants/           # 전역 상수
+├── context/             # AuthContext 등
+├── hooks/               # 커스텀 훅 (admin 등)
+├── utils/               # ProtectedRoute, 이미지 URL, 카카오맵 유틸 등
+├── App.jsx
+├── main.jsx
+└── index.css
+```
+
+- 페이지/섹션별로 `.jsx` + `.styles.js` (styled-components) 분리
+- 공통 컴포넌트는 `layout/`, `common/`에서 재사용
+
+자세한 폴더별 설명과 작업 가이드는 **`FOLDER_STRUCTURE.md`**를 참고하세요.
+
+---
+
+## 협업 및 이슈 관리
+
+- **이슈**: 버그는 🐞 버그 리포트, 기능은 ✨ 기능 제안, 리팩터/문서/환경은 🧹 작업 이슈 템플릿 사용
+- **제목**: `[BUG]`, `[FEAT]`, `[CHORE]` + 한 줄 요약
+- **브랜치**: `feat/이슈번호-기능명`, `fix/이슈번호-요약`
+- **PR**: 설명에 `Closes #이슈번호` 포함 시 머지 시 이슈 자동 종료
+
+자세한 규칙은 저장소의 **Issue/PR 템플릿** 및 **`.github/`** 워크플로우를 참고하세요.
+
+---
+
+## 배포
+
+- `npm run build`로 `dist/`에 정적 파일이 생성됩니다.
+- Nginx, Apache, Vercel, Netlify 등 정적 호스팅에 `dist` 내용을 올리면 됩니다.
+- API 주소·카카오 키 등은 배포 환경에 맞게 `config.js`(또는 서버에서 주입하는 `window.ENV`)로 설정해야 합니다.
+- 배포 주소 `https://examplekang.store`
+- 지속적으로 수정하고 배포 자동화를 진행중에 있습니다. 
+
+---
+
+## 주의사항
+
+- 섹션별 폴더 구조를 유지하고, 다른 섹션 파일은 임의로 수정하지 않습니다.
+- `layout/`, `common/` 수정 시 팀원과 사전에 협의합니다.
+- 스타일은 styled-components 기준으로 `.styles.js`에 분리해 유지합니다.
+
+---
+
+## 라이선스
+
+이 프로젝트는 팀 프로젝트로 진행되었습니다.

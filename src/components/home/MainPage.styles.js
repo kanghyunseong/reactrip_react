@@ -9,6 +9,13 @@ export const MainPageContainer = styled.div`
   min-height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
+  scroll-behavior: auto;
+  scroll-snap-type: none;
+
+  /* 스크롤 효과/스냅 제거: 모든 입력 장치(마우스/트랙패드)에서 동일하게 부드럽게 */
+  [data-snap-section] {
+    transform: none;
+    opacity: 1;
   scroll-behavior: smooth;
   scroll-snap-type: y mandatory;
 
@@ -57,6 +64,6 @@ export const HeroSectionContainer = styled.section`
   width: 100%;
   height: 100vh;
   position: relative;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
+  scroll-snap-align: none;
+  scroll-snap-stop: normal;
 `;

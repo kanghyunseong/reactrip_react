@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ChartContainer, ChartTitle, DataDisplay, DataValue, PercentageDisplay } from "./CPUUsageWidget.styles";
 
-export default function CPUUsageWidget() {
+const CPUUsageWidget = () => {
   const [cpuUsage, setCpuUsage] = useState(0);
 
   // 리얼타임 데이터 수신
@@ -28,4 +28,6 @@ export default function CPUUsageWidget() {
       </DataDisplay>
     </ChartContainer>
   );
-}
+};
+
+export default CPUUsageWidget;

@@ -10,9 +10,11 @@ import { MainPageContainer, HeroSectionContainer } from "./MainPage.styles";
 export default function MainPage() {
   const containerRef = useRef(null);
   const [activeSection, setActiveSection] = React.useState("home");
+  const activeSectionRef = useRef("home");
 
   useEffect(() => {
-    let ticking = false;
+    const container = containerRef.current;
+    if (!container) return;
 
     const updateScrollEffects = (currentScroll, windowHeight) => {
       const container = containerRef.current;
@@ -35,49 +37,44 @@ export default function MainPage() {
       });
     };
 
+    let ticking = false;
+    
     const handleScroll = () => {
-      if (!containerRef.current || ticking) return;
-      
-      ticking = true;
-      requestAnimationFrame(() => {
-        if (!containerRef.current) {
-          ticking = false;
-          return;
-        }
-        
-        const currentScroll = containerRef.current.scrollTop;
-        const sections = ["home", "about"];
-        const windowHeight = window.innerHeight;
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const currentScroll = container.scrollTop;
+          const sections = ["home", "about"];
+          const windowHeight = window.innerHeight;
 
-        for (let i = sections.length - 1; i >= 0; i--) {
-          const section = document.getElementById(sections[i]);
-          if (section) {
+          for (let i = sections.length - 1; i >= 0; i--) {
+            const section = document.getElementById(sections[i]);
+            if (!section) continue;
             const sectionTop = section.offsetTop;
             const sectionHeight = section.offsetHeight;
-            
-            if (currentScroll >= sectionTop - windowHeight / 2 && 
-                currentScroll < sectionTop + sectionHeight - windowHeight / 2) {
-              setActiveSection(sections[i]);
+            if (
+              currentScroll >= sectionTop - windowHeight / 2 &&
+              currentScroll < sectionTop + sectionHeight - windowHeight / 2
+            ) {
+              if (activeSectionRef.current !== sections[i]) {
+                activeSectionRef.current = sections[i];
+                setActiveSection(sections[i]);
+              }
               break;
             }
           }
-        }
 
-        updateScrollEffects(currentScroll, windowHeight);
+          updateScrollEffects(currentScroll, windowHeight);
+          
+          ticking = false;
+        });
         
-        ticking = false;
-      });
+        ticking = true;
+      }
     };
 
-    if (containerRef.current) {
-      containerRef.current.addEventListener("scroll", handleScroll, { passive: true });
-      handleScroll(); // 초기 실행
-      return () => {
-        if (containerRef.current) {
-          containerRef.current.removeEventListener("scroll", handleScroll);
-        }
-      };
-    }
+    container.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => container.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
@@ -88,7 +85,7 @@ export default function MainPage() {
         <HeroSection onMoreClick={() => {
           const aboutSection = document.getElementById("about");
           if (aboutSection && containerRef.current) {
-            aboutSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            aboutSection.scrollIntoView({ behavior: "smooth", block: "start" });
             setActiveSection("about");
           }
         }} />

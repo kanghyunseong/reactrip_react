@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ChartContainer, ChartTitle, DataDisplay, DataValue, TemperatureDisplay } from "./TemperatureWidget2.styles";
 
-export default function TemperatureWidget2() {
+const TemperatureWidget2 = () => {
   const [temperature, setTemperature] = useState(0);
 
   // 리얼타임 데이터 수신
@@ -28,4 +28,6 @@ export default function TemperatureWidget2() {
       </DataDisplay>
     </ChartContainer>
   );
-}
+};
+
+export default TemperatureWidget2;

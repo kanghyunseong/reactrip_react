@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { axiosPublic } from "../../api/api.js";
 import { imgImage13, imgLogoRemovebgPreview1 } from "../../constants/constants";
 import {
   SignUpPageContainer,
@@ -26,7 +27,9 @@ import {
 
 export default function SignUpPage() {
   const navigate = useNavigate();
+  const [msg, setMsg] = useState("");
   const [formData, setFormData] = useState({
+    id: "",
     name: "",
     age: "",
     phone: "",
@@ -43,10 +46,66 @@ export default function SignUpPage() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // TODO: 회원가입 로직 구현
-    console.log("SignUp:", formData);
+    
+    const regexpId = /^[a-zA-Z0-9]{6,20}$/;
+    const regexpPwd = /^[a-zA-Z0-9]{5,20}$/;
+    const regexpName = /^[a-zA-Z가-힣0-9]{3,20}$/;
+    const regexpAge = /^(19|20)\d{2}(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01])$/;
+    const regexpPhone = /^010\d{8}$/;
+    const regexpEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    // 유효성 검증
+    if (!regexpId.test(formData.id)) {
+      setMsg("아이디는 영어, 숫자만 가능하고 6~20자 사이만 가능합니다");
+      return;
+    } else if (!regexpPwd.test(formData.password)) {
+      setMsg("비밀번호는 영어, 숫자만 가능하고 5~20자 사이만 가능합니다");
+      return;
+    } else if (!regexpName.test(formData.name)) {
+      setMsg("이름은 한글, 영어, 숫자만 가능하고 3~20자 사이만 가능합니다");
+      return;
+    } else if (!regexpAge.test(formData.age)) {
+      setMsg("생년월일 형식이 올바르지 않습니다");
+      return;
+    } else if (!regexpPhone.test(formData.phone)) {
+      setMsg("휴대폰 번호 형식이 올바르지 않습니다");
+      return;
+    } else if (!regexpEmail.test(formData.email)) {
+      setMsg("이메일 형식이 올바르지 않습니다");
+      return;
+    } else if (formData.password !== formData.confirmPassword) {
+      setMsg("비밀번호가 일치하지 않습니다");
+      return;
+    } else {
+      setMsg(""); // 에러 메시지 초기화
+    }
+
+    try {
+      const response = await axiosPublic.post("/api/members/signup", {
+        memberId: formData.id,
+        memberName: formData.name,
+        memberPwd: formData.password,
+        birthDay: formData.age,
+        email: formData.email,
+        phone: formData.phone
+      });
+      
+      alert("회원가입이 완료되었습니다. 로그인 페이지로 이동합니다.");
+      navigate("/login");
+      
+    } catch (error) {
+      
+      // 에러 메시지 처리
+      if (error.response?.data?.message) {
+        setMsg(error.response.data.message);
+        alert(error.response.data.message);
+      } else {
+        setMsg("회원가입에 실패했습니다. 다시 시도해주세요.");
+        alert("회원가입에 실패했습니다. 다시 시도해주세요.");
+      }
+    }
   };
 
   const handleLoginClick = () => {
@@ -83,10 +142,22 @@ export default function SignUpPage() {
 
         <FormContainer>
           <FormBox onSubmit={handleSubmit}>
+            <InputField data-node-id="80:123">
+              <InputLabel>ID</InputLabel>
+              <Input
+                type="text"
+                name="id"
+                placeholder="영문, 한글 최소 6자 ~ 최대 20자"
+                autoComplete="username"
+                required
+                value={formData.id}
+                onChange={handleChange}
+                data-node-id="80:123"
+              />
+            </InputField>
+
             <InputField data-node-id="73:1045">
-              <InputLabel>
-                Name
-              </InputLabel>
+              <InputLabel>Name</InputLabel>
               <Input
                 type="text"
                 name="name"
@@ -179,6 +250,12 @@ export default function SignUpPage() {
                 data-node-id="73:1073"
               />
             </InputField>
+
+            {msg && (
+              <div style={{ color: 'red', fontSize: '14px', textAlign: 'center', marginTop: '10px' }}>
+                {msg}
+              </div>
+            )}
 
             <SignUpButton type="submit" data-node-id="73:944">
               Welcome to ReacTrip

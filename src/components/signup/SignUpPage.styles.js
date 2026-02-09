@@ -34,17 +34,35 @@ export const BackgroundImageContainer = styled.div`
     pointer-events: none;
   }
 
+  @media (max-width: 1600px) {
+    width: 62%;
+  }
+
   @media (max-width: 1400px) {
-    width: 60%;
+    width: 58%;
+  }
+
+  @media (max-width: 1200px) {
+    width: 52%;
   }
 
   @media (max-width: 1024px) {
-    width: 55%;
+    width: 50%;
+  }
+
+  @media (max-width: 900px) {
+    width: 45%;
   }
 
   @media (max-width: 768px) {
     width: 100%;
-    height: 44vh;
+    height: 40vh;
+    min-height: 280px;
+  }
+
+  @media (max-width: 480px) {
+    height: 35vh;
+    min-height: 240px;
   }
 `;
 
@@ -66,14 +84,34 @@ export const LeftTextContainer = styled.div`
   top: 15.625rem;
   z-index: 2;
 
+  @media (max-width: 1400px) {
+    left: 10rem;
+    top: 14rem;
+  }
+
+  @media (max-width: 1200px) {
+    left: 7.5rem;
+    top: 13rem;
+  }
+
   @media (max-width: 1024px) {
-    left: 9.375rem;
-    top: 12.5rem;
+    left: 5rem;
+    top: 12rem;
+  }
+
+  @media (max-width: 900px) {
+    left: 3.5rem;
+    top: 11rem;
   }
 
   @media (max-width: 768px) {
     left: 1.25rem;
-    top: 9.375rem;
+    top: 8rem;
+  }
+
+  @media (max-width: 480px) {
+    left: 1rem;
+    top: 6rem;
   }
 `;
 
@@ -87,6 +125,21 @@ export const TitleText = styled.p`
   text-transform: capitalize;
   margin: 0 0 0.3125rem 0;
   text-shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
+
+  @media (max-width: 1024px) {
+    font-size: 1.25rem;
+    line-height: 1.4rem;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1.125rem;
+    line-height: 1.3rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1rem;
+    line-height: 1.25rem;
+  }
 `;
 
 export const SubtitleText = styled.p`
@@ -98,6 +151,21 @@ export const SubtitleText = styled.p`
   text-transform: capitalize;
   margin: 0;
   text-shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
+
+  @media (max-width: 1024px) {
+    font-size: 1.25rem;
+    line-height: 1.4rem;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1.125rem;
+    line-height: 1.3rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1rem;
+    line-height: 1.25rem;
+  }
 `;
 
 export const RightContainer = styled.div`
@@ -123,15 +191,37 @@ export const RightContainer = styled.div`
   overflow-y: auto;
   scrollbar-width: thin; /* Firefox */
 
+  @media (max-width: 1600px) {
+    width: 36rem;
+    max-width: calc(100vw - 11rem);
+    padding: 2.25rem 2rem;
+  }
+
   @media (max-width: 1400px) {
-    right: 3.125rem;
+    right: 1.5rem;
+    width: 34rem;
     max-width: calc(100vw - 9.375rem);
+    padding: 2rem 1.875rem;
+  }
+
+  @media (max-width: 1200px) {
+    right: 1.25rem;
+    width: 32rem;
+    max-width: calc(100vw - 8rem);
+    padding: 2rem 1.75rem;
   }
 
   @media (max-width: 1024px) {
-    right: 3.125rem;
+    right: 1.5rem;
     width: 31.25rem;
     max-width: calc(100vw - 9.375rem);
+    padding: 2rem 1.75rem;
+  }
+
+  @media (max-width: 900px) {
+    width: 28rem;
+    max-width: calc(100vw - 7rem);
+    padding: 1.875rem 1.5rem;
   }
 
   @media (max-width: 768px) {
@@ -147,6 +237,12 @@ export const RightContainer = styled.div`
     overflow: visible;
     padding: 2rem 1.25rem 2.25rem;
   }
+
+  @media (max-width: 480px) {
+    padding: 1.75rem 1rem 2rem;
+    margin-top: -1.25rem;
+    border-radius: 1.25rem 1.25rem 0 0;
+  }
 `;
 
 export const LogoContainer = styled.div`
@@ -154,6 +250,18 @@ export const LogoContainer = styled.div`
   height: 5.125rem;
   width: 13rem;
   margin-bottom: 0.9375rem;
+
+  @media (max-width: 768px) {
+    height: 4.5rem;
+    width: 11.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  @media (max-width: 480px) {
+    height: 4rem;
+    width: 10rem;
+    margin-bottom: 0.625rem;
+  }
 `;
 
 export const LogoImg = styled.img`
@@ -178,6 +286,18 @@ export const LogoText = styled.p`
   text-align: center;
   margin: 0;
   width: 12.1875rem;
+
+  @media (max-width: 768px) {
+    font-size: 2.25rem;
+    height: 3.5rem;
+    width: 11rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 2rem;
+    height: 3rem;
+    width: 10rem;
+  }
 `;
 
 export const FormContainer = styled.div`
@@ -187,13 +307,17 @@ export const FormContainer = styled.div`
 
   @media (max-width: 1024px) {
     width: 100%;
-    max-width: 31.25rem;
+    max-width: 100%;
   }
 
   @media (max-width: 768px) {
     width: 100%;
-    max-width: calc(100vw - 2.5rem);
-    padding: 0 1.25rem;
+    max-width: 100%;
+    padding: 0;
+  }
+
+  @media (max-width: 480px) {
+    margin-top: 1.5rem;
   }
 `;
 
@@ -201,6 +325,14 @@ export const FormBox = styled.form`
   display: flex;
   flex-direction: column;
   gap: 0.9375rem;
+
+  @media (max-width: 768px) {
+    gap: 0.875rem;
+  }
+
+  @media (max-width: 480px) {
+    gap: 0.75rem;
+  }
 `;
 
 export const InputField = styled.div`
@@ -219,6 +351,10 @@ export const InputLabel = styled.label`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  @media (max-width: 480px) {
+    font-size: 0.9375rem;
+  }
 `;
 
 export const Input = styled.input`
@@ -233,6 +369,11 @@ export const Input = styled.input`
   transition: border-color 0.25s, box-shadow 0.25s;
   background-color: white;
   color: #1e1e1e;
+
+  @media (max-width: 480px) {
+    padding: 10px 14px;
+    font-size: 15px;
+  }
 
   &:focus {
     border-color: #4a90e2;
@@ -251,6 +392,10 @@ export const ExampleText = styled.span`
   color: red;
   margin: 0;
   line-height: 1;
+
+  @media (max-width: 480px) {
+    font-size: 14px;
+  }
 `;
 
 export const SignUpButton = styled.button`
@@ -267,6 +412,13 @@ export const SignUpButton = styled.button`
   transition: transform 0.15s, filter 0.2s;
   margin-top: 10px;
   height: 40px;
+
+  @media (max-width: 480px) {
+    padding: 10px;
+    font-size: 15px;
+    height: 38px;
+    border-radius: 0.625rem;
+  }
 
   &:hover {
     filter: brightness(1.03);
@@ -285,6 +437,11 @@ export const TextLink = styled.p`
   margin: 10px 0;
   cursor: pointer;
   line-height: 1.4;
+
+  @media (max-width: 480px) {
+    font-size: 15px;
+    margin: 8px 0;
+  }
 `;
 
 export const LoginLinkButton = styled.button`
@@ -300,6 +457,13 @@ export const LoginLinkButton = styled.button`
   cursor: pointer;
   transition: transform 0.15s, filter 0.2s;
   height: 40px;
+
+  @media (max-width: 480px) {
+    padding: 10px;
+    font-size: 15px;
+    height: 38px;
+    border-radius: 0.625rem;
+  }
 
   &:hover {
     filter: brightness(1.03);
@@ -326,6 +490,20 @@ export const BackButton = styled.button`
   cursor: pointer;
   z-index: 1000;
   transition: all 0.3s;
+
+  @media (max-width: 768px) {
+    top: 12px;
+    left: 12px;
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  @media (max-width: 480px) {
+    top: 10px;
+    left: 10px;
+    padding: 6px 12px;
+    font-size: 13px;
+  }
 
   &:hover {
     background-color: rgba(255, 255, 255, 0.2);
