@@ -19,13 +19,13 @@ const DiaryList = () => {
   const navigate = useNavigate();
 
   const handleWrite = () => {
-  // const token = localStorage.getItem("accessToken");
+  const token = localStorage.getItem("accessToken");
 
-  //   if (!token) {
-  //     alert("로그인 후 이용해주세요.");
-  //     navigate("/login");
-  //     return;
-  //   }
+    if (!token) {
+      alert("로그인 후 이용해주세요.");
+      navigate("/login");
+      return;
+    }
 
      navigate("/diarys/insert");
    };
@@ -101,7 +101,7 @@ const DiaryList = () => {
               <img
                 src={
                   item.thumbnailUrl ||
-                  "https://us.123rf.com/450wm/oculo/oculo2004/oculo200400003/143645399-no-image-available-icon.jpg"
+                  item.imageUrl
                 }
                 alt="썸네일"
                 style={listStyles.thumbnailImg}
