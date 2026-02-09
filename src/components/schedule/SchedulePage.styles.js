@@ -212,17 +212,17 @@ export const PageButton = styled.button`
 
 export const PageNumber = styled.button`
     padding: 8px 12px;
-    background-color: ${props => props.active ? '#4a90e2' : 'white'};
-    color: ${props => props.active ? 'white' : '#333'};
-    border: 1px solid ${props => props.active ? '#4a90e2' : '#ddd'};
+    background-color: ${props => props.$active ? '#4a90e2' : 'white'};  // ← $active로 변경
+    color: ${props => props.$active ? 'white' : '#333'};  // ← $active로 변경
+    border: 1px solid ${props => props.$active ? '#4a90e2' : '#ddd'};  // ← $active로 변경
     border-radius: 6px;
     cursor: pointer;
     font-size: 0.9rem;
-    font-weight: ${props => props.active ? '600' : '400'};
+    font-weight: ${props => props.$active ? '600' : '400'};  // ← $active로 변경
     min-width: 36px;
 
     &:hover {
-        background-color: ${props => props.active ? '#357abd' : '#f5f5f5'};
+        background-color: ${props => props.$active ? '#357abd' : '#f5f5f5'};  // ← $active로 변경
     }
 `;
 

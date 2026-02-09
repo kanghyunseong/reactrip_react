@@ -146,34 +146,34 @@ const SchedulePage = () => {
 
                                 {/* 페이지네이션 */}
                                 {pageInfo && (
-                                    <S.Pagination>
-                                        <S.PageButton
-                                            onClick={() => handlePageChange(currentPage - 1)}
-                                            disabled={currentPage === 1}
-                                        >
-                                            이전
-                                        </S.PageButton>
-                                        
-                                        {Array.from({ length: pageInfo.endPage - pageInfo.startPage + 1 }, (_, i) => {
-                                            const pageNum = pageInfo.startPage + i;
-                                            return (
-                                                <S.PageNumber
-                                                    key={pageNum}
-                                                    onClick={() => handlePageChange(pageNum)}
-                                                    active={currentPage === pageNum}
-                                                >
-                                                    {pageNum}
-                                                </S.PageNumber>
-                                            );
-                                        })}
-                                        
-                                        <S.PageButton
-                                            onClick={() => handlePageChange(currentPage + 1)}
-                                            disabled={currentPage === pageInfo.maxPage}
-                                        >
-                                            다음
-                                        </S.PageButton>
-                                    </S.Pagination>
+                                  <S.Pagination>
+                                      <S.PageButton
+                                          onClick={() => handlePageChange(currentPage - 1)}
+                                          disabled={currentPage === 1}
+                                      >
+                                          이전
+                                      </S.PageButton>
+                                      
+                                      {Array.from({ length: pageInfo.endPage - pageInfo.startPage + 1 }, (_, i) => {
+                                          const pageNum = pageInfo.startPage + i;
+                                          return (
+                                              <S.PageNumber
+                                                  key={pageNum}
+                                                  onClick={() => handlePageChange(pageNum)}
+                                                  $active={currentPage === pageNum}  // ← $active로 변경
+                                              >
+                                                  {pageNum}
+                                              </S.PageNumber>
+                                          );
+                                      })}
+                                      
+                                      <S.PageButton
+                                          onClick={() => handlePageChange(currentPage + 1)}
+                                          disabled={currentPage === pageInfo.maxPage}
+                                      >
+                                          다음
+                                      </S.PageButton>
+                                  </S.Pagination>
                                 )}
                             </>
                         )}
