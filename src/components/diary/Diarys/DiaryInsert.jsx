@@ -122,6 +122,7 @@ const DiaryInsert = () => {
 
   const handleCancel = () => {
      alert("취소 되었습니다.");
+     navigate(`/diarys/detail`);
   };
   
   // const isValid =
