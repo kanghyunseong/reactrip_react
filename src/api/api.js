@@ -60,46 +60,27 @@ const api = {
   get: (url, config = {}) => instance.get(url, config).then(wrap),
   getActual: (url, config = {}) => instance.get(url, config).then(unwrap),
   post: (url, data, config = {}) => {
-    console.log("업로드");
-    // FormData 처리 (파일 업로드 대응)
-    // 데이터 객체에 'file' 키가 존재하거나 이미 FormData인 경우 멀티파트로 처리
-    console.log("dsdfasdfas --->");
-    const isFile = (data && 'file' in data) || data instanceof FormData;
-    console.log(" ==>  " + isFile);    
+    const isFormData = data instanceof FormData;
     let payload = data;
     let headers = { ...config.headers };
-    console.log(" ==>  " + data);  
-    console.log(" ==> 2  " + (data instanceof FormData)); 
-    if (isFile && (data instanceof FormData)) {
-      //payload = new FormData();
-      // Object.entries(data).forEach(([key, value]) => {
-      //   console.log(key + " ==>  " + value);
-      //   if (value !== undefined) {
-      //     // value가 null인 경우(특히 파일) 전송하지 않음
-      //     // 하지만 전체 요청은 multipart/form-data 형식이 됨
-      //     if (value !== null) {
-      //       payload.append(key, value);
-      //     }
-      //   }
-      // });
-      headers["Content-Type"] = "multipart/form-data";
+    // FormData일 때 Content-Type을 비우면 axios가 boundary 포함 multipart 헤더를 자동 설정
+    if (isFormData) {
+      headers["Content-Type"] = undefined;
     }
     return instance.post(url, payload, { ...config, headers }).then(wrap);
   },
   put: (url, data, config = {}) => {
-    // FormData 처리 (파일 업로드 대응) - POST와 동일
-    const isFile = (data && 'file' in data) || data instanceof FormData;
+    const isFormData = data instanceof FormData;
+    const isFileObj = data && typeof data === "object" && "file" in data;
     let payload = data;
     let headers = { ...config.headers };
-    if (isFile && !(data instanceof FormData)) {
+    if (isFileObj && !isFormData) {
       payload = new FormData();
       Object.entries(data).forEach(([key, value]) => {
-        if (value !== undefined) {
-          payload.append(key, value === null ? "" : value);
-        }
+        if (value !== undefined) payload.append(key, value === null ? "" : value);
       });
-      headers["Content-Type"] = "multipart/form-data";
     }
+    if (payload instanceof FormData) headers["Content-Type"] = undefined;
     return instance.put(url, payload, { ...config, headers }).then(wrap);
   },
   delete: (url, pk, config = {}) => {
