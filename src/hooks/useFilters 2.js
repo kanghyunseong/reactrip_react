@@ -28,36 +28,29 @@ export const useFilters = () => {
   const [regions, setRegions] = useState([]);
   const [themes, setThemes] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);  
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchFilters = async () => {
-      setLoading(true);
-      setError(null);
-
-      // regions/themes 각각 실패해도 나머지는 사용 (allSettled)
-      const [regionsSettled, themesSettled] = await Promise.allSettled([
-        axiosPublic.getList('/api/places/regions'),
-        axiosPublic.getList('/api/places/themes'),
-      ]);
-
-      const regionsRes = regionsSettled.status === 'fulfilled' ? regionsSettled.value : null;
-      const themesRes = themesSettled.status === 'fulfilled' ? themesSettled.value : null;
-
-      setRegions(toArray(regionsRes));
-      setThemes(toArray(themesRes));
-
-      // 실패한 요청이 있으면 로그. 둘 다 실패할 때만 error 상태로 화면에 표시
-      const regionsFailed = regionsSettled.status === 'rejected';
-      const themesFailed = themesSettled.status === 'rejected';
-
-      if (regionsFailed) logFilterFailure('/api/places/regions', regionsSettled.reason);
-      if (themesFailed) logFilterFailure('/api/places/themes', themesSettled.reason);
-
-      if (regionsFailed && themesFailed) {
-        setError(
-          '서버 오류로 필터를 불러오지 못했습니다. 백엔드(/api/places/regions, /api/places/themes)를 확인해주세요.'
-        );
+      try {
+        setLoading(true);
+        
+        // 병렬 요청
+        const [regionsRes, themesRes] = await Promise.all([
+          axiosPublic.getList('/api/places/regions'),
+          axiosPublic.getList('/api/places/themes')
+        ]);
+        
+        setRegions(regionsRes || []);
+        setThemes(themesRes || []);
+        setError(null);
+      } catch (err) {
+        console.warn('필터 API 실패, 빈 목록으로 계속 진행:', err?.response?.data?.message || err.message);
+        setRegions([]);
+        setThemes([]);
+        setError(null); // 화면 차단 없이 필터만 비어 있게
+      } finally {
+        setLoading(false);
       }
 
       setLoading(false);
