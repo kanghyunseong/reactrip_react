@@ -67,44 +67,34 @@ const DiaryInsert = () => {
     try {
     // 이미지 업로드
     const data = new FormData();
-    imageFiles.forEach(file => {
-      console.log("file 정보 : "+ {
-        name: file.name,
-        size: file.size,
-        type: file.type,
-        lastModified: file.lastModified,
-      });
-      data.append("file", file);
-    });
+    imageFiles.forEach((file) => data.append("file", file));
 
     const imgRes = await axiosPublic.post(
       "/api/diarys/upload/diary-image",
       data
     );
-    //const imageUrls = imgRes.data; // ✅ S3 URL 리스트
+    const imageUrls = Array.isArray(imgRes) ? imgRes : imgRes?.data ?? [];
+    const imageUrl = imageUrls[0] ?? "";
+
     const userNo = localStorage.getItem("userNo");
-    // 글 등록 
     const diaryRes = await axiosPublic.post("/api/diarys/insert", {
       diaryTitle: title,
       diaryContent: content,
-      regionNo: Number(region),
-      themeNo: Number(theme),
-      memberNo: Number(userNo),
-      scheduleNo : 5,
-      travelNo :1,
-      imageUrl: imgRes[0]
-    }
-  );
-    console.log("등록 완료 : " + diaryRes);
-     const diaryNo = diaryRes;
-  
-        alert("게시글이 등록되었습니다.");
-        navigate(`/diarys/detail/${diaryNo}`);
-  } catch(err) {
-    console.error(err);
-    console.error("response", err.diaryRes);
-    alert("등록 중 오류가 발생했습니다.");
-    }
+      regionNo: Number(region) || 0,
+      themeNo: Number(theme) || 0,
+      memberNo: Number(userNo) || 0,
+      scheduleNo: 0,
+      travelNo: 0,
+      imageUrl,
+    });
+    const diaryNo = diaryRes?.data ?? diaryRes;
+
+    alert("게시글이 등록되었습니다.");
+    navigate(`/diarys/detail/${diaryNo}`);
+  } catch (err) {
+    console.error("일기 등록 실패:", err?.response?.data ?? err);
+    alert(err?.response?.data?.message ?? "등록 중 오류가 발생했습니다.");
+  }
   };
 
   const handleCancel = () => {
