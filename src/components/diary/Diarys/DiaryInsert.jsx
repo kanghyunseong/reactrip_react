@@ -40,7 +40,6 @@ const DiaryInsert = () => {
 };
 
   const handleSubmit = async () => {
-    console.log("call start !!");
   if (title.trim() === "") {
     alert("제목을 입력해주세요.");
     return;
@@ -50,7 +49,6 @@ const DiaryInsert = () => {
     alert("내용을 입력해주세요.");
     return;
   }
-  console.log("call start !!" + region);
     if (region === "") {
      alert("지역을 선택해주세요.");
      return;
@@ -60,7 +58,6 @@ const DiaryInsert = () => {
      alert("테마를 선택해주세요.");
      return;
    }
-  console.log("이미지 갯수 : " + imageFiles.length);
   
     if (imageFiles.length === 0) {
     alert("이미지를 1만 등록해주세요.");
@@ -68,7 +65,6 @@ const DiaryInsert = () => {
     }
 
     try {
-      console.log("업로드 !!");
     // 이미지 업로드
     const data = new FormData();
     imageFiles.forEach(file => {
@@ -81,15 +77,12 @@ const DiaryInsert = () => {
       data.append("file", file);
     });
 
-    console.log("업로드2 ---> " + JSON.stringify(data.file));
     const imgRes = await axiosPublic.post(
       "/api/diarys/upload/diary-image",
       data
     );
-  console.log("업로드3 !!  --> " + imgRes[0]);
     //const imageUrls = imgRes.data; // ✅ S3 URL 리스트
     const userNo = localStorage.getItem("userNo");
-    console.log("login memberNo -->" + JSON.stringify(userNo));
     // 글 등록 
     const diaryRes = await axiosPublic.post("/api/diarys/insert", {
       diaryTitle: title,
@@ -104,7 +97,6 @@ const DiaryInsert = () => {
   );
     console.log("등록 완료 : " + diaryRes);
      const diaryNo = diaryRes;
-
   
         alert("게시글이 등록되었습니다.");
         navigate(`/diarys/detail/${diaryNo}`);

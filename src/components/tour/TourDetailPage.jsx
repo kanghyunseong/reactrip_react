@@ -32,8 +32,21 @@ export default function TourDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // travelNo가 유효한 숫자일 때만 API 호출 (빈 값, "undefined", 0 등은 백엔드 검증 오류 유발)
+  const isValidTravelNo = (value) => {
+    if (value == null || value === "") return false;
+    const num = Number(value);
+    return Number.isInteger(num) && num > 0;
+  };
+
   // 여행지 상세 정보 조회
   useEffect(() => {
+    if (!isValidTravelNo(travelNo)) {
+      setLoading(false);
+      setError("잘못된 여행지 번호입니다.");
+      return;
+    }
+
     const fetchDestination = async () => {
       try {
         setLoading(true);
@@ -59,9 +72,7 @@ export default function TourDetailPage() {
       }
     };
 
-    if (travelNo) {
-      fetchDestination();
-    }
+    fetchDestination();
   }, [travelNo]);
 
   // 카카오 지도 초기화

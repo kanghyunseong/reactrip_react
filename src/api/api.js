@@ -122,6 +122,14 @@ export const axiosAuth = {
   // 등록/수정/삭제
   create: (url, obj, file) => api.post(url, { ...obj, file }),
   createJson: (url, obj) => api.post(url, obj),
+  /** multipart/form-data로 FormData 그대로 전송 (예: @RequestPart("data") + @RequestPart("images")) */
+  postFormData: (url, formData) =>
+    instance
+      .post(url, formData, {
+        // 기본 Content-Type(application/json)을 제거하여 브라우저가 boundary 포함 헤더를 설정하도록 함
+        headers: { "Content-Type": undefined },
+      })
+      .then(wrap),
   put: (url, obj, file) => api.put(url, { ...obj, file }),
   putJson: (url, obj) => api.put(url, obj),
   delete: (url, pk) => api.delete(url, pk),
