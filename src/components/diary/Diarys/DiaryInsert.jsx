@@ -88,7 +88,7 @@ const DiaryInsert = () => {
     );
   console.log("업로드3 !!  --> " + imgRes[0]);
     //const imageUrls = imgRes.data; // ✅ S3 URL 리스트
-    let userNo = localStorage.getItem("userNo");
+    const userNo = localStorage.getItem("userNo");
     console.log("login memberNo -->" + JSON.stringify(userNo));
     // 글 등록 
     const diaryRes = await axiosPublic.post("/api/diarys/insert", {
@@ -96,7 +96,7 @@ const DiaryInsert = () => {
       diaryContent: content,
       regionNo: Number(region),
       themeNo: Number(theme),
-      memberNo: userNo,
+      memberNo: Number(userNo),
       scheduleNo : 5,
       travelNo :1,
       imageUrl: imgRes[0]
@@ -105,11 +105,6 @@ const DiaryInsert = () => {
     console.log("등록 완료 : " + diaryRes);
      const diaryNo = diaryRes;
 
-    // // 이미지 DB 저장
-    // await axiosPublic.post("/upload/images", {
-    //   diaryNo,
-    //   imageUrls
-    // });
   
         alert("게시글이 등록되었습니다.");
         navigate(`/diarys/detail/${diaryNo}`);
@@ -122,14 +117,9 @@ const DiaryInsert = () => {
 
   const handleCancel = () => {
      alert("취소 되었습니다.");
-     navigate(`/diarys/detail`);
+     navigate(`/diarys`);
   };
   
-  // const isValid =
-  // title.trim().length > 0 &&
-  // content.trim().length > 0 &&
-  // previews.length > 0;
-
   return (
     <div className="diary-container">
       <div className="diary-form">
@@ -155,27 +145,27 @@ const DiaryInsert = () => {
               <option value="1">서  울</option>
               <option value="2">인  천</option>
               <option value="3">경  기</option>
-              <option value="8">세  종</option>
-              <option value="32">강원도</option>
-              <option value="39">제주도</option>
-              <option value="34">충청남도</option>
-              <option value="33">충청북도</option>
-              <option value="38">전라남도</option>
-              <option value="37">전라북도</option>
-              <option value="36">경상남도</option>
-              <option value="35">경상북도</option>
+              <option value="4">세  종</option>
+              <option value="5">강원도</option>
+              <option value="6">제주도</option>
+              <option value="7">충청남도</option>
+              <option value="8">충청북도</option>
+              <option value="9">전라남도</option>
+              <option value="10">전라북도</option>
+              <option value="11">경상남도</option>
+              <option value="12">경상북도</option>
             </select>
 
             <select value={theme} onChange={(e) => setTheme(e.target.value)}>
               <option value="">테    마</option>
-              <option value="10">호 캉 스</option>
+              <option value="1">호 캉 스</option>
               <option value="2">전통 문화</option>
               <option value="3">액티 비티</option>
               <option value="4">자연/풍경</option>
               <option value="5">바다/해변</option>
-              <option value="10">캠핑/차박</option>
+              <option value="6">캠핑/차박</option>
               <option value="7">전시/공연</option>
-              <option value="4">계절 꽃놀이</option>
+              <option value="8">계절 꽃놀이</option>
               <option value="9">식도락/맛집</option>
               <option value="10">기타</option>
             </select>
