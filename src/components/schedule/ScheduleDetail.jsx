@@ -24,11 +24,9 @@ const ScheduleDetail = () => {
         try {
             const response = await axiosAuth.getActual(`/api/schedules/${scheduleNo}`);
             
-            console.log('상세 조회 응답:', response);
             
             setSchedule(response);
         } catch (err) {
-            console.error('조회 실패:', err);
             if (err.response?.status === 401 || err.response?.status === 403) {
                 alert('로그인이 필요합니다.');
                 navigate('/login');
@@ -57,7 +55,6 @@ const ScheduleDetail = () => {
             alert('일정이 삭제되었습니다.');
             navigate('/schedule');
         } catch (err) {
-            console.error('삭제 실패:', err);
             alert(err.response?.data?.message || '삭제에 실패했습니다.');
         }
     };

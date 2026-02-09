@@ -85,7 +85,6 @@ const ScheduleCreate = () => {
             // axiosAuth.createJson 사용 (JSON 데이터 전송)
             const response = await axiosAuth.createJson('/api/schedules', formData);
             
-            console.log('등록 응답:', response);
             
             alert('여행 일정이 등록되었습니다.');
             
@@ -93,7 +92,6 @@ const ScheduleCreate = () => {
             navigate(`/schedules/${response.data}`);
             
         } catch (err) {
-            console.error('등록 실패:', err);
             alert(err.response?.data?.message || '일정 등록에 실패했습니다.');
         }
     };

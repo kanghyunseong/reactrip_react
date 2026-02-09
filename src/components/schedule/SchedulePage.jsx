@@ -25,22 +25,12 @@ const SchedulePage = () => {
             setLoading(true);
             const response = await axiosAuth.getList(`/api/schedules?page=${page}`);
             
-            console.log('=== 스케줄 목록 전체 응답 ===');
-            console.log(response);
-            console.log('schedules:', response.data?.schedules || response.schedules);
-            console.log('pageInfo:', response.data?.pageInfo || response.pageInfo);
-            
             const scheduleData = response.data?.schedules || response.schedules || [];
             const pageData = response.data?.pageInfo || response.pageInfo || null;
-            
-            console.log('=== 최종 설정 데이터 ===');
-            console.log('scheduleData:', scheduleData);
-            console.log('pageData:', pageData);
             
             setSchedules(scheduleData);
             setPageInfo(pageData);
         } catch (err) {
-            console.error('스케줄 조회 실패:', err);
             if (err.response?.status === 401 || err.response?.status === 403) {
                 alert('로그인이 필요합니다.');
                 navigate('/login');
@@ -52,7 +42,6 @@ const SchedulePage = () => {
 
     // 페이지 변경
     const handlePageChange = (page) => {
-        console.log('페이지 변경:', page);
         setCurrentPage(page);
         window.scrollTo(0, 0);
     };

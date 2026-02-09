@@ -31,8 +31,6 @@ const ScheduleEdit = () => {
         try {
             const response = await axiosAuth.getActual(`/api/schedules/${scheduleNo}`);
             
-            console.log('수정할 데이터:', response);
-            
             setFormData({
                 scheduleName: response.scheduleName || '',
                 description: response.description || '',
@@ -41,7 +39,6 @@ const ScheduleEdit = () => {
                 travelEnd: response.travelEnd || ''
             });
         } catch (err) {
-            console.error('조회 실패:', err);
             alert('일정을 찾을 수 없습니다.');
             navigate('/schedules');
         } finally {
@@ -112,7 +109,6 @@ const ScheduleEdit = () => {
             alert('수정되었습니다.');
             navigate(`/schedules/${scheduleNo}`);
         } catch (err) {
-            console.error('수정 실패:', err);
             alert(err.response?.data?.message || '수정에 실패했습니다.');
         }
     };
