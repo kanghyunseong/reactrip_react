@@ -1,7 +1,7 @@
 import { useRef, useState, useContext } from "react";
 import "./DiaryWrite.css";
 import axios from "axios";
-import { axiosPublic } from "../../../api/api";
+import { axiosAuth, axiosPublic } from "../../../api/api";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthContext";
 
