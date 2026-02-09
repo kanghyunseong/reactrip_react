@@ -39,6 +39,7 @@ function App() {
           <Route path="insert" element={<DiaryInsert />} />
           <Route path="detail/:diaryNo" element={<DiaryDetail />} />
         </Route>
+        <Route path="/mypage" element={<MyPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />

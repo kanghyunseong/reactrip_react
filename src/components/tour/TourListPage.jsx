@@ -88,12 +88,10 @@ export default function TourListPage() {
     }
   };
 
-  // 컴포넌트 마운트 시 필터 로딩 완료 후 초기 데이터 로드
+  // 마운트 시 목록 로드 (필터는 로딩 완료 후 패널에서 표시)
   useEffect(() => {
-    if (!filtersLoading) {
-      fetchDestinations(1);
-    }
-  }, [filtersLoading]); // filtersLoading이 false가 되면 실행
+    fetchDestinations(1);
+  }, []);
 
   // 검색 버튼 클릭 핸들러
   const handleSearch = () => {
@@ -227,36 +225,6 @@ export default function TourListPage() {
     return pageNumbers;
   };
 
-  // 필터 로딩 상태 처리
-  if (filtersLoading) {
-    return (
-      <PageContainer>
-        <Header />
-        <ContentWrapper>
-          <LoadingSpinner>
-            <div className="spinner"></div>
-            <p>필터를 불러오는 중...</p>
-          </LoadingSpinner>
-        </ContentWrapper>
-      </PageContainer>
-    );
-  }
-
-  // 필터 에러 상태 처리
-  if (filtersError) {
-    return (
-      <PageContainer>
-        <Header />
-        <ContentWrapper>
-          <ErrorMessage>
-            <p>{filtersError}</p>
-            <button onClick={() => window.location.reload()}>다시 시도</button>
-          </ErrorMessage>
-        </ContentWrapper>
-      </PageContainer>
-    );
-  }
-
   return (
     <PageContainer>
       <Header />
@@ -320,7 +288,7 @@ export default function TourListPage() {
               ))}
           </CardGrid>
 
-          {/* regions, themes props 전달 */}
+          {/* 필터 패널: 로딩/에러 시에도 영역은 보이게 함 */}
           <TourFilterPanel
             regions={regions}
             themes={themes}
@@ -329,6 +297,8 @@ export default function TourListPage() {
             onRegionChange={handleRegionChange}
             onThemeChange={handleThemeChange}
             onReset={handleReset}
+            loading={filtersLoading}
+            error={filtersError}
           />
         </MainContent>
 
