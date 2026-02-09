@@ -21,6 +21,9 @@ import ProtectedRoute from "./utils/ProtectedURL";
 import "./App.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ScheduleCreate from "./components/schedule/ScheduleCreate";
+import ScheduleEdit from "./components/schedule/ScheduleEdit";
+import ScheduleDetail from "./components/schedule/ScheduleDetail";
 
 function App() {
   return (
@@ -28,14 +31,19 @@ function App() {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/schedule" element={<SchedulePage />} />
+        <Route path="/schedules/create" element={<ScheduleCreate />} />
+        <Route path="/schedules/:scheduleNo" element={<ScheduleDetail />} />
+        <Route path="/schedules/:scheduleNo/edit" element={<ScheduleEdit/>} />
         <Route path="/tour" element={<TourListPage />} />
         <Route path="/tour/:travelNo" element={<TourDetailPage />} />
         <Route path="/roulette" element={<RoulettePage />} />
+        <Route path="/diarys" element={<DiaryPage />} />
         <Route path="/diarys/*" element={<DiaryPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />
-        
+        <Route path="/mypage" element={<MyPage/>} />
+
         <Route
           path="/admin"
           element={
