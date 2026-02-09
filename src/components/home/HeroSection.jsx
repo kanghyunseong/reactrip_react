@@ -1,8 +1,5 @@
 import React from "react";
-import { imgLine1 } from "../../constants/constants";
 import {
-  LineContainer,
-  LineImg,
   MoreText,
   MainTitle,
   TitleLine,
@@ -14,11 +11,6 @@ import {
 export default function HeroSection({ onMoreClick }) {
   return (
     <>
-      <LineContainer style={{ left: "-6px", top: "774px", width: "214px" }} data-node-id="2:167">
-        <div style={{ position: "absolute", inset: "-2px 0 0 0" }}>
-          <LineImg alt="" src={imgLine1} />
-        </div>
-      </LineContainer>
       <MoreText data-node-id="2:168" onClick={onMoreClick}>more</MoreText>
       <MainTitle data-node-id="2:206">
         <TitleLine>

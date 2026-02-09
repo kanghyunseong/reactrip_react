@@ -1,7 +1,8 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import MainPage from "./components/home/MainPage";
 import SchedulePage from "./components/schedule/SchedulePage";
-import TourPage from "./components/tour/TourPage";
+import TourListPage from "./components/tour/TourListPage";
+import TourDetailPage from "./components/tour/TourDetailPage";
 import RoulettePage from "./components/roulette/RoulettePage";
 import DiaryPage from "./components/diary/DiaryPage";
 import ContactPage from "./components/contact/ContactPage";
@@ -27,7 +28,8 @@ function App() {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/schedule" element={<SchedulePage />} />
-        <Route path="/tour" element={<TourPage />} />
+        <Route path="/tour" element={<TourListPage />} />
+        <Route path="/tour/:travelNo" element={<TourDetailPage />} />
         <Route path="/roulette" element={<RoulettePage />} />
         <Route path="/diarys/*" element={<DiaryPage />} />
         <Route path="/contact" element={<ContactPage />} />

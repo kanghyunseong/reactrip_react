@@ -6,45 +6,37 @@ let kakaoSDKLoaded = false;
 let kakaoSDKLoading = false;
 let loadPromise = null;
 
-// Vite에서는 기본적으로 VITE_ prefix가 붙은 env만 클라이언트로 노출됩니다.
-// - 권장: VITE_KAKAO_APP_KEY
-// - fallback: /config.js가 주입하는 window.ENV.KAKAO_APP_KEY
+// window.ENV에 값이 있는지 확인 (서버 배포 시 config.js에서 주입됨)
+const KAKAO_URL = window.ENV?.KAKAO_URL || "https://dapi.kakao.com/v2/maps/sdk.js";
+
+/**
+ * 환경 변수 및 window.ENV에서 카카오 앱 키를 읽어옵니다.
+ */
 const readKeySync = () => {
+  // 1. window.ENV (런타임 주입 설정) - 최우선
+  const fromWindow = window?.ENV?.VITE_KAKAO_APP_KEY;
+
+  // 2. Vite 환경 변수 (빌드 시점 설정)
   const fromVite =
-    import.meta?.env?.VITE_KAKAO_APP_KEY ||
-    import.meta?.env?.VITE_KAKAO_MAPS_APP_KEY ||
-    import.meta?.env?.VITE_KAKAO_APPKEY;
+    window.ENV?.VITE_KAKAO_APP_KEY ||
+    window.ENV?.VITE_KAKAO_MAPS_APP_KEY ||
+    window.ENV?.VITE_KAKAO_APPKEY;
 
-  const fromWindow =
-    window?.ENV?.KAKAO_APP_KEY || window?.ENV?.VITE_KAKAO_APP_KEY;
-
-  // 사용자가 임시로 KAKAO_APP_KEY를 넣었을 가능성도 있어서 마지막 fallback
+  // 3. 기타 레거시 키
   const legacy = import.meta?.env?.KAKAO_APP_KEY;
 
-  return fromVite || fromWindow || legacy;
-};
-
-const ensureConfigLoadedAndGetKey = async () => {
-  // 먼저 동기적으로 읽어보고
-  let key = readKeySync();
-  if (key) return key;
-
-  // window.ENV가 아직 없으면 /config.js를 강제로 로드해본다.
-  // (index.html에서 로드 순서 이슈가 있거나, 모듈 로딩이 늦는 경우 대비)
-  try {
-    // Vite가 번들링 시 경로 해석을 하지 않도록 @vite-ignore 사용
-    await import(/* @vite-ignore */ "/config.js");
-  } catch (e) {
-    // 무시: dev/prod 환경에 따라 import가 막힐 수 있음
-  }
-
-  key = readKeySync();
-  return key;
+  return fromWindow || fromVite || legacy;
 };
 
 /**
- * 카카오맵 SDK를 로드합니다.
- * @returns {Promise<void>} SDK 로드 완료 Promise
+ * 키 획득 (index.html의 <script src="/config.js"> 가 window.ENV 를 설정하므로 별도 import 불필요)
+ */
+const ensureConfigLoadedAndGetKey = async () => {
+  return readKeySync();
+};
+
+/**
+ * 카카오맵 SDK를 로드합니다. (기존 199줄 로직 유지)
  */
 export const loadKakaoSDK = () => {
   // 이미 로드 완료된 경우
@@ -56,38 +48,33 @@ export const loadKakaoSDK = () => {
     return loadPromise;
   }
 
-  // 새로 로드 시작
   loadPromise = new Promise((resolve, reject) => {
-    // KAKAO_APP_KEY 확인 (필요 시 /config.js를 동적 로드)
+    // 기존의 정교한 키 획득 대기 로직
     ensureConfigLoadedAndGetKey().then((key) => {
       if (!key) {
         console.error("[KakaoMaps] 키 로드 실패. 현재 상태:", {
-          "import.meta.env.VITE_KAKAO_APP_KEY": import.meta?.env?.VITE_KAKAO_APP_KEY,
-          "window.ENV 존재": !!window?.ENV,
+          "import.meta.env": import.meta?.env?.VITE_KAKAO_APP_KEY,
           "window.ENV": window?.ENV,
         });
         reject(
-          new Error(
-            "KAKAO_APP_KEY가 설정되지 않았습니다. (.env의 VITE_KAKAO_APP_KEY 또는 /config.js의 window.ENV.KAKAO_APP_KEY 확인)"
-          )
+          new Error("KAKAO_APP_KEY가 설정되지 않았습니다. (/config.js 또는 .env 확인)")
         );
         return;
       }
 
-      // 이미 로드되어 있는지 확인
+      // 중복 로드 방지 체크
       if (
         window.kakao &&
         window.kakao.maps &&
         window.kakao.maps.services &&
         typeof window.kakao.maps.services.Places === "function"
       ) {
-        console.log("[KakaoMaps] SDK가 이미 로드되어 있습니다.");
+        console.log("[KakaoMaps] SDK가 이미 존재합니다.");
         kakaoSDKLoaded = true;
         resolve();
         return;
       }
 
-      // 로드 중이면 대기
       if (kakaoSDKLoading) {
         const checkInterval = setInterval(() => {
           if (kakaoSDKLoaded) {
@@ -102,31 +89,25 @@ export const loadKakaoSDK = () => {
       }
 
       kakaoSDKLoading = true;
-      console.log("[KakaoMaps] SDK 로드 시작...");
+      console.log("[KakaoMaps] SDK 로드 시작 (Key: " + key.substring(0, 5) + "...)");
 
-      // SDK를 libraries=services와 함께 한 번에 로드
-      // autoload=false를 명시하여 라이브러리 로드 완료를 kakao.maps.load()에서 보장받음
       const script = document.createElement("script");
+      // autoload=false를 사용하여 로드 완료 시점을 수동 제어
       script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${encodeURIComponent(
         key
       )}&libraries=services&autoload=false`;
 
       script.onload = () => {
-        console.log("[KakaoMaps] SDK 스크립트 로드 완료 (autoload=false)");
+        console.log("[KakaoMaps] Script 로드 완료");
 
-        // 기본 SDK가 준비될 때까지 대기
         const waitForBaseSDK = (attempts = 0) => {
           if (window.kakao && window.kakao.maps && typeof window.kakao.maps.load === "function") {
-            console.log("[KakaoMaps] 기본 SDK 및 load 함수 준비 완료");
-            
-            // autoload=false를 썼으므로 반드시 kakao.maps.load()를 호출해야 함
             window.kakao.maps.load(() => {
-              console.log("[KakaoMaps] kakao.maps.load() 콜백 실행 - services 확인 시작");
+              console.log("[KakaoMaps] kakao.maps.load() 실행");
               
-              // services가 초기화될 때까지 대기 (내부적으로 다시 로드될 수 있음)
               const checkServices = (attempts = 0) => {
-                if (window.kakao && window.kakao.maps && window.kakao.maps.services && typeof window.kakao.maps.services.Places === 'function') {
-                  console.log("[KakaoMaps] SDK services 초기화 최종 완료");
+                if (window.kakao?.maps?.services?.Places) {
+                  console.log("[KakaoMaps] 모든 서비스 모듈 초기화 완료");
                   kakaoSDKLoaded = true;
                   kakaoSDKLoading = false;
                   loadPromise = null;
@@ -135,40 +116,31 @@ export const loadKakaoSDK = () => {
                 }
 
                 if (attempts >= 150) {
-                  console.error("[KakaoMaps] services 초기화 실패. 최종 상태:", {
-                    kakao: !!window.kakao,
-                    maps: !!(window.kakao && window.kakao.maps),
-                    'maps 속성들': window.kakao && window.kakao.maps ? Object.keys(window.kakao.maps) : '없음',
-                    services: !!(window.kakao && window.kakao.maps && window.kakao.maps.services),
-                  });
+                  console.error("[KakaoMaps] 서비스 초기화 타임아웃");
                   kakaoSDKLoading = false;
                   loadPromise = null;
-                  reject(new Error("카카오맵 SDK services 초기화 시간 초과"));
+                  reject(new Error("카카오맵 서비스 초기화 실패"));
                   return;
                 }
-
                 setTimeout(() => checkServices(attempts + 1), 100);
               };
-
-              setTimeout(() => checkServices(0), 100);
+              checkServices(0);
             });
           } else {
             if (attempts >= 100) {
-              console.error("[KakaoMaps] 기본 SDK load 함수 로드 실패");
               kakaoSDKLoading = false;
               loadPromise = null;
-              reject(new Error("카카오맵 기본 SDK 로드 시간 초과"));
+              reject(new Error("기본 SDK 로드 타임아웃"));
               return;
             }
             setTimeout(() => waitForBaseSDK(attempts + 1), 100);
           }
         };
-
         waitForBaseSDK(0);
       };
 
       script.onerror = () => {
-        console.error("[KakaoMaps] SDK 로드 실패");
+        console.error("[KakaoMaps] SDK 로드 에러");
         kakaoSDKLoading = false;
         loadPromise = null;
         reject(new Error("카카오맵 SDK 로드 실패"));
@@ -181,15 +153,9 @@ export const loadKakaoSDK = () => {
   return loadPromise;
 };
 
-/**
- * 카카오맵 SDK가 로드되었는지 확인합니다.
- * @returns {boolean}
- */
 export const isKakaoSDKReady = () => {
   return !!(
-    window.kakao &&
-    window.kakao.maps &&
-    window.kakao.maps.services &&
+    window.kakao?.maps?.services?.Places &&
     typeof window.kakao.maps.services.Places === 'function'
   );
 };
