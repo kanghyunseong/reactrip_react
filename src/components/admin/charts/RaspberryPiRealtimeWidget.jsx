@@ -269,4 +269,3 @@ const RaspberryPiRealtimeWidget = () => {
 };
 
 export default RaspberryPiRealtimeWidget;
-

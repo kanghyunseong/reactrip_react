@@ -1,149 +1,165 @@
-import { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { axiosAuth } from "../../../api/api";
+import { useRef, useState, useContext } from "react";
 import "./DiaryWrite.css";
-
-const REGION_OPTIONS = [
-  { value: "", label: "지  역" },
-  { value: 1, label: "서  울" },
-  { value: 2, label: "인  천" },
-  { value: 3, label: "경  기" },
-  { value: 4, label: "세  종" },
-  { value: 5, label: "강원도" },
-  { value: 6, label: "제주도" },
-  { value: 7, label: "충청남도" },
-  { value: 8, label: "충청북도" },
-  { value: 9, label: "전라남도" },
-  { value: 10, label: "전라북도" },
-  { value: 11, label: "경상남도" },
-  { value: 12, label: "경상북도" },
-];
-const THEME_OPTIONS = [
-  { value: "", label: "테    마" },
-  { value: 1, label: "호 캉 스" },
-  { value: 2, label: "전통 문화" },
-  { value: 3, label: "액티 비티" },
-  { value: 4, label: "자연/풍경" },
-  { value: 5, label: "바다/해변" },
-  { value: 6, label: "캠핑/차박" },
-  { value: 7, label: "전시/공연" },
-  { value: 8, label: "계절 꽃놀이" },
-  { value: 9, label: "식도락/맛집" },
-  { value: 10, label: "기타" },
-];
+import axios from "axios";
+import { axiosPublic } from "../../../api/api";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../context/AuthContext";
 
 const DiaryInsert = () => {
-  const navigate = useNavigate();
+  const { auth } = useContext(AuthContext);
   const fileRef = useRef(null);
+  const [imageFiles, setImageFiles] = useState([]); // ✅ 추가
   const [previews, setPreviews] = useState([]);
-  const [imageFiles, setImageFiles] = useState([]);
   const [isDragOver, setIsDragOver] = useState(false);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [regionNo, setRegionNo] = useState("");
-  const [themeNo, setThemeNo] = useState("");
-  const [submitting, setSubmitting] = useState(false);
+  const [region, setRegion] = useState("");
+  const [theme, setTheme] = useState("");
+  const navigate = useNavigate();
 
   const handleFiles = (files) => {
-    const fileArray = Array.from(files);
-    const imageOnly = fileArray.filter((file) => file.type.startsWith("image/"));
-    if (imageOnly.length === 0) return;
+  const fileArray = Array.from(files);
 
-    setImageFiles((prev) => [...prev, ...imageOnly]);
-    const readers = imageOnly.map((file) => {
-      return new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(reader.result);
-        reader.readAsDataURL(file);
-      });
+  const imageFiles = fileArray.filter(file =>
+    file.type.startsWith("image/")
+  );
+
+   setImageFiles(prev => [...prev, ...imageFiles]);
+
+  const readers = imageFiles.map(file => {
+    return new Promise(resolve => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.readAsDataURL(file);
     });
-    Promise.all(readers).then((images) => {
-      setPreviews((prev) => [...prev, ...images]);
-    });
-  };
+  });
 
-  const removePreview = (idx) => {
-    setPreviews((prev) => prev.filter((_, i) => i !== idx));
-    setImageFiles((prev) => prev.filter((_, i) => i !== idx));
-  };
+  Promise.all(readers).then(images => {
+    setPreviews(prev => [...prev, ...images]);
+  });
+};
 
-  const isValid =
-    title.trim().length > 0 &&
-    content.trim().length > 0 &&
-    imageFiles.length > 0;
+  const handleSubmit = async () => {
+  if (title.trim() === "") {
+    alert("제목을 입력해주세요.");
+    return;
+  }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!isValid || submitting) return;
-    const token = localStorage.getItem("accessToken");
-    if (!token) {
-      toast.error("로그인 후 이용해주세요.");
-      navigate("/login");
-      return;
+  if (content.trim() === "") {
+    alert("내용을 입력해주세요.");
+    return;
+  }
+    if (region === "") {
+     alert("지역을 선택해주세요.");
+     return;
+   }
+
+      if (theme === "") {
+     alert("테마를 선택해주세요.");
+     return;
+   }
+  
+    if (imageFiles.length === 0) {
+    alert("이미지를 1만 등록해주세요.");
+    return;
     }
-    setSubmitting(true);
+
     try {
-      const memberNo = parseInt(localStorage.getItem("userNo"), 10) || 0;
-      const dataPart = {
-        diaryTitle: title,
-        diaryContent: content,
-        memberNo: memberNo || undefined,
-        scheduleNo: 0,
-        travelNo: 0,
-        regionNo: regionNo ? Number(regionNo) : null,
-        themeNo: themeNo ? Number(themeNo) : null,
-      };
-      const formData = new FormData();
-      formData.append("data", new Blob([JSON.stringify(dataPart)], { type: "application/json" }));
-      imageFiles.forEach((file) => formData.append("images", file));
-      await axiosAuth.postFormData("/api/diarys", formData);
-      toast.success("일기가 등록되었습니다.");
-      navigate("/diarys");
-    } catch (err) {
-      console.error("일기 등록 실패:", err);
-      const msg = err.response?.data?.message ?? err.message ?? "일기 등록에 실패했습니다.";
-      toast.error(msg);
-    } finally {
-      setSubmitting(false);
+    // 이미지 업로드
+    const data = new FormData();
+    imageFiles.forEach(file => {
+      console.log("file 정보 : "+ {
+        name: file.name,
+        size: file.size,
+        type: file.type,
+        lastModified: file.lastModified,
+      });
+      data.append("file", file);
+    });
+
+    const imgRes = await axiosPublic.post(
+      "/api/diarys/upload/diary-image",
+      data
+    );
+    //const imageUrls = imgRes.data; // ✅ S3 URL 리스트
+    const userNo = localStorage.getItem("userNo");
+    // 글 등록 
+    const diaryRes = await axiosPublic.post("/api/diarys/insert", {
+      diaryTitle: title,
+      diaryContent: content,
+      regionNo: Number(region),
+      themeNo: Number(theme),
+      memberNo: Number(userNo),
+      scheduleNo : 5,
+      travelNo :1,
+      imageUrl: imgRes[0]
+    }
+  );
+    console.log("등록 완료 : " + diaryRes);
+     const diaryNo = diaryRes;
+  
+        alert("게시글이 등록되었습니다.");
+        navigate(`/diarys/detail/${diaryNo}`);
+  } catch(err) {
+    console.error(err);
+    console.error("response", err.diaryRes);
+    alert("등록 중 오류가 발생했습니다.");
     }
   };
 
   const handleCancel = () => {
-    navigate("/diarys");
+     alert("취소 되었습니다.");
+     navigate(`/diarys`);
   };
-
+  
   return (
     <div className="diary-container">
-      <form className="diary-form" onSubmit={handleSubmit}>
+      <div className="diary-form">
 
         {/* 왼쪽 */}
         <div className="left">
           <label>일기 제목 *</label>
-          <input
-            type="text"
-            placeholder="제목"
+          <input 
+            type="text" 
+            placeholder="제목을 입력해주세요."
             value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
+            onChange={(e) => setTitle(e.target.value)} />
 
           <label>일기 내용 *</label>
-          <textarea
+          <textarea 
             placeholder="내용을 입력해주세요."
             value={content}
-            onChange={(e) => setContent(e.target.value)}
-          />
+            onChange={(e) => setContent(e.target.value)} />
 
           <div className="select-row">
-            <select value={regionNo} onChange={(e) => setRegionNo(e.target.value)}>
-              {REGION_OPTIONS.map((opt) => (
-                <option key={opt.value || "region-all"} value={opt.value}>{opt.label}</option>
-              ))}
+            <select value={region} onChange={(e) => setRegion(e.target.value)}>
+              <option value="">지  역</option>
+              <option value="1">서  울</option>
+              <option value="2">인  천</option>
+              <option value="3">경  기</option>
+              <option value="4">세  종</option>
+              <option value="5">강원도</option>
+              <option value="6">제주도</option>
+              <option value="7">충청남도</option>
+              <option value="8">충청북도</option>
+              <option value="9">전라남도</option>
+              <option value="10">전라북도</option>
+              <option value="11">경상남도</option>
+              <option value="12">경상북도</option>
             </select>
-            <select value={themeNo} onChange={(e) => setThemeNo(e.target.value)}>
-              {THEME_OPTIONS.map((opt) => (
-                <option key={opt.value || "theme-all"} value={opt.value}>{opt.label}</option>
-              ))}
+
+            <select value={theme} onChange={(e) => setTheme(e.target.value)}>
+              <option value="">테    마</option>
+              <option value="1">호 캉 스</option>
+              <option value="2">전통 문화</option>
+              <option value="3">액티 비티</option>
+              <option value="4">자연/풍경</option>
+              <option value="5">바다/해변</option>
+              <option value="6">캠핑/차박</option>
+              <option value="7">전시/공연</option>
+              <option value="8">계절 꽃놀이</option>
+              <option value="9">식도락/맛집</option>
+              <option value="10">기타</option>
             </select>
           </div>
         </div>
@@ -180,11 +196,11 @@ const DiaryInsert = () => {
               <div key={idx} className="preview-item">
                 <img src={img} alt="" />
                 <button
-                  type="button"
                   className="remove-btn"
                   onClick={(e) => {
                     e.stopPropagation();
-                    removePreview(idx);
+                    setPreviews(previews.filter((_, i) => i !== idx));
+                    setImageFiles(prev => prev.filter((_, i) => i !== idx));
                   }}
                 >
                   ✕
@@ -203,19 +219,17 @@ const DiaryInsert = () => {
           />
         </div>
       </div>
-        </div>
 
-        {/* 🔹 버튼 영역 (완전히 분리) */}
-        <div className="right-buttons">
-          <button type="submit" className="submit" disabled={!isValid || submitting}>
-            {submitting ? "등록 중..." : "등록"}
-          </button>
-          <button type="button" className="cancel" onClick={handleCancel}>
-            취소
-          </button>
-        </div>
-      </form>
+      {/* 🔹 버튼 영역 (완전히 분리) */}
+      <div className="right-buttons">
+        <button className="submit" onClick={handleSubmit}>등록</button>
+       
+        <button className="cancel" onClick={handleCancel}>취소</button>
+      </div>
+
     </div>
+  </div>
+</div>
   );
 };
 

@@ -60,22 +60,28 @@ const api = {
   get: (url, config = {}) => instance.get(url, config).then(wrap),
   getActual: (url, config = {}) => instance.get(url, config).then(unwrap),
   post: (url, data, config = {}) => {
+    console.log("업로드");
     // FormData 처리 (파일 업로드 대응)
     // 데이터 객체에 'file' 키가 존재하거나 이미 FormData인 경우 멀티파트로 처리
+    console.log("dsdfasdfas --->");
     const isFile = (data && 'file' in data) || data instanceof FormData;
+    console.log(" ==>  " + isFile);    
     let payload = data;
     let headers = { ...config.headers };
-    if (isFile && !(data instanceof FormData)) {
-      payload = new FormData();
-      Object.entries(data).forEach(([key, value]) => {
-        if (value !== undefined) {
-          // value가 null인 경우(특히 파일) 전송하지 않음
-          // 하지만 전체 요청은 multipart/form-data 형식이 됨
-          if (value !== null) {
-            payload.append(key, value);
-          }
-        }
-      });
+    console.log(" ==>  " + data);  
+    console.log(" ==> 2  " + (data instanceof FormData)); 
+    if (isFile && (data instanceof FormData)) {
+      //payload = new FormData();
+      // Object.entries(data).forEach(([key, value]) => {
+      //   console.log(key + " ==>  " + value);
+      //   if (value !== undefined) {
+      //     // value가 null인 경우(특히 파일) 전송하지 않음
+      //     // 하지만 전체 요청은 multipart/form-data 형식이 됨
+      //     if (value !== null) {
+      //       payload.append(key, value);
+      //     }
+      //   }
+      // });
       headers["Content-Type"] = "multipart/form-data";
     }
     return instance.post(url, payload, { ...config, headers }).then(wrap);
