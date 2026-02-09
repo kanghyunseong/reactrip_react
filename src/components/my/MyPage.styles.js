@@ -5,11 +5,11 @@ export const MyPageContainer = styled.div`
   width: 100%;
   min-height: 100vh;
   min-height: 100dvh;
-  background-color: #f5f5f5;
   overflow-x: hidden;
   overflow-y: auto;
   max-width: 100vw;
   padding: 2rem;
+  margin-top: 100px;
 `;
 
 export const ContentWrapper = styled.div`
