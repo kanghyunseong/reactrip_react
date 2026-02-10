@@ -16,6 +16,7 @@ export default function Header({ activeSection = "home", setActiveSection }) {
   const navigate = useNavigate();
   const location = useLocation();
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
+  const isLightPage = location.pathname.startsWith("/diarys");
 
   const scrollToSection = (sectionId) => {
     if (location.pathname !== "/") {
@@ -76,6 +77,7 @@ export default function Header({ activeSection = "home", setActiveSection }) {
           data-node-id="2:139"
           onClick={handleLogoClick}
           style={{ cursor: "pointer" }}
+          $light={isLightPage}
         >
           ReacTrip
         </NavText>
@@ -84,6 +86,7 @@ export default function Header({ activeSection = "home", setActiveSection }) {
         style={{ left: "calc(20% - 30px)" }} 
         data-node-id="2:171"
         onClick={() => scrollToSection("about")}
+        $light={isLightPage}
       >
         ABOUT
       </NavLink>
@@ -91,6 +94,7 @@ export default function Header({ activeSection = "home", setActiveSection }) {
         style={{ left: "calc(30% - 50px)" }} 
         data-node-id="2:172"
         onClick={() => handleNavigation("/schedule")}
+        $light={isLightPage}
       >
         SCHEDULE
       </NavLink>
@@ -98,6 +102,7 @@ export default function Header({ activeSection = "home", setActiveSection }) {
         style={{ left: "calc(40% - 25px)" }} 
         data-node-id="2:173"
         onClick={() => handleNavigation("/tour")}
+        $light={isLightPage}
       >
         TOUR
       </NavLink>
@@ -105,6 +110,7 @@ export default function Header({ activeSection = "home", setActiveSection }) {
         style={{ left: "calc(50% - 68.5px)" }}
         data-node-id="2:174"
         onClick={() => handleNavigation("/roulette")}
+        $light={isLightPage}
       >
         <p>ROULETTE</p>
         <p>&nbsp;</p>
@@ -113,6 +119,7 @@ export default function Header({ activeSection = "home", setActiveSection }) {
         style={{ left: "calc(60% - 30px)" }} 
         data-node-id="58:666"
         onClick={() => handleNavigation("/diarys")}
+        $light={isLightPage}
       >
         DIARY
       </NavLink>
@@ -120,12 +127,14 @@ export default function Header({ activeSection = "home", setActiveSection }) {
         style={{ left: "calc(70% - 45px)" }} 
         data-node-id="5:7"
         onClick={() => handleNavigation("/contact")}
+        $light={isLightPage}
       >
         CONTACT
       </NavLink>
       <HamburgerMenu 
         isOpen={isDrawerOpen} 
-        onClick={() => setIsDrawerOpen(!isDrawerOpen)} 
+        onClick={() => setIsDrawerOpen(!isDrawerOpen)}
+        $light={isLightPage}
       />
       <DrawerNavigator 
         isOpen={isDrawerOpen} 

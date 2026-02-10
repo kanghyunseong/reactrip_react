@@ -72,7 +72,7 @@ export const NavText = styled.p`
   height: 2.125rem;
   line-height: normal;
   font-style: normal;
-  color: #faf5f5;
+  color: ${(p) => (p.$light ? "#2c2c2c" : "#faf5f5")};
   font-size: 1.5rem;
   margin: 0;
   z-index: 2;
@@ -98,7 +98,7 @@ export const NavLink = styled.p`
   line-height: normal;
   font-style: normal;
   font-size: 1.5rem;
-  color: white;
+  color: ${(p) => (p.$light ? "#2c2c2c" : "white")};
   top: 3.6875rem;
   margin: 0;
   padding-bottom: 0;
@@ -151,7 +151,7 @@ export const RouletteText = styled.div`
   left: calc(50% - 4.28125rem);
   font-style: normal;
   font-size: 1.5rem;
-  color: white;
+  color: ${(p) => (p.$light ? "#2c2c2c" : "white")};
   top: 3.6875rem;
   width: 8.5625rem;
   padding-bottom: 0;

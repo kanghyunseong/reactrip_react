@@ -1,0 +1,151 @@
+/* 다이어리 목록 페이지 (배경은 DiaryPage Section에서 적용) */
+.diary-list-page {
+  width: 100%;
+  padding: 0 0 2rem 0;
+}
+
+.diary-list-header {
+  max-width: 720px;
+  margin: 0 auto 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.diary-list-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2c2c2c;
+  letter-spacing: -0.02em;
+}
+
+.diary-list-spacer {
+  flex: 1;
+}
+
+.diary-list-write-btn {
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, #c17f59 0%, #a86a47 100%);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(193, 127, 89, 0.35);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.diary-list-write-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(193, 127, 89, 0.4);
+}
+
+.diary-list-inner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.diary-list-empty {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #888;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 16px;
+}
+
+/* 카드 아이템 */
+.diary-card {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.25rem 1rem;
+  margin-bottom: 0.75rem;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.diary-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.diary-card-thumb {
+  width: 88px;
+  height: 88px;
+  border-radius: 12px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: #f0ebe3;
+}
+
+.diary-card-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.diary-card-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.diary-card-title {
+  margin: 0 0 0.35rem 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2c2c2c;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.diary-card-preview {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.875rem;
+  color: #555;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.diary-card-meta {
+  font-size: 0.75rem;
+  color: #999;
+}
+
+.diary-card-arrow {
+  color: #c17f59;
+  font-size: 1.25rem;
+  font-weight: 300;
+  flex-shrink: 0;
+}
+
+/* 목록 페이지용 페이징 */
+.diary-pagination {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.diary-pagination button {
+  color: #555;
+}
+
+.diary-pagination button:hover:not(:disabled) {
+  color: #c17f59;
+}
+
+.diary-pagination button[class*="active"] {
+  background-color: #c17f59 !important;
+  color: #fff !important;
+}

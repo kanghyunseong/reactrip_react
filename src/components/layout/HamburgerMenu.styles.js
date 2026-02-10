@@ -16,11 +16,15 @@ export const HamburgerButton = styled.button`
   z-index: 1000;
   padding: 8px;
   transition: all 0.3s;
-  
+
+  & > div {
+    background-color: ${(p) => (p.$light ? "#2c2c2c" : "white")};
+  }
+
   &:hover {
     opacity: 0.8;
   }
-  
+
   &:active {
     transform: scale(0.95);
   }

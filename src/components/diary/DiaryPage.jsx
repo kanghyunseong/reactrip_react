@@ -15,7 +15,7 @@ export default function DiaryPage() {
 
       <Section>
         <Content>
-          <Title>DIARY</Title>
+          <Title>여행 일기</Title>
           <Outlet />
         </Content>
       </Section>
