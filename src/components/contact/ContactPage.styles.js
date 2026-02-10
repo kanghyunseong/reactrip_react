@@ -10,29 +10,32 @@ export const PageContainer = styled.div`
 
 export const Section = styled.section`
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  padding-top: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-  color: #333;
+  background: linear-gradient(160deg, #faf8f5 0%, #f0ebe3 100%);
+  color: #2c2c2c;
 `;
 
 export const Content = styled.div`
   text-align: center;
-  max-width: 800px;
-  padding: 0 20px;
+  max-width: 640px;
+  padding: 0 1.5rem;
 `;
 
 export const Title = styled.h2`
-  font-size: 48px;
-  font-weight: 800;
-  margin-bottom: 30px;
-  font-family: 'Lato', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+  color: #2c2c2c;
+  letter-spacing: -0.02em;
 `;
 
 export const Description = styled.p`
-  font-size: 20px;
+  font-size: 1.05rem;
   line-height: 1.8;
-  font-family: 'Noto Sans KR', sans-serif;
+  color: #555;
+  font-family: "Noto Sans KR", sans-serif;
 `;

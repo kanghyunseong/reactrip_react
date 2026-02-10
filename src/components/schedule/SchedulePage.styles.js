@@ -10,18 +10,16 @@ export const ScheduleContainer = styled.div`
 `;
 
 export const ContentWrapper = styled.div`
-    max-width: 1200px;
+    max-width: 1000px;
     margin: 0 auto;
-    
-    /* 반투명 흰색 배경 (옵션) */
-    background: rgba(255, 255, 255, 0.7);
+    background: #fff;
     border-radius: 20px;
-    padding: 30px;
-    backdrop-filter: blur(10px);  /* 블러 효과 */
-    
+    padding: 2rem;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+
     @media (max-width: 768px) {
-        padding: 15px;
-        background: rgba(255, 255, 255, 0.9);
+        padding: 1.25rem;
     }
 `;
 
@@ -39,26 +37,29 @@ export const PageHeader = styled.div`
 `;
 
 export const PageTitle = styled.h1`
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 700;
-    color: #2c3e50;
+    color: #2c2c2c;
     margin: 0;
+    letter-spacing: -0.02em;
 `;
 
 export const CreateButton = styled.button`
-    padding: 12px 24px;
-    background-color: #4a90e2;
-    color: white;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, #c17f59 0%, #a86a47 100%);
+    color: #fff;
     border: none;
-    border-radius: 8px;
-    font-size: 1rem;
+    border-radius: 12px;
+    font-size: 0.95rem;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: transform 0.2s, box-shadow 0.2s;
     white-space: nowrap;
+    box-shadow: 0 4px 14px rgba(193, 127, 89, 0.35);
 
     &:hover {
-        background-color: #357abd;
+        transform: translateY(-1px);
+        box-shadow: 0 6px 18px rgba(193, 127, 89, 0.4);
     }
 `;
 
@@ -70,30 +71,33 @@ export const SearchForm = styled.form`
 
 export const SearchInput = styled.input`
     flex: 1;
-    padding: 12px 16px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    border: 1px solid #e8e4df;
+    border-radius: 10px;
     font-size: 1rem;
-    
+
     &:focus {
         outline: none;
-        border-color: #4a90e2;
+        border-color: #c17f59;
+        box-shadow: 0 0 0 3px rgba(193, 127, 89, 0.12);
     }
 `;
 
 export const SearchButton = styled.button`
-    padding: 12px 24px;
-    background-color: #4a90e2;
-    color: white;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, #c17f59 0%, #a86a47 100%);
+    color: #fff;
     border: none;
-    border-radius: 8px;
-    font-size: 1rem;
+    border-radius: 10px;
+    font-size: 0.95rem;
     font-weight: 600;
     cursor: pointer;
     white-space: nowrap;
+    transition: transform 0.2s, box-shadow 0.2s;
 
     &:hover {
-        background-color: #357abd;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(193, 127, 89, 0.35);
     }
 `;
 
@@ -109,27 +113,28 @@ export const ScheduleGrid = styled.div`
 `;
 
 export const ScheduleCard = styled.div`
-    background: white;
-    border-radius: 12px;
-    padding: 24px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.04);
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
 
     &:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
     }
 `;
 
 export const CardHeader = styled.div`
-    margin-bottom: 16px;
+    margin-bottom: 1rem;
 `;
 
 export const ScheduleTitle = styled.h3`
-    font-size: 1.25rem;
+    font-size: 1.15rem;
     font-weight: 600;
-    color: #2c3e50;
+    color: #2c2c2c;
     margin: 0;
     word-break: break-word;
 `;
@@ -193,15 +198,18 @@ export const Pagination = styled.div`
 `;
 
 export const PageButton = styled.button`
-    padding: 8px 16px;
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 6px;
+    padding: 0.5rem 1rem;
+    background: ${(p) => (p.disabled ? "#f0ebe3" : "#fff")};
+    border: 1px solid #e0dcd6;
+    border-radius: 10px;
     cursor: pointer;
     font-size: 0.9rem;
+    color: #555;
 
     &:hover:not(:disabled) {
-        background-color: #f5f5f5;
+        background: #faf8f5;
+        border-color: #c17f59;
+        color: #a86a47;
     }
 
     &:disabled {
@@ -211,18 +219,21 @@ export const PageButton = styled.button`
 `;
 
 export const PageNumber = styled.button`
-    padding: 8px 12px;
-    background-color: ${props => props.$active ? '#4a90e2' : 'white'};  // ← $active로 변경
-    color: ${props => props.$active ? 'white' : '#333'};  // ← $active로 변경
-    border: 1px solid ${props => props.$active ? '#4a90e2' : '#ddd'};  // ← $active로 변경
-    border-radius: 6px;
+    padding: 0.5rem 0.75rem;
+    background: ${(p) => (p.$active ? "#c17f59" : "#fff")};
+    color: ${(p) => (p.$active ? "#fff" : "#555")};
+    border: 1px solid ${(p) => (p.$active ? "#c17f59" : "#e0dcd6")};
+    border-radius: 10px;
     cursor: pointer;
     font-size: 0.9rem;
-    font-weight: ${props => props.$active ? '600' : '400'};  // ← $active로 변경
+    font-weight: ${(p) => (p.$active ? "600" : "500")};
     min-width: 36px;
+    transition: all 0.2s;
 
     &:hover {
-        background-color: ${props => props.$active ? '#357abd' : '#f5f5f5'};  // ← $active로 변경
+        background: ${(p) => (p.$active ? "#a86a47" : "#faf8f5")};
+        border-color: #c17f59;
+        color: ${(p) => (p.$active ? "#fff" : "#a86a47")};
     }
 `;
 
@@ -268,33 +279,35 @@ export const Label = styled.label`
 
 export const Input = styled.input`
     width: 100%;
-    padding: 12px 16px;
-    border: 1px solid ${props => props.error ? '#e74c3c' : '#ddd'};
-    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    border: 1px solid ${(p) => (p.error ? "#e74c3c" : "#e8e4df")};
+    border-radius: 10px;
     font-size: 1rem;
-    transition: border-color 0.3s;
+    transition: border-color 0.2s, box-shadow 0.2s;
     box-sizing: border-box;
 
     &:focus {
         outline: none;
-        border-color: ${props => props.error ? '#e74c3c' : '#4a90e2'};
+        border-color: ${(p) => (p.error ? "#e74c3c" : "#c17f59")};
+        box-shadow: 0 0 0 3px rgba(193, 127, 89, 0.12);
     }
 `;
 
 export const Textarea = styled.textarea`
     width: 100%;
-    padding: 12px 16px;
-    border: 1px solid ${props => props.error ? '#e74c3c' : '#ddd'};
-    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    border: 1px solid ${(p) => (p.error ? "#e74c3c" : "#e8e4df")};
+    border-radius: 10px;
     font-size: 1rem;
     font-family: inherit;
     resize: vertical;
-    transition: border-color 0.3s;
+    transition: border-color 0.2s, box-shadow 0.2s;
     box-sizing: border-box;
 
     &:focus {
         outline: none;
-        border-color: ${props => props.error ? '#e74c3c' : '#4a90e2'};
+        border-color: ${(p) => (p.error ? "#e74c3c" : "#c17f59")};
+        box-shadow: 0 0 0 3px rgba(193, 127, 89, 0.12);
     }
 `;
 
@@ -327,32 +340,37 @@ export const ButtonGroup = styled.div`
 `;
 
 export const SubmitButton = styled.button`
-    padding: 12px 32px;
-    background-color: #4a90e2;
-    color: white;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, #c17f59 0%, #a86a47 100%);
+    color: #fff;
     border: none;
-    border-radius: 8px;
+    border-radius: 12px;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
 
     &:hover {
-        background-color: #357abd;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 14px rgba(193, 127, 89, 0.35);
     }
 `;
 
 export const CancelButton = styled.button`
-    padding: 12px 32px;
-    background-color: #95a5a6;
-    color: white;
-    border: none;
-    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    background: #fff;
+    color: #555;
+    border: 1px solid #e0dcd6;
+    border-radius: 12px;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
 
     &:hover {
-        background-color: #7f8c8d;
+        background: #faf8f5;
+        border-color: #c17f59;
+        color: #a86a47;
     }
 `;
 
@@ -416,17 +434,19 @@ export const DetailDescription = styled.p`
 `;
 
 export const EditButton = styled.button`
-    padding: 10px 20px;
-    background-color: #4a90e2;
-    color: white;
+    padding: 0.6rem 1.25rem;
+    background: linear-gradient(135deg, #c17f59 0%, #a86a47 100%);
+    color: #fff;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 0.95rem;
     font-weight: 600;
     cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
 
     &:hover {
-        background-color: #357abd;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(193, 127, 89, 0.35);
     }
 `;
 
@@ -446,16 +466,19 @@ export const DeleteButton = styled.button`
 `;
 
 export const BackButton = styled.button`
-    padding: 12px 24px;
-    background-color: #95a5a6;
-    color: white;
-    border: none;
-    border-radius: 8px;
+    padding: 0.6rem 1.25rem;
+    background: #fff;
+    color: #555;
+    border: 1px solid #e0dcd6;
+    border-radius: 10px;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
 
     &:hover {
-        background-color: #7f8c8d;
+        background: #faf8f5;
+        border-color: #c17f59;
+        color: #a86a47;
     }
 `;

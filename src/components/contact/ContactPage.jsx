@@ -14,7 +14,7 @@ export default function ContactPage() {
       <Header />
       <Section>
         <Content>
-          <Title>CONTACT</Title>
+          <Title>문의하기</Title>
           <Description>
             문의사항이 있으시면 언제든지 연락주세요. 
             빠르고 친절하게 답변드리겠습니다.

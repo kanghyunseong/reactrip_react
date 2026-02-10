@@ -253,7 +253,7 @@ export default function RoulettePage() {
       <Section>
         <Content>
           <Left>
-            <Title>ROULETTE</Title>
+            <Title>룰렛</Title>
             <Description>
               룰렛을 돌려 <b>랜덤 여행지</b>를 추천받으세요.
               <br />

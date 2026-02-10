@@ -18,7 +18,10 @@ export default function Header({ activeSection = "home", setActiveSection }) {
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
   const isLightPage =
     location.pathname.startsWith("/diarys") ||
-    location.pathname.startsWith("/tour");
+    location.pathname.startsWith("/tour") ||
+    location.pathname.startsWith("/schedule") ||
+    location.pathname.startsWith("/contact") ||
+    location.pathname.startsWith("/roulette");
 
   const scrollToSection = (sectionId) => {
     if (location.pathname !== "/") {
