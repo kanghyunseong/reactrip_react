@@ -2,61 +2,80 @@ import styled from "styled-components";
 
 export const CardContainer = styled.div`
   display: flex;
-  background: #1a1a1a;
-  border-radius: 12px;
+  align-items: stretch;
+  background: #fff;
+  border-radius: 16px;
   overflow: hidden;
   cursor: pointer;
-  transition: all 0.3s;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.04);
 
   &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
   }
 `;
 
 export const CardThumbnail = styled.img`
   width: 200px;
+  min-width: 200px;
   height: 160px;
   object-fit: cover;
-  background: #2a2a2a;
+  background: #f0ebe3;
+
+  @media (max-width: 600px) {
+    width: 120px;
+    min-width: 120px;
+    height: 120px;
+  }
 `;
 
 export const PlaceholderImage = styled.div`
   width: 200px;
+  min-width: 200px;
   height: 160px;
-  background: #2a2a2a;
+  background: #f0ebe3;
   display: flex;
   align-items: center;
   justify-content: center;
 
   span {
-    color: #666;
-    font-size: 16px;
-    font-weight: 500;
+    color: #999;
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 600px) {
+    width: 120px;
+    min-width: 120px;
+    height: 120px;
   }
 `;
 
 export const CardContent = styled.div`
   flex: 1;
-  padding: 24px;
+  padding: 1.25rem 1.5rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  min-width: 0;
 `;
 
 export const CardTitle = styled.h3`
-  font-size: 20px;
+  font-size: 1.15rem;
   font-weight: 700;
-  color: white;
-  margin: 0 0 12px 0;
+  color: #2c2c2c;
+  margin: 0 0 0.5rem 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 export const CardDescription = styled.p`
-  font-size: 14px;
-  color: #ccc;
-  line-height: 1.6;
-  margin: 0 0 16px 0;
+  font-size: 0.875rem;
+  color: #555;
+  line-height: 1.55;
+  margin: 0 0 0.75rem 0;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -68,16 +87,17 @@ export const CardInfo = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 0.5rem;
 `;
 
 export const InfoTag = styled.span`
-  font-size: 13px;
-  color: #aaa;
+  font-size: 0.8rem;
+  color: #888;
   font-weight: 500;
 `;
 
 export const ViewCount = styled.span`
-  font-size: 13px;
-  color: #888;
+  font-size: 0.8rem;
+  color: #999;
   font-weight: 400;
 `;

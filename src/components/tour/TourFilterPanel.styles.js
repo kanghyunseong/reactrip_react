@@ -2,66 +2,69 @@ import styled from "styled-components";
 
 export const PanelContainer = styled.div`
   position: sticky;
-  top: 120px;
-  width: 280px;
+  top: 100px;
+  width: 260px;
   height: fit-content;
-  background: white;
-  border-radius: 12px;
-  padding: 24px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  background: #fff;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  flex-shrink: 0;
 `;
 
 export const FilterSection = styled.div`
-  margin-bottom: 24px;
+  margin-bottom: 1.25rem;
 
   &:last-of-type {
-    margin-bottom: 20px;
+    margin-bottom: 1rem;
   }
 `;
 
 export const FilterTitle = styled.h3`
-  font-size: 14px;
+  font-size: 0.85rem;
   font-weight: 600;
-  color: #333;
-  margin-bottom: 12px;
+  color: #2c2c2c;
+  margin-bottom: 0.5rem;
 `;
 
 export const FilterSelect = styled.select`
   width: 100%;
-  padding: 10px 12px;
-  font-size: 14px;
+  padding: 0.6rem 1rem;
+  font-size: 0.9rem;
   color: #333;
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  background: #fff;
+  border: 1px solid #e8e4df;
+  border-radius: 10px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s;
 
   &:hover {
-    border-color: #2196f3;
+    border-color: #d4cfc7;
   }
 
   &:focus {
     outline: none;
-    border-color: #2196f3;
-    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+    border-color: #c17f59;
+    box-shadow: 0 0 0 3px rgba(193, 127, 89, 0.12);
   }
 `;
 
 export const ResetButton = styled.button`
   width: 100%;
-  padding: 12px;
-  background: #f5f5f5;
-  color: #666;
-  border: none;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 500;
+  padding: 0.65rem 1rem;
+  background: #faf8f5;
+  color: #555;
+  border: 1px solid #e8e4df;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
 
   &:hover {
-    background: #e0e0e0;
-    color: #333;
+    background: #f0ebe3;
+    border-color: #c17f59;
+    color: #a86a47;
   }
 `;

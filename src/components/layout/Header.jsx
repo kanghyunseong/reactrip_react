@@ -16,7 +16,9 @@ export default function Header({ activeSection = "home", setActiveSection }) {
   const navigate = useNavigate();
   const location = useLocation();
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
-  const isLightPage = location.pathname.startsWith("/diarys");
+  const isLightPage =
+    location.pathname.startsWith("/diarys") ||
+    location.pathname.startsWith("/tour");
 
   const scrollToSection = (sectionId) => {
     if (location.pathname !== "/") {
