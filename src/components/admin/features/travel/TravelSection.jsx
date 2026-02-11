@@ -65,27 +65,16 @@ const TravelSection = () => {
       setSyncing(true);
       const res = await axiosAuth.createJson("/api/admin/travel/api-sync", {});
       if (isSuccessResponse(res)) {
-        const msg = res.message || "데이터 동기화가 성공적으로 완료되었습니다.";
-        toast.success(msg);
-        // 동기화 '시작' 메시지면 백그라운드 진행 중이므로 목록 자동 새로고침 생략
-        const syncStarted = msg && msg.includes("시작했습니다");
-        if (!syncStarted) fetchTravels(1, "");
+        toast.success(res.message || "데이터 동기화가 성공적으로 완료되었습니다.");
+        fetchTravels(1, "");
       } else {
         toast.error(res.message || "동기화에 실패했습니다. 다시 시도해주세요.");
       }
-    } catch (e) {
+    } catch (e) { 
       console.error("동기화 오류:", e);
-      const status = e?.response?.status;
-      if (status === 504) {
-        toast.error(
-          "동기화가 오래 걸려 시간이 초과되었습니다. 동기화는 서버에서 계속 진행 중일 수 있으니, 잠시 후 목록을 새로고침 해보세요."
-        );
-      } else {
-        toast.error("동기화 중 서버 오류가 발생했습니다.");
-      }
-    } finally {
-      setSyncing(false);
-    }
+      toast.error("동기화 중 서버 오류가 발생했습니다.");
+    } 
+    finally { setSyncing(false); }
   };
 
   const getErrorMessage = (err) => {
