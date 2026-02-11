@@ -61,9 +61,21 @@ const api = {
   getActual: (url, config = {}) => instance.get(url, config).then(unwrap),
   post: (url, data, config = {}) => {
     const isFormData = data instanceof FormData;
+    const isFileObj = data && typeof data === "object" && "file" in data;
     let payload = data;
     let headers = { ...config.headers };
-    if (isFormData) headers["Content-Type"] = undefined;
+    if (isFileObj && !isFormData) {
+      payload = new FormData();
+      Object.entries(data).forEach(([key, value]) => {
+        if (value === undefined) return;
+        if (key === "file") {
+          if (value != null && (value instanceof File || value instanceof Blob)) payload.append(key, value);
+          return;
+        }
+        payload.append(key, value === null ? "" : value);
+      });
+    }
+    if (payload instanceof FormData) headers["Content-Type"] = undefined;
     return instance.post(url, payload, { ...config, headers }).then(wrap);
   },
   put: (url, data, config = {}) => {
@@ -74,7 +86,12 @@ const api = {
     if (isFileObj && !isFormData) {
       payload = new FormData();
       Object.entries(data).forEach(([key, value]) => {
-        if (value !== undefined) payload.append(key, value === null ? "" : value);
+        if (value === undefined) return;
+        if (key === "file") {
+          if (value != null && (value instanceof File || value instanceof Blob)) payload.append(key, value);
+          return;
+        }
+        payload.append(key, value === null ? "" : value);
       });
     }
     if (payload instanceof FormData) headers["Content-Type"] = undefined;
