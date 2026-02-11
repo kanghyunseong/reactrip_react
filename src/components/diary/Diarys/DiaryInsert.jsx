@@ -1,6 +1,5 @@
-import { useRef, useState, useContext } from "react";
+import { useRef, useState, useEffect, useContext } from "react";
 import "./DiaryWrite.css";
-import axios from "axios";
 import { axiosAuth, axiosPublic } from "../../../api/api";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthContext";
@@ -8,14 +7,38 @@ import { AuthContext } from "../../../context/AuthContext";
 const DiaryInsert = () => {
   const { auth } = useContext(AuthContext);
   const fileRef = useRef(null);
-  const [imageFiles, setImageFiles] = useState([]); // ✅ 추가
+  const [imageFiles, setImageFiles] = useState([]);
   const [previews, setPreviews] = useState([]);
   const [isDragOver, setIsDragOver] = useState(false);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [region, setRegion] = useState("");
   const [theme, setTheme] = useState("");
+  const [scheduleList, setScheduleList] = useState([]);
+  const [selectedScheduleNo, setSelectedScheduleNo] = useState("");
+  const [scheduleLoading, setScheduleLoading] = useState(false);
   const navigate = useNavigate();
+
+  // 로그인 시 내 스케줄 목록 로드 (일기와 연결할 일정 선택용)
+  useEffect(() => {
+    const userNo = localStorage.getItem("userNo");
+    if (!userNo || userNo === "0") return;
+
+    const fetchSchedules = async () => {
+      setScheduleLoading(true);
+      try {
+        const res = await axiosAuth.getList("/api/schedules?page=1");
+        const list = res?.data?.schedules ?? res?.schedules ?? [];
+        setScheduleList(Array.isArray(list) ? list : []);
+      } catch (e) {
+        console.warn("스케줄 목록 로드 실패:", e);
+        setScheduleList([]);
+      } finally {
+        setScheduleLoading(false);
+      }
+    };
+    fetchSchedules();
+  }, []);
 
   const handleFiles = (files) => {
   const fileArray = Array.from(files);
@@ -64,6 +87,13 @@ const DiaryInsert = () => {
     return;
     }
 
+    const userNo = localStorage.getItem("userNo");
+    if (!userNo || userNo === "0") {
+      alert("로그인 후 이용해주세요.");
+      navigate("/login");
+      return;
+    }
+
     try {
     // 이미지 업로드
     const data = new FormData();
@@ -76,14 +106,13 @@ const DiaryInsert = () => {
     const imageUrls = Array.isArray(imgRes) ? imgRes : imgRes?.data ?? [];
     const imageUrl = imageUrls[0] ?? "";
 
-    const userNo = localStorage.getItem("userNo");
     const diaryRes = await axiosPublic.post("/api/diarys/insert", {
       diaryTitle: title,
       diaryContent: content,
       regionNo: Number(region) || 0,
       themeNo: Number(theme) || 0,
-      memberNo: Number(userNo) || 0,
-      scheduleNo: 0,
+      memberNo: Number(userNo),
+      scheduleNo: Number(selectedScheduleNo) || 0,
       travelNo: 0,
       imageUrl,
     });
@@ -152,6 +181,22 @@ const DiaryInsert = () => {
               <option value="10">기타</option>
             </select>
           </div>
+
+          <label>연결할 일정 (선택)</label>
+          <select
+            className="schedule-select"
+            value={selectedScheduleNo}
+            onChange={(e) => setSelectedScheduleNo(e.target.value)}
+            disabled={scheduleLoading}
+          >
+            <option value="">선택 안 함</option>
+            {scheduleList.map((s) => (
+              <option key={s.scheduleNo} value={s.scheduleNo}>
+                {s.scheduleName || `일정 ${s.scheduleNo}`}
+                {s.travelStart ? ` (${s.travelStart}${s.travelEnd ? ` ~ ${s.travelEnd}` : ""})` : ""}
+              </option>
+            ))}
+          </select>
         </div>
 
         {/* 오른쪽 */}
