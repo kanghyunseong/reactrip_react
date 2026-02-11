@@ -104,7 +104,7 @@ const MyPage = () => {
             const token = localStorage.getItem('accessToken');
             
             // fetch API 사용 (가장 확실한 방법)
-            const response = await fetch('http://localhost:8081/api/members/mypage/image', {
+            const response = await fetch('http://examplekang.store/api/members/mypage/image', {
                 method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${token}`
