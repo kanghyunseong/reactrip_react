@@ -77,7 +77,15 @@ export default function AboutSection() {
         <ImageContainer2>
           <BackgroundImage2 alt="" src={imgSylwiaBartyzelEU4PipU8HaUnsplash1} />
         </ImageContainer2>
-        <LoginButton onClick={() => navigate("/login")}>
+        <LoginButton onClick={() => {
+          if(!localStorage.getItem("accessToken")) {
+            alert("로그인이 필요합니다.")
+            navigate('/login')
+          } else {
+            alert("이미 로그인이 되있습니다.")
+            navigate("/")
+          }
+        }}>
           <LoginText>Login</LoginText>
         </LoginButton>
       </AboutPage2>
