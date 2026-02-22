@@ -6,6 +6,7 @@ import {
   AboutBackground,
   AboutBackgroundImg,
   AboutOverlay,
+  SectionLabel,
   Title,
   Title2,
   LeftContent,
@@ -32,6 +33,7 @@ export default function AboutSection() {
           <AboutBackgroundImg alt="" src={imgJackAnsteyXVoyX7L9OcYUnsplash1} />
         </AboutBackground>
         <AboutOverlay />
+        <SectionLabel>About</SectionLabel>
         <Title>Traceable Experience</Title>
         <LeftContent>
           <DescriptionText>
@@ -59,6 +61,7 @@ export default function AboutSection() {
           <AboutBackgroundImg alt="" src={imgSylwiaBartyzelEU4PipU8HaUnsplash1} />
         </AboutBackground>
         <AboutOverlay />
+        <SectionLabel>About</SectionLabel>
         <Title2>Experiential Travel</Title2>
         <LeftContent>
           <DescriptionText>

@@ -10,6 +10,12 @@ export const AboutPage1 = styled.section`
   scroll-snap-stop: always;
   overflow-x: hidden;
   overflow-y: hidden;
+  /* 상단 Hero와 배경 겹침 방지: 자체 레이어로 분리 */
+  isolation: isolate;
+  background: #1c1c1c;
+  z-index: 1;
+  /* 섹션 상단 경계 명확화 */
+  box-shadow: 0 -1px 0 0 rgba(255, 255, 255, 0.06);
 `;
 
 export const AboutPage2 = styled.section`
@@ -22,6 +28,9 @@ export const AboutPage2 = styled.section`
   scroll-snap-stop: always;
   overflow-x: hidden;
   overflow-y: hidden;
+  isolation: isolate;
+  background: #1c1c1c;
+  z-index: 1;
 `;
 
 export const AboutBackground = styled.div`
@@ -30,6 +39,8 @@ export const AboutBackground = styled.div`
   width: 100%;
   height: 100%;
   z-index: 0;
+  /* 배경 이미지가 섹션 안에서만 보이도록 클리핑 */
+  overflow: hidden;
 `;
 
 export const AboutBackgroundImg = styled.img`
@@ -45,11 +56,12 @@ export const AboutBackgroundImg = styled.img`
 
 export const AboutOverlay = styled.div`
   position: absolute;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.45);
   inset: 0;
   width: 100%;
   height: 100%;
   z-index: 1;
+  pointer-events: none;
 `;
 
 export const ImageContainer = styled.div`
@@ -156,6 +168,22 @@ export const BackgroundImage2 = styled.img`
   pointer-events: none;
   border-radius: 1.25rem;
   display: block;
+`;
+
+export const SectionLabel = styled.span`
+  position: absolute;
+  left: 12.5625rem;
+  top: 4rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.7);
+  z-index: 6;
+  @media (max-width: 768px) {
+    left: 1.25rem;
+    top: 3rem;
+  }
 `;
 
 export const Title = styled.h1`
